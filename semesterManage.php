@@ -39,7 +39,7 @@ $TABLE_KEY_NAMES_ARRAY = array_Partitioner($PAGE_TITLE_INFO[$PAGE_SWITCH], 1, 4)
 //------  -[ Control Functions ]-  ------
 	
 //QUERY the $SEMESTER_LIST_ARRAY for functions
-$SEMESTER_LIST_ARRAY = semesterArrayList_Query();
+$SEMESTER_LIST_ARRAY = tableData_Query($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);
 
 //CREATE the TABLE if query result not avaliable 
 if(!$SEMESTER_LIST_ARRAY){
@@ -62,7 +62,7 @@ if($_POST[""]){
 }
 
 //REQUERY the $SEMESTER_LIST_ARRAY for display
-$SEMESTER_LIST_ARRAY = semesterArrayList_Query();
+$SEMESTER_LIST_ARRAY = tableData_Query($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);
 
 //Count the $SEMESTER_LIST_ARRAY
 $SEMESTER_LIST_ARRAYCount0 = array_Counter($SEMESTER_LIST_ARRAY, 1);
