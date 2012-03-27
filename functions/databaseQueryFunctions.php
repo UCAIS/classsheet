@@ -36,8 +36,8 @@ function tableData_Query($tableName, $tableKeyNamesArray){
 }
 
 //------  -[ tableData_Delete_ByID Function]-  ------
-function tableData_Delete_ByID($tableName, $ID){
-    $SQL_TableData_Delete = "DELETE FROM $tableName WHERE ID = $ID";
+function tableData_Delete_ByID($tableName, $targetID){
+    $SQL_TableData_Delete = "DELETE FROM $tableName WHERE ID = $targetID";
     mysql_query($SQL_TableData_Delete);
 }
 
@@ -50,7 +50,6 @@ function tableData_Add($tableName, $tableKeyNamesArray, $tableDataInput){
         if($i<$tableKeyNamesArrayCount0-1){
             $SQL_TableData_Add = $SQL_TableData_Add.",";
         }
-
     }
     $SQL_TableData_Add = $SQL_TableData_Add.") VALUES (";
     for($i=0;$i<$tableKeyNamesArrayCount0;$i++){
@@ -60,11 +59,19 @@ function tableData_Add($tableName, $tableKeyNamesArray, $tableDataInput){
         }
     }
     $SQL_TableData_Add = $SQL_TableData_Add.")";
-    print($SQL_TableData_Add);
     mysql_query($SQL_TableData_Add);
 }
 
-
+//------  -[ tableData_Change Function ]-  ------
+function tableData_Change($tableName, $tableKeyNamesArray, $targetID, $tableDataChangeInput){
+    $tableKeyNamesArrayCount0 = count($tableKeyNamesArray);
+    $SQL_TableData_Change = "UPDATE $tableName SET";
+    for($i=0;$i<$tableKeyNamesArray;$i++){
+        $SQL_TableData_Change = $SQL_TableData_Change.$tableKeyNamesArray[$i]." = ".$tableDataChangeInput.", ";
+    }
+    $SQL_TableData_Change = $SQL_TableData_Change."WHERE ID = ".$targetID;
+    mysql_query($SQL_TableData_Change);
+}
 
 
 

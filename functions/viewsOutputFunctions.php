@@ -52,7 +52,7 @@ function semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $semesterListArrayC
 function semesterInfo_Output(){
 	print '<form action="semesterManage.php" method="post">';
 	print '<p>[&nbsp;学年信息&nbsp;]</p>';
-	print '<span><input type="text" name="semesterPartA" maxlength="9" size="4" />-<input type="text" name="semesterPartB" maxlength="9" size="4" />学年度&nbsp;&nbsp;</span>';
+	print '<span><input type="text" name="semesterPartA" maxlength="4" size="4" />-<input type="text" name="semesterPartB" maxlength="4" size="4" />学年度&nbsp;&nbsp;</span>';
 	print '<span>第<select name="part">';
 	print '<option value="1" selected >1</option>';
 	print '<option value="2" >2</option>';
@@ -63,10 +63,50 @@ function semesterInfo_Output(){
 	print '</form>';
 }
 
+//------  -[ semesterInfo_Change_Output Function ]-  ------
+function semesterInfo_Change_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $SEMESTER_LIST_ARRAY ){
+	//TODO semesterInfo change views output
+	$semesterPart = explode("_", $SEMESTER_LIST_ARRAY[0]);	//Devide the semester information
+	print '<form action="semesterManage.php" method="post">';
+	print '<p>[&nbsp;学年信息&nbsp;]</p>';
+	print '<span><input type="text" name="semesterPartA" maxlength="4" size="4" value="'.$semesterPart[0].'" />-<input type="text" name="semesterPartB" maxlength="4" size="4" value="'.$semesterPart[1].'" />学年度</span>';
+
+}
 
 
+<div class="semesterBlockRight">
+<p>[&nbsp;学年信息&nbsp;]</p>
+<?php
+$semesterPart = explode("_", $semesterSet[$semesterListNumber][0]);
 
+?>
+<span><input type="text" name="semesterChangePartA" maxlength="9" size="4" value="<?php print($semesterPart[0]);?>" />-<input type="text" name="semesterChangePartB" maxlength="9" size="4" value="<?php print($semesterPart[1]);?>" />学年度</span>
+<?php 
+if($semesterSet[$semesterListNumber][1] == 1){
+?>
+<span>第<select name="partChange">
+        <option value="1" selected >1</option>
+        <option value="2" >2</option>
+</select>学期</span>
+<?php
+}elseif($semesterSet[$semesterListNumber][1] == 2){
+ ?>
+ <span>第<select name="partChange">
+        <option value="1">1</option>
+        <option value="2" selected >2</option>
+</select>学期</span>
+ <?php
+ }
+ ?>
+<br />
+<span>学期开始日期:
+<input type="text" name="startYearChange" maxlength="4" size="4" value="<?php print($semesterSet[$semesterListNumber][3]);?>" />年
+<input type="text" name="startMonthChange" maxlength="2" size="2" value="<?php print($semesterSet[$semesterListNumber][4]);?>" />月
+<input type="text" name="startDayChange" maxlength="2" size="2" value="<?php print($semesterSet[$semesterListNumber][5]);?>" />日</span><br />
+学期周数:<input type="text" name="weekCountChange" maxlength="2" size="2" value="<?php print($semesterSet[$semesterListNumber][2]);?>" />周
 
+<br /><input type="submit" value="&nbsp;提交&nbsp;" style="margin-top: 10px;" /> <input type="reset" value="&nbsp;重置&nbsp;" style="margin-top: 10px;" />
+</div>
 
         
     
