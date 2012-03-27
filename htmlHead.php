@@ -21,7 +21,7 @@ include('settings.php');
             Copyright (C) 2011,2012    M.karminski 
             For more information please see documents.
             M.Karminski 
-            linfcstmr@gmail.com 
+            linfcstmr@gmail.com  
 
 -->
 

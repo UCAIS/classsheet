@@ -45,39 +45,40 @@ if($_POST["semesterInfoChange"]){
 	}
 }
 
+
+
+
 //------  -[ Control Functions ]-  ------
 	
 //QUERY the $SEMESTER_LIST_ARRAY for functions
 $SEMESTER_LIST_ARRAY = tableData_Query($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);
-
-//Load the target array ID
-$TARGET_ID = $SEMESTER_LIST_ARRAY[$_POST["semesterList"]][6];
+//Load the target array number
+$TARGET_ARRAY = $_POST["semesterList"];
+//Load the target array ID number
+$TARGET_ID = $SEMESTER_LIST_ARRAY[$TARGET_ARRAY][6];
 
 //CREATE the TABLE if query result not avaliable 
 if(!$SEMESTER_LIST_ARRAY){
 	databaseTable_Create($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);
 }
-
 //ADD the semester information from DB if POST 
 if($_POST["semesterInfoAdd"]){
 	tableData_Add($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY, $SEMESTER_INFO_ARRAY);
 }
-
 //DELETE the semester information from DB if POST
 if($_POST["semesterListDelete"]){
 	tableData_Delete_ByID($TABLE_NAME, $TARGET_ID);
 }
-
 //CHANGE the semester information from DB if POST 
-if($_POST["semesterListChange"]){
+if($_POST["semesterInfoChange"]){
 	tableData_Change($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY, $TARGET_ID, $SEMESTER_INFO_CHANGE_ARRAY);
 }
 
 //REQUERY the $SEMESTER_LIST_ARRAY for display
 $SEMESTER_LIST_ARRAY = tableData_Query($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);
-
 //Count the $SEMESTER_LIST_ARRAY
 $SEMESTER_LIST_ARRAY_Count0 = array_Counter($SEMESTER_LIST_ARRAY, 1);
+
 
 
 //------  -[ Views Functions ]-  ------
@@ -86,23 +87,19 @@ $SEMESTER_LIST_ARRAY_Count0 = array_Counter($SEMESTER_LIST_ARRAY, 1);
 mainTitle_Output($PAGE_SWITCH, $PAGE_TITLE_INFO);
 
 //Print main form
-divHead_Output_WithClassOption("form");
-	
+divHead_Output_WithClassOption("form");	
 	//Print semesterList Block
 	divHead_Output_WithClassOption("mainMiddleBlockLeft");
-	semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $SEMESTER_LIST_ARRAY_Count0, $_POST["semesterList"], $SEMESTER_LIST_ARRAY);
+	semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $SEMESTER_LIST_ARRAY_Count0, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY);
 	divEnd_Output();
-
 	//Print semesterInfo Block
 	divHead_Output_WithClassOption("mainMiddleBlockRight");
-	if(!$_POST["semesterInfoChange"]){
+	if(!$_POST["semesterListChange"]){
 		semesterInfo_Output();
-	}elseif($_POST["semesterInfoChange"]){
-		semesterInfo_change_Output();
+	}elseif($_POST["semesterListChange"]){
+		semesterInfo_change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY);
 	}
-
 	divEnd_Output();
-
 divEnd_Output();
 
 //Fin.
