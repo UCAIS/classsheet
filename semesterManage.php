@@ -21,7 +21,8 @@ include('functions/databaseQueryFunctions.php');
 include('functions/globalFunctions.php');
 include('functions/viewsOutputFunctions.php');
 
-
+//Load the page name
+$PAGE_NAME = $PAGE_TITLE_INFO[$PAGE_SWITCH][0].".php";
 //Load the database table name
 $TABLE_NAME = $PAGE_TITLE_INFO[$PAGE_SWITCH][2];
 //Load the database table key names 
@@ -87,7 +88,9 @@ $SEMESTER_LIST_ARRAY_Count0 = array_Counter($SEMESTER_LIST_ARRAY, 1);
 mainTitle_Output($PAGE_SWITCH, $PAGE_TITLE_INFO);
 
 //Print main form
-divHead_Output_WithClassOption("form");	
+divHead_Output_WithClassOption("form");
+	//Print form Block
+	formHead_Output($PAGE_NAME, "post");	
 	//Print semesterList Block
 	divHead_Output_WithClassOption("mainMiddleBlockLeft");
 	semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $SEMESTER_LIST_ARRAY_Count0, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY);
@@ -100,6 +103,7 @@ divHead_Output_WithClassOption("form");
 		semesterInfo_change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY);
 	}
 	divEnd_Output();
+	formEnd_Output();
 divEnd_Output();
 
 //Fin.

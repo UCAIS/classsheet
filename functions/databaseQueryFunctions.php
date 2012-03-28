@@ -65,11 +65,14 @@ function tableData_Add($tableName, $tableKeyNamesArray, $tableDataInput){
 //------  -[ tableData_Change Function ]-  ------
 function tableData_Change($tableName, $tableKeyNamesArray, $targetID, $tableDataChangeInput){
     $tableKeyNamesArrayCount0 = count($tableKeyNamesArray);
-    $SQL_TableData_Change = "UPDATE $tableName SET";
-    for($i=0;$i<$tableKeyNamesArray;$i++){
-        $SQL_TableData_Change = $SQL_TableData_Change.$tableKeyNamesArray[$i]." = ".$tableDataChangeInput.", ";
+    $SQL_TableData_Change = "UPDATE $tableName SET ";
+    for($i=0;$i<$tableKeyNamesArrayCount0;$i++){
+        $SQL_TableData_Change = $SQL_TableData_Change.$tableKeyNamesArray[$i]." = ".$tableDataChangeInput[$i];
+        if($i<$tableKeyNamesArrayCount0-1){
+            $SQL_TableData_Change = $SQL_TableData_Change.", ";
+        }
     }
-    $SQL_TableData_Change = $SQL_TableData_Change."WHERE ID = ".$targetID;
+    $SQL_TableData_Change = $SQL_TableData_Change." WHERE ID = ".$targetID;
     mysql_query($SQL_TableData_Change);
 }
 

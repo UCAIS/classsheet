@@ -18,6 +18,16 @@ function divEnd_Output(){
 	print '</div>';
 }
 
+//------  -[ formHead_Output Function ]-  ------
+function formHead_Output($action, $method){
+	print '<form action="'.$action.'" method="'.$method.'">';
+}
+
+//------  -[ formEnd_output Function ]-  ------
+function formEnd_Output(){
+	print '</form>';
+}
+
 //------  -[ mainTitle_Output Function ]-  ------
 function mainTitle_Output($PAGE_SWITCH, $PAGE_TITLE_INFO){
 	print '<div class="title"><h2>';
@@ -29,7 +39,6 @@ function mainTitle_Output($PAGE_SWITCH, $PAGE_TITLE_INFO){
 
 //------  -[ semesterList_Output Function ]-  ------
 function semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $semesterListArrayCount0, $TARGET_ARRAY, $semesterListArray){
-	print '<form action="'.$PAGE_TITLE_INFO[$PAGE_SWITCH][0].'.php" method="post">';
 	print '<p>[&nbsp;学年度列表&nbsp;]</p>';
 	print '<select name="semesterList" size="10">';
 	for($i=0;$i<$semesterListArrayCount0;$i++){
@@ -43,12 +52,10 @@ function semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $semesterListArrayC
 	}
 	print '</select>';
 	print '<input type="submit" value="&nbsp;修改&nbsp;" name="semesterListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="semesterListDelete" style="margin-top: 10px;" />';
-	print '</form>';
 }
 
 //------  -[ semesterInfo_Output Function ]-  ------
 function semesterInfo_Output(){
-	print '<form action="semesterManage.php" method="post">';
 	print '<p>[&nbsp;学年信息&nbsp;]</p>';
 	print '<span><input type="text" name="semesterPartA" maxlength="4" size="4" />-<input type="text" name="semesterPartB" maxlength="4" size="4" />学年度&nbsp;&nbsp;</span>';
 	print '<span>第<select name="part">';
@@ -58,14 +65,11 @@ function semesterInfo_Output(){
 	print '<span>学期开始日期:<input type="text" name="startYear" maxlength="4" size="4" />年<input type="text" name="startMonth" maxlength="2" size="2" />月<input type="text" name="startDay" maxlength="2" size="2" />日</span><br />';
 	print '学期周数:<input type="text" name="weekCount" maxlength="2" size="2" />周';
 	print '<br /><input type="submit" name="semesterInfoAdd" value="&nbsp;添加&nbsp;" style="margin-top: 10px;" /> <input type="reset" value="&nbsp;重置&nbsp;" style="margin-top: 10px;" />';
-	print '</form>';
 }
 
 //------  -[ semesterInfo_Change_Output Function ]-  ------
 function semesterInfo_Change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY ){
-	//TODO semesterInfo change views output
 	$semesterPart = explode("_", $SEMESTER_LIST_ARRAY[$TARGET_ARRAY][0]);	//Devide the semester information
-	print '<form action="semesterManage.php" method="post">';
 	print '<p>[&nbsp;学年信息&nbsp;]</p>';
 	print '<span><input type="text" name="semesterPartA" maxlength="4" size="4" value="'.$semesterPart[0].'" />-<input type="text" name="semesterPartB" maxlength="4" size="4" value="'.$semesterPart[1].'" />学年度</span>';
 	if($SEMESTER_LIST_ARRAY[$TARGET_ARRAY][1] == 1){
@@ -76,7 +80,6 @@ function semesterInfo_Change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY ){
 	print '<br /><span>学期开始日期:<input type="text" name="startYear" maxlength="4" size="4" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][3].'" />年<input type="text" name="startMonth" maxlength="2" size="2" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][4].'" />月<input type="text" name="startDay" maxlength="2" size="2" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][5].'" />日</span><br />';
 	print '学期周数:<input type="text" name="weekCount" maxlength="2" size="2" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][2].'" />周';
 	print '<br /><input type="submit" name="semesterInfoChange" value="&nbsp;提交&nbsp;" style="margin-top: 10px;" /> <input type="reset" value="&nbsp;重置&nbsp;" style="margin-top: 10px;" /></div>';
-	print '</form>';
 }
 
 
