@@ -11,21 +11,25 @@
 //------  -[ divHead_Output_WithClassOption Function ]-  ------
 function divHead_Output_WithClassOption($className){
 	print '<div class="'.$className.'">';
+	return 0;
 }
 
 //------  -[ divEnd_Output Function ]-  ------
 function divEnd_Output(){
 	print '</div>';
+	return 0;
 }
 
 //------  -[ formHead_Output Function ]-  ------
 function formHead_Output($action, $method){
 	print '<form action="'.$action.'" method="'.$method.'">';
+	return 0;
 }
 
 //------  -[ formEnd_output Function ]-  ------
 function formEnd_Output(){
 	print '</form>';
+	return 0;
 }
 
 //------  -[ mainTitle_Output Function ]-  ------
@@ -35,10 +39,11 @@ function mainTitle_Output($PAGE_SWITCH, $PAGE_TITLE_INFO){
 	print '</h2><div class="underline"></div><h6>';
 	print $PAGE_TITLE_INFO[$PAGE_SWITCH][0];
 	print '</h6></div><div style="clear:both;"></div>';
+	return 0;
 }
 
 //------  -[ semesterList_Output Function ]-  ------
-function semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $semesterListArrayCount0, $TARGET_ARRAY, $semesterListArray){
+function semesterList_Output($semesterListArrayCount0, $TARGET_ARRAY, $semesterListArray){
 	print '<p>[&nbsp;学年度列表&nbsp;]</p>';
 	print '<select name="semesterList" size="10">';
 	for($i=0;$i<$semesterListArrayCount0;$i++){
@@ -52,6 +57,7 @@ function semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $semesterListArrayC
 	}
 	print '</select>';
 	print '<input type="submit" value="&nbsp;修改&nbsp;" name="semesterListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="semesterListDelete" style="margin-top: 10px;" />';
+	return 0;
 }
 
 //------  -[ semesterInfo_Output Function ]-  ------
@@ -65,6 +71,7 @@ function semesterInfo_Output(){
 	print '<span>学期开始日期:<input type="text" name="startYear" maxlength="4" size="4" />年<input type="text" name="startMonth" maxlength="2" size="2" />月<input type="text" name="startDay" maxlength="2" size="2" />日</span><br />';
 	print '学期周数:<input type="text" name="weekCount" maxlength="2" size="2" />周';
 	print '<br /><input type="submit" name="semesterInfoAdd" value="&nbsp;添加&nbsp;" style="margin-top: 10px;" /> <input type="reset" value="&nbsp;重置&nbsp;" style="margin-top: 10px;" />';
+	return 0;
 }
 
 //------  -[ semesterInfo_Change_Output Function ]-  ------
@@ -80,6 +87,7 @@ function semesterInfo_Change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY ){
 	print '<br /><span>学期开始日期:<input type="text" name="startYear" maxlength="4" size="4" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][3].'" />年<input type="text" name="startMonth" maxlength="2" size="2" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][4].'" />月<input type="text" name="startDay" maxlength="2" size="2" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][5].'" />日</span><br />';
 	print '学期周数:<input type="text" name="weekCount" maxlength="2" size="2" value="'.$SEMESTER_LIST_ARRAY[$TARGET_ARRAY][2].'" />周';
 	print '<br /><input type="submit" name="semesterInfoChange" value="&nbsp;提交&nbsp;" style="margin-top: 10px;" /> <input type="reset" value="&nbsp;重置&nbsp;" style="margin-top: 10px;" /></div>';
+	return 0; 
 }
 
 

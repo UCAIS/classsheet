@@ -51,7 +51,7 @@ if($_POST["semesterInfoChange"]){
 
 //------  -[ Control Functions ]-  ------
 	
-//QUERY the $SEMESTER_LIST_ARRAY for functions
+//QUERY the $SEMESTER_LIST_ARRAY
 $SEMESTER_LIST_ARRAY = tableData_Query($TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);
 //Load the target array number
 $TARGET_ARRAY = $_POST["semesterList"];
@@ -93,7 +93,7 @@ divHead_Output_WithClassOption("form");
 	formHead_Output($PAGE_NAME, "post");	
 	//Print semesterList Block
 	divHead_Output_WithClassOption("mainMiddleBlockLeft");
-	semesterList_Output($PAGE_SWITCH, $PAGE_TITLE_INFO, $SEMESTER_LIST_ARRAY_Count0, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY);
+	semesterList_Output($SEMESTER_LIST_ARRAY_Count0, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY);
 	divEnd_Output();
 	//Print semesterInfo Block
 	divHead_Output_WithClassOption("mainMiddleBlockRight");
@@ -107,7 +107,6 @@ divHead_Output_WithClassOption("form");
 divEnd_Output();
 
 //Fin.
-//unset($SEMESTER_LIST_ARRAY, $SEMESTER_LIST_ARRAY_Count0, $SEMESTER_INFO_ARRAY, $TABLE_NAME, $TABLE_KEY_NAMES_ARRAY);	//Destory the vars
 ?>
 
 
