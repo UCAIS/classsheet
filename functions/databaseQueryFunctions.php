@@ -39,6 +39,7 @@ function tableData_Query($tableName, $tableKeyNamesArray){
 function tableData_Delete_ByID($tableName, $targetID){
     $SQL_TableData_Delete = "DELETE FROM $tableName WHERE ID = $targetID";
     mysql_query($SQL_TableData_Delete);
+    return 0;
 }
 
 //------  -[ tableData_Add Function]-  ------
@@ -60,6 +61,7 @@ function tableData_Add($tableName, $tableKeyNamesArray, $tableDataInput){
     }
     $SQL_TableData_Add = $SQL_TableData_Add.")";
     mysql_query($SQL_TableData_Add);
+    return 0;
 }
 
 //------  -[ tableData_Change Function ]-  ------
@@ -74,6 +76,7 @@ function tableData_Change($tableName, $tableKeyNamesArray, $targetID, $tableData
     }
     $SQL_TableData_Change = $SQL_TableData_Change." WHERE ID = ".$targetID;
     mysql_query($SQL_TableData_Change);
+    return 0;
 }
 
 

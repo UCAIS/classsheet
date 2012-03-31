@@ -94,6 +94,28 @@ function semesterInfo_Change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY ){
 	return 0; 
 }
 
+//------  -[ classList_Output Function ]-  ------
+function classList_Output($TARGET_ARRAY, $CLASS_LIST_ARRAY, $CLASS_LIST_ARRAY_Count0){
+	print '<p>[&nbsp;班级列表&nbsp;]</p>';
+	print '<select name="classList" size="10">';
+	for($i=0;$i<$CLASS_LIST_ARRAY_Count0;$i++){
+		if($TARGET_ARRAY == $i){
+			$selectedValue = "selected";
+		}else{
+			$selectedValue = "";
+		}
+		print '<option value="'.$i.'" '.$selectedValue.'>';//There a BLANK between value and $selectedValue for HTML tag.
+		print $CLASS_LIST_ARRAY[$i][0]."学年度第".$SEMESTER_LIST_ARRAY[$i][1]."学期</option>";
+	}
+	print '</select>';
+	if($PAGE_SWITCH == 1){
+		print '<input type="submit" value="&nbsp;修改&nbsp;" name="semesterListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="semesterListDelete" style="margin-top: 10px;" />';
+	}else{
+		print '<input type="submit" value="&nbsp;选定&nbsp;" name="semesterListSelected" style="margin-top: 10px;" />';
+	}
+	return 0;
+}
+
 
 
 

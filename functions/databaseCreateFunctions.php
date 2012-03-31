@@ -14,7 +14,7 @@ function database_Create($databaseName, $databaseConnection){
 		if(mysql_query('Create database '.$databaseName)){
 			print "New database has been created.<br />";
 		}else{
-			print "Error:System can not create database, please check settings.<br />";
+			die("Error:System can not create database, please check settings.<br />");
 		}
 	}else{
 		print "Database ".$databaseName." has been found.<br />";
@@ -25,12 +25,14 @@ function database_Create($databaseName, $databaseConnection){
 function databaseTable_Create($tableName, $tableKeyNamesArray){
 	$tableKeyNamesArrayCount0 = count($tableKeyNamesArray);
 	//make up the SQL Query
-	$SQL_semesterTable_Create = "CREATE TABLE IF NOT EXISTS $tableName (ID int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
+	$SQLTableCreate = "CREATE TABLE IF NOT EXISTS $tableName (ID int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
 	for($i=0;$i<$tableKeyNamesArrayCount0;$i++){
-		$SQL_semesterTable_Create = $SQL_semesterTable_Create.", ".$tableKeyNamesArray[$i]." varchar(15)";
+		$SQLTableCreate = $SQLTableCreate.", ".$tableKeyNamesArray[$i]." varchar(15)";
 	}
-	$SQL_semesterTable_Create = $SQL_semesterTable_Create.")";
-    mysql_query($SQL_semesterTable_Create);
+	$SQLTableCreate = $SQLTableCreate.")";
+	//print $SQLTableCreate;	//Just for DEBUG
+    mysql_query($SQLTableCreate);
+    return 0;
 	//print "Table $tableName has been created successfully.<br />";
 }
 
