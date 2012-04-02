@@ -39,7 +39,7 @@ $TARGET_ARRAY = $_POST["semesterList"];
 //Load the target array ID number
 $TARGET_ID = $SEMESTER_LIST_ARRAY[$TARGET_ARRAY][6];
 //Reunion the semester name 
-$_POST["semester"] = $_POST["semesterPartA"]."_".$_POST["semesterPartB"];
+$_POST[$PAGE_TITLE_INFO[$PAGE_SWITCH][4]] = $_POST["semesterPartA"]."_".$_POST["semesterPartB"];
 //Load POST data in $SEMESTER_INFO_ARRAY
 if($_POST["semesterInfoAdd"]){
 	for($i=0;$i<$TABLE_KEY_NAMES_ARRAY_Count0;$i++){
@@ -90,9 +90,9 @@ divHead_Output_WithClassOption("form");
 	//Print semesterInfo Block
 	divHead_Output_WithClassOption("mainMiddleBlockRight");
 	if(!$_POST["semesterListChange"]){
-		semesterInfo_Output();
+		semesterInfo_Output($TABLE_KEY_NAMES_ARRAY);
 	}elseif($_POST["semesterListChange"]){
-		semesterInfo_change_Output($SEMESTER_LIST_ARRAY, $TARGET_ARRAY);
+		semesterInfo_change_Output($TABLE_KEY_NAMES_ARRAY, $SEMESTER_LIST_ARRAY, $TARGET_ARRAY);
 	}
 	divEnd_Output();
 	formEnd_Output();
