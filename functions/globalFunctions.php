@@ -9,7 +9,7 @@
 
 //------ -[ Page Title Informatin Vars ]-  ------
 //Notes:
-//The 0-1 for page info, 2-n for database information [ WARING:All VALUES ARE USED IN GLOBAL, CHAGE IT CAREFULLY ]
+//The 0-1 for page info, 2-n for database information [ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
 //Example:
 //$PAGE_TITLE_INFO[0][0] = "index";			//PAGE NAME for LOCATE PHP PAGE
 //$PAGE_TITLE_INFO[0][1] = "首页";			//PAGE NAME in CHINESE
