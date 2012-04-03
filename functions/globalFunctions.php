@@ -17,9 +17,22 @@
 //$PAGE_TITLE_INFO[0][3] = "ID";			//ID [STATIC]
 //$PAGE_TITLE_INFO[0][4] = "key"			//KEY NAME in DATABSE
 
-$PAGE_TITLE_INFO[0][0] = "index";				
-$PAGE_TITLE_INFO[0][1] = "首页";		
+$PAGE_INFO_ARRAY[0][0] = "index";				
+$PAGE_INFO_ARRAY[0][1] = "首页";		
 
+$PAGE_INFO_ARRAY[1]['PAGE_NAME'] = "Semester Manage";
+$PAGE_INFO_ARRAY[1]['PAGE_NAME_IN_CHINESE'] = "学期管理";
+$PAGE_INFO_ARRAY[1]['FILE_NAME'] = "semesterManage.php";
+$PAGE_INFO_ARRAY[1]['TABLE_NAME'] = "SEMESTER";
+
+$TABLE_KEY_NAMES_ARRAY[1]['SEMESTER'] = "SEMESTER";
+$TABLE_KEY_NAMES_ARRAY[1]['PART'] = "PART";
+$TABLE_KEY_NAMES_ARRAY[1]['START_YEAR'] = "START_YEAR";
+$TABLE_KEY_NAMES_ARRAY[1]['START_MONTH'] = "START_MONTH";
+$TABLE_KEY_NAMES_ARRAY[1]['START_DAY'] = "START_DAY";
+$TABLE_KEY_NAMES_ARRAY[1]['WEEK_COUNT'] = "WEEK_COUNT";
+
+/*
 $PAGE_TITLE_INFO[1][0] = "semesterManage";		
 $PAGE_TITLE_INFO[1][1] = "学期管理";	
 	$PAGE_TITLE_INFO[1][2] = "semester";
@@ -30,7 +43,7 @@ $PAGE_TITLE_INFO[1][1] = "学期管理";
 		$PAGE_TITLE_INFO[1][7] = "startYear";			
 		$PAGE_TITLE_INFO[1][8] = "startMonth";			
 		$PAGE_TITLE_INFO[1][9] = "startDay";
-
+*/
 //TODO these value are hardwrited, change it later.
 $PAGE_TITLE_INFO[2][0] = "classManage";
 $PAGE_TITLE_INFO[2][1] = "班级管理";

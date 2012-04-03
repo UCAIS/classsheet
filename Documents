@@ -25,8 +25,32 @@ Classsheet Version 0.9.1
 Molotov.Karminski	"Linfcstmr"
 linfcstmr@gmail.com 
 
+//命名规范
 
-//Files setting
+文件名
+fileAInThisFolder.php
+
+函数
+function function_type_a_names($option_a, $option_b){
+	$sql_select_names_by_id;
+}
+
+全局变量&静态变量
+$GLOBAL_VARS;
+
+临时变量
+$timeMachine;
+$timeMachineArray[];
+
+数组计数器变量
+$timeMachineArrayCount0[];
+$timeMachineArrayCount1[][];
+
+
+
+
+
+//File settings
 
 classManage					班级管理
 classroomManage				教室管理

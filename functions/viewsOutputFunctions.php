@@ -8,42 +8,42 @@
 */
 
 
-//------  -[ divHead_Output_WithClassOption Function ]-  ------
-function divHead_Output_WithClassOption($className){
-	print '<div class="'.$className.'">';
+//------  -[ div_head_output_with_class_option Function ]-  ------
+function div_head_output_with_class_option($class_name){
+	print '<div class="'.$class_name.'">';
 	return 0;
 }
 
-//------  -[ divEnd_Output Function ]-  ------
-function divEnd_Output(){
+//------  -[ div_end_output Function ]-  ------
+function div_end_output(){
 	print '</div>';
 	return 0;
 }
 
-//------  -[ formHead_Output Function ]-  ------
-function formHead_Output($action, $method){
+//------  -[ form_head_output Function ]-  ------
+function form_head_output($action, $method){
 	print '<form action="'.$action.'" method="'.$method.'">';
 	return 0;
 }
 
-//------  -[ formEnd_output Function ]-  ------
-function formEnd_Output(){
+//------  -[ form_end_output Function ]-  ------
+function form_end_output(){
 	print '</form>';
 	return 0;
 }
 
 //------  -[ mainTitle_Output Function ]-  ------
-function mainTitle_Output($PAGE_SWITCH, $PAGE_TITLE_INFO){
+function main_title_output($page_switch, $page_info_array){
 	print '<div class="title"><h2>';
-	print $PAGE_TITLE_INFO[$PAGE_SWITCH][1];
+	print $page_info_array[$page_switch]['PAGE_NAME_IN_CHINESE'];
 	print '</h2><div class="underline"></div><h6>';
-	print $PAGE_TITLE_INFO[$PAGE_SWITCH][0];
+	print $page_info_array[$page_switch]['PAGE_NAME'];
 	print '</h6></div><div style="clear:both;"></div>';
 	return 0;
 }
 
 //------  -[ semesterList_Output Function ]-  ------
-function semesterList_Output($PAGE_SWITCH, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY, $SEMESTER_LIST_ARRAY_Count0){
+function semesterList_Output($page_switch, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY, $SEMESTER_LIST_ARRAY_Count0){
 	print '<p>[&nbsp;学年度列表&nbsp;]</p>';
 	print '<select name="semesterList" size="10">';
 	for($i=0;$i<$SEMESTER_LIST_ARRAY_Count0;$i++){
@@ -56,7 +56,7 @@ function semesterList_Output($PAGE_SWITCH, $TARGET_ARRAY, $SEMESTER_LIST_ARRAY, 
 		print $SEMESTER_LIST_ARRAY[$i][0]."学年度第".$SEMESTER_LIST_ARRAY[$i][1]."学期</option>";
 	}
 	print '</select>';
-	if($PAGE_SWITCH == 1){
+	if($page_switch == 1){
 		print '<input type="submit" value="&nbsp;修改&nbsp;" name="semesterListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="semesterListDelete" style="margin-top: 10px;" />';
 	}else{
 		print '<input type="submit" value="&nbsp;选定&nbsp;" name="semesterListSelected" style="margin-top: 10px;" />';

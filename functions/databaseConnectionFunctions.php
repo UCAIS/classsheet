@@ -12,17 +12,17 @@ include('config.php');
 include('databaseCreateFunctions.php');
 
 //Define the global database connection var
-$DB_Connect = mysql_connect($DB_HOST, $DB_USER, $DB_PASS);
+$DB_CONNECTION = mysql_connect($DB_HOST, $DB_USER, $DB_PASS);
 
 //Database connect status
-if($DB_Connect){
+if($DB_CONNECTION){
 		print "Database connect success.<br />";
 }else{
 		print "Error:Databse connect fail.<br />";
 }
 
 //Create the database if not exists
-Database_Create($DB_NAME, $DB_Connect);
+database_create($DB_NAME, $DB_CONNECTION);
 
 
 //Fin.
