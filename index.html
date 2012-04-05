@@ -1,1 +1,59 @@
- 
+<html>
+<!--
+
+▆      ▆  ▆▆▆▆▆  ▆▆▆▆▆  ▆▆▆▆▆  ▆▆▆▆▆  T E A M
+▆      ▆  ▆          ▆      ▆      ▆      ▆
+▆      ▆  ▆          ▆      ▆      ▆      ▆
+▆      ▆  ▆          ▆▆▆▆▆      ▆      ▆▆▆▆▆
+▆      ▆  ▆          ▆      ▆      ▆              ▆
+▆      ▆  ▆          ▆      ▆      ▆              ▆
+▆▆▆▆▆  ▆▆▆▆▆  ▆      ▆  ▆▆▆▆▆  ▆▆▆▆▆ .usth.edu.cn
+
+Classsheet Version 0.8
+
+Design by Moloer from UCAIS 
+
+-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login</title>
+
+<style type="text/css" media="screen">
+/*Global Settings*/
+body { background: #FFF; margin: 0; font-size: 12px;}
+td { color: #FFF; font-size: 12px;}
+span { color: #FFF; line-height: 30px;}
+.allField { margin: 15% 0 0 0; height: 300px;}
+.main { width: 100%; height: 30px; background: url(images/titleBannerBG.png) repeat-x; float: left;}
+    .logo { float: left; height: 30px; width: 111px; background: url(images/classsheet.png) no-repeat;}
+    .middleTable { background: #2d2d2d; width: 400px; height: 30px; float: right; margin: 0;}
+    .inputStyle { color: #FFF; border: 0; border-bottom: 1px solid #FFF; background: #2d2d2d;}
+.firstBlock { background: #2d2d2d; float: left; height: 70px; width: 20px; margin: 0 0 0 13px;}
+.secondBlock { background: #2d2d2d; float: left; height: 35px; width: 20px; margin: 35px 0 0 13px;}
+.thirdBlock { background: #2d2d2d; float: left; height: 35px; width: 20px; margin: 0 0 0 46px;}
+.fourthBlock { background: #2d2d2d; float: left; height: 70px; width: 20px; margin: 0 0 0 13px;}
+    
+
+</style>
+
+</head>
+<body>
+
+<div class="allField">
+    <div class="firstBlock"></div><div class="secondBlock"></div>
+    <div class="main">
+    <div class="logo"></div><div style=" float: left;"><span>黑龙江科技学院实训中心排课系统</span></div>
+    <div class="middleTable">
+        <form action="loginCheck.php" method="POST">
+        <span>用户名</span>
+        <input class="inputStyle" type="text" name="username" size="8" onClick="verify()" onblur="verify()" />
+        <span>&nbsp;&nbsp;密码</span>
+        <input class="inputStyle" type="password"  size="8" name="pass" onClick="verify()" />
+        &nbsp;&nbsp;<input type="submit" name="submit" value="&nbsp;登&nbsp;陆&nbsp;" />
+    </div>
+    </div>
+    <div class="thirdBlock"></div><div class="fourthBlock"></div>
+</div>
+
+</body>
+</html>
