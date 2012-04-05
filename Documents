@@ -32,11 +32,16 @@ fileAInThisFolder.php
 
 函数
 function function_type_a_names($option_a, $option_b){
-	$sql_select_names_by_id;
+	$sql_select_names_by_id;	//SQL statements
+	$option_a					//Input vars
+	$normalVars					//Normal vars
+	$GLOBAL_VARS 				//Global vars & static vars
+	$timeMachineArray[]			//Array
 }
 
 全局变量&静态变量
-$GLOBAL_VARS;
+global $GLOBAL_VARS;
+static $STATIC_VARS;
 
 临时变量
 $timeMachine;
@@ -46,7 +51,8 @@ $timeMachineArray[];
 $timeMachineArrayCount0[];
 $timeMachineArrayCount1[][];
 
-
+//编写规范
+所有函数应按照最小事务原则进行编写,即:输入最少的数据,只负责本部分工作.
 
 
 

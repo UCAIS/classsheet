@@ -7,30 +7,37 @@
 *
 */
 
-//------ -[ Page Title Informatin Vars ]-  ------
-//Notes:
-//The 0-1 for page info, 2-n for database information [ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
-//Example:
-//$PAGE_TITLE_INFO[0][0] = "index";			//PAGE NAME for LOCATE PHP PAGE
-//$PAGE_TITLE_INFO[0][1] = "首页";			//PAGE NAME in CHINESE
-//$PAGE_TITLE_INFO[0][2] = "semester";		//TABLE NAME in DATABSE
-//$PAGE_TITLE_INFO[0][3] = "ID";			//ID [STATIC]
-//$PAGE_TITLE_INFO[0][4] = "key"			//KEY NAME in DATABSE
+//------ -[ Page  Informatin Vars ]-  ------
+//
+//[ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
+//
+//$PAGE_INFO_ARRAY			For global page infromations
+//$TABLE_KEY_NAMES_ARRAY 	For database table key names and vars key names
+//$TABLE_KEY_TYPES_ARRAY 	For database table key types, was only used in table creating 
+
+global $PAGE_INFO_ARRAY, $TABLE_KEY_NAMES_ARRAY, $TABLE_KEY_TYPES_ARRAY;
 
 $PAGE_INFO_ARRAY[0][0] = "index";				
 $PAGE_INFO_ARRAY[0][1] = "首页";		
 
-$PAGE_INFO_ARRAY[1]['PAGE_NAME'] = "Semester Manage";
-$PAGE_INFO_ARRAY[1]['PAGE_NAME_IN_CHINESE'] = "学期管理";
-$PAGE_INFO_ARRAY[1]['FILE_NAME'] = "semesterManage.php";
-$PAGE_INFO_ARRAY[1]['TABLE_NAME'] = "SEMESTER";
-
-$TABLE_KEY_NAMES_ARRAY[1]['SEMESTER'] = "SEMESTER";
-$TABLE_KEY_NAMES_ARRAY[1]['PART'] = "PART";
-$TABLE_KEY_NAMES_ARRAY[1]['START_YEAR'] = "START_YEAR";
-$TABLE_KEY_NAMES_ARRAY[1]['START_MONTH'] = "START_MONTH";
-$TABLE_KEY_NAMES_ARRAY[1]['START_DAY'] = "START_DAY";
-$TABLE_KEY_NAMES_ARRAY[1]['WEEK_COUNT'] = "WEEK_COUNT";
+$PAGE_INFO_ARRAY[1]['PAGE_NAME']			 	= "Semester Manage";
+$PAGE_INFO_ARRAY[1]['PAGE_NAME_IN_CHINESE'] 	= "学期管理";
+$PAGE_INFO_ARRAY[1]['FILE_NAME'] 				= "semesterManage.php";
+$PAGE_INFO_ARRAY[1]['TABLE_NAME'] 				= "SEMESTER";
+$TABLE_KEY_NAMES_ARRAY[1]['ID']					= "ID";
+$TABLE_KEY_NAMES_ARRAY[1]['SEMESTER'] 			= "SEMESTER";
+$TABLE_KEY_NAMES_ARRAY[1]['PART'] 				= "PART";
+$TABLE_KEY_NAMES_ARRAY[1]['START_YEAR'] 		= "START_YEAR";
+$TABLE_KEY_NAMES_ARRAY[1]['START_MONTH'] 		= "START_MONTH";
+$TABLE_KEY_NAMES_ARRAY[1]['START_DAY'] 			= "START_DAY";
+$TABLE_KEY_NAMES_ARRAY[1]['WEEK_COUNT'] 		= "WEEK_COUNT";
+$TABLE_KEY_TYPES_ARRAY[1]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
+$TABLE_KEY_TYPES_ARRAY[1]['SEMESTER'] 			= "varchar(15)";
+$TABLE_KEY_TYPES_ARRAY[1]['PART'] 				= "int";
+$TABLE_KEY_TYPES_ARRAY[1]['START_YEAR'] 		= "int";
+$TABLE_KEY_TYPES_ARRAY[1]['START_MONTH'] 		= "int";
+$TABLE_KEY_TYPES_ARRAY[1]['START_DAY'] 			= "int";
+$TABLE_KEY_TYPES_ARRAY[1]['WEEK_COUNT'] 		= "int";
 
 /*
 $PAGE_TITLE_INFO[1][0] = "semesterManage";		

@@ -7,8 +7,10 @@
 *
 */
 
-//------  -[ database_Create function ]-  ------
-function database_Create($database_name, $database_connection){
+//------  -[ database_create function ]-  ------
+function database_create($database_name, $database_connection){
+	$database_name; 		//For database name
+	$database_connection;	//For database connection
 	if(!mysql_select_db($database_name, $database_connection)){
 		print "Error:System could not select database and creating a new database now.<br />";
 		if(mysql_query('Create database '.$database_name)){
@@ -21,19 +23,27 @@ function database_Create($database_name, $database_connection){
 	}
 }
 
-//------  -[ database_table_Create Function ]-  ------
-function database_table_Create($table_name, $table_key_names_array){
-	$table_key_names_arrayCount0 = count($table_key_names_array);
-	//make up the SQL Query
-	$SQLTableCreate = "CREATE TABLE IF NOT EXISTS $table_name (ID int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
-	for($i=0;$i<$table_key_names_arrayCount0;$i++){
-		$SQLTableCreate = $SQLTableCreate.", ".$table_key_names_array[$i]." varchar(15)";
+//------  -[ database_table_create Function ]-  ------
+function database_table_create($table_name, $table_key_names_array, $table_key_types_array){
+	$table_name;				//For database table name
+	$table_key_names_array;		//For database table key names
+	$table_key_types_array;		//For database table key types
+	//Count the array
+	$table_key_names_array_count0 = count($table_key_names_array);
+	//Make up the SQL Query
+	$counter = 0;	//Set the counter
+	$sql_table_create = "CREATE TABLE IF NOT EXISTS $table_name ( ";
+	foreach($table_key_names_array as $tableKeyNamesValue){
+		if($counter < $table_key_names_array_count0 - 1){
+			$sql_table_create .= $tableKeyNamesValue." ".$table_key_types_array[$tableKeyNamesValue].", ";
+		}else{
+			$sql_table_create .= $tableKeyNamesValue." ".$table_key_types_array[$tableKeyNamesValue]." )";
+		}
+		$counter++;
 	}
-	$SQLTableCreate = $SQLTableCreate.")";
-	//print $SQLTableCreate;	//Just for DEBUG
-    mysql_query($SQLTableCreate);
+    mysql_query($sql_table_create);
     return 0;
-	//print "Table $table_name has been created successfully.<br />";
+	// print "Table $table_name has been created successfully.<br />";
 }
 
 
