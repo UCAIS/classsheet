@@ -22,7 +22,7 @@ $PAGE_INFO_ARRAY[0][1] = "首页";
 
 $PAGE_INFO_ARRAY[1]['PAGE_NAME']			 	= "Semester Manage";
 $PAGE_INFO_ARRAY[1]['PAGE_NAME_IN_CHINESE'] 	= "学期管理";
-$PAGE_INFO_ARRAY[1]['FILE_NAME'] 				= "semesterManage.php";
+$PAGE_INFO_ARRAY[1]['FILE_NAME'] 				= "semester_manage.php";
 $PAGE_INFO_ARRAY[1]['TABLE_NAME'] 				= "SEMESTER";
 $TABLE_KEY_NAMES_ARRAY[1]['ID']					= "ID";
 $TABLE_KEY_NAMES_ARRAY[1]['SEMESTER'] 			= "SEMESTER";
