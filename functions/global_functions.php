@@ -39,19 +39,6 @@ $TABLE_KEY_TYPES_ARRAY[1]['START_MONTH'] 		= "int";
 $TABLE_KEY_TYPES_ARRAY[1]['START_DAY'] 			= "int";
 $TABLE_KEY_TYPES_ARRAY[1]['WEEK_COUNT'] 		= "int";
 
-/*
-$PAGE_TITLE_INFO[1][0] = "semesterManage";		
-$PAGE_TITLE_INFO[1][1] = "学期管理";	
-	$PAGE_TITLE_INFO[1][2] = "semester";
-		$PAGE_TITLE_INFO[1][3] = "ID";					
-		$PAGE_TITLE_INFO[1][4] = "semester";			
-		$PAGE_TITLE_INFO[1][5] = "part";			
-		$PAGE_TITLE_INFO[1][6] = "weekCount";			
-		$PAGE_TITLE_INFO[1][7] = "startYear";			
-		$PAGE_TITLE_INFO[1][8] = "startMonth";			
-		$PAGE_TITLE_INFO[1][9] = "startDay";
-*/
-//TODO these value are hardwrited, change it later.
 $PAGE_TITLE_INFO[2][0] = "classManage";
 $PAGE_TITLE_INFO[2][1] = "班级管理";
 	$PAGE_TITLE_INFO[2][2] = "class";
@@ -82,6 +69,7 @@ $PAGE_TITLE_INFO[2][1] = "班级管理";
 		$PAGE_TITLE_INFO[2][26] = "week18";
 		$PAGE_TITLE_INFO[2][27] = "week19";
 		*/ 
+
 
 //------  -[ array_Counter Function ]-  ------
 //This function count the array and return the item numbers of array
@@ -125,6 +113,16 @@ function array_Partitioner($inputArray, $returnLocation, $dropLength){
 	}
 }
 
+//------  -[ post_auto_fill function ]-  ------
+function post_auto_fill($post_value){
+	$post_value;	//Target to fill
+
+	if($post_value == ""){
+		$post_value = "auto_filled";
+	}
+	print $post_value;
+	return $post_value;
+} 
 
 //Fin.
 ?>

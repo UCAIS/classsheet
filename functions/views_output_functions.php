@@ -8,6 +8,18 @@
 */
 
 
+//------  -[ html_end_output Function ]-  ------
+function html_end_output(){
+	print "</html>";
+	return 0;
+}
+
+//------  -[ body_end_output Function ]-  ------
+function body_end_output(){
+	print "</body>";
+	return 0;
+}
+
 //------  -[ div_head_output_with_class_option Function ]-  ------
 function div_head_output_with_class_option($class_name){
 	$class_name;	//For HTML tag class option
