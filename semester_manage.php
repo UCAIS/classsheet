@@ -9,7 +9,7 @@
 
 
 //Page number
-static $PAGE_SWITCH = 1;
+$PAGE_SWITCH = 1;
 
 //Include files
 include('settings.php');
@@ -92,6 +92,7 @@ div_head_output_with_class_option("mainMiddle");
 		form_end_output();
 	div_end_output();
 div_end_output();
+
 //Print HTML end
 body_end_output();
 html_end_output();

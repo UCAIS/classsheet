@@ -127,7 +127,11 @@ function semester_info_change_output($table_key_names_array, $semester_list_arra
 }
 
 //------  -[ class_list_output Function ]-  ------
-function class_list_output($target_array, $class_list_array, $class_list_array_count0){
+function class_list_output($target_array, $class_list_array){
+	$target_array;				//
+	$class_list_array;			//
+
+	$class_list_array_count0 = count($class_list_array);
 	print '<p>[&nbsp;班级列表&nbsp;]</p>';
 	print '<select name="classList" size="10">';
 	for($i=0;$i<$class_list_array_count0;$i++){

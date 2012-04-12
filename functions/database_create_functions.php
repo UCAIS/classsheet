@@ -43,6 +43,7 @@ function database_table_create($table_name, $table_key_names_array, $table_key_t
 		}
 		$counter++;
 	}
+	//print($sql_table_create);
     mysql_query($sql_table_create);
     return 0;
 	// print "Table $table_name has been created successfully.<br />";
