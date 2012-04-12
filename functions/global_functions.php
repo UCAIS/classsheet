@@ -55,7 +55,7 @@ $TABLE_KEY_TYPES_ARRAY[2]['CLASS_TYPE']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[2]['CLASS_PERIOD']		= "int";
 $TABLE_KEY_TYPES_ARRAY[2]['CLASS_NAME']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[2]['CLASS_CAPABILITY']	= "int";
-//$TABLE_KEY_TYPES_ARRAY[2]['WEEK']				= "int";
+//$TABLE_KEY_TYPES_ARRAY[2]['WEEK']				= "varchar(15)";
 
 /* These function not in use
 //------  -[ array_Counter Function ]-  ------

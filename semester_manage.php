@@ -7,6 +7,7 @@
 *
 */
 
+//TODO: change the semesterPart method [IMPORTANT]
 
 //Page number
 $PAGE_SWITCH = 1;
@@ -60,9 +61,10 @@ if($_POST["semesterListDelete"]){
 //CHANGE the semester information to database if POST 
 if($_POST["semesterInfoChange"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$SEMESTER_INFO_CHANGE_ARRAY[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$semesterInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
 	}
-	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $SEMESTER_INFO_CHANGE_ARRAY);
+	unset($value);
+	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $semesterInfoChangeArray);
 }
 
 //REQUERY the $semesterListArray for display

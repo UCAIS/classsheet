@@ -86,6 +86,7 @@ function table_data_add($table_name, $table_key_names_array, $table_data_input){
         }
         $counter ++;
     }
+    print $sql_table_data_add;
     mysql_query($sql_table_data_add);
     return 0;
 }
