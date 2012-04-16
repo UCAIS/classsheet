@@ -2,11 +2,10 @@
 /**
 *	Class Manage Page
 *	
-*	Serial:		120328
+*	Serial:		120412
 *	by:			M.Karminski
 *
 */
-
 
 //Page number
 $PAGE_SWITCH = 2;
@@ -22,9 +21,8 @@ include('functions/global_functions.php');
 include('functions/views_output_functions.php');
 
 //TODO: set the default POST value to disable the php notice. 
-
 //Load the file name for post
-$FILE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['FILE_NAME'];
+$FILE_NAME = $_SERVER['PHP_SELF'];
 //Load the database table name
 $TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
 $SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
@@ -48,8 +46,8 @@ if($semesterTargetAarray != ""){
 //Query the $classListArray
 $classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 //Load the target array ID number
-$targetId = $classListArray[$classsemesterTargetAarray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
-
+$targetId = $classListArray[$classTargetAarray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
+print "ID =".$targetId; 
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
 if($semesterTargetAarray != ""){
@@ -70,7 +68,7 @@ if($_POST["classListDelete"]){
 	table_data_delete_by_id($TABLE_NAME, $targetId);
 }
 //CHANGE the semester information to database if POST 
-if($_POST["classInfoChange"]){
+if($_POST["classInfoChanged"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
 		$classInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
 	}
@@ -100,7 +98,7 @@ div_head_output_with_class_option("mainMiddle");
 		if(!$_POST['classListChange']){
 			class_info_output($THIS_TABLE_KEY_NAMES_ARRAY);
 		}else{
-			class_info_change_output($classInfoChangeArray, $THIS_TABLE_KEY_NAMES_ARRAY);
+			class_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $classListArray, $classTargetAarray);
 		}
 		div_end_output();
 		form_end_output();

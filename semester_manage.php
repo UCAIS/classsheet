@@ -7,8 +7,6 @@
 *
 */
 
-//TODO: change the semesterPart method [IMPORTANT]
-
 //Page number
 $PAGE_SWITCH = 1;
 
@@ -23,7 +21,7 @@ include('functions/views_output_functions.php');
 //TODO: set the default POST value to disable the php notice. 
 
 //Load the file name for post
-$FILE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['FILE_NAME'];
+$FILE_NAME = $_SERVER['PHP_SELF'];
 //Load the database table name
 $TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
 //Load this page database table key names array

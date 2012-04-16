@@ -7,6 +7,7 @@
 *
 */
 
+//TODO: Fill the comment .
 
 //------  -[ html_end_output Function ]-  ------
 function html_end_output(){
@@ -128,8 +129,8 @@ function semester_info_change_output($table_key_names_array, $semester_list_arra
 
 //------  -[ class_list_output Function ]-  ------
 function class_list_output($target_array, $class_list_array){
-	$target_array;				//
-	$class_list_array;			//
+	$target_array;				//For HTML tag "selected" values
+	$class_list_array;			//For HTML option
 
 	$class_list_array_count0 = count($class_list_array);
 	print '<p>[&nbsp;班级列表&nbsp;]</p>';
@@ -151,7 +152,7 @@ function class_list_output($target_array, $class_list_array){
 
 //------  -[ class_info_output Function ]-  ------
 function class_info_output($table_key_names_array){
-	$table_key_names_array;		//
+	$table_key_names_array;		//For HTML tag "name" values
 
     print '<p>[&nbsp;班级信息输入&nbsp;]</p>';
     print '<span>课程类型:<input type="text" name="'.$table_key_names_array['CLASS_TYPE'].'" maxlength="2" size="2" /></span><br />';
@@ -163,16 +164,16 @@ function class_info_output($table_key_names_array){
 } 
 
 //------  -[ class_info_change_output Function ]-  ------
-function class_info_change_output($table_key_names_array, $class_info_change_array, $target_array){
-	$table_key_names_array;			//
-	$class_info_change_array;		//
-	$target_array;					//
+function class_info_change_output($table_key_names_array, $class_list_array, $target_array){
+	$table_key_names_array;		//For HTML tag "name" values
+	$class_list_array;			//For HTML tag "value" values
+	$target_array;				//For location $class_list_array 
 
 	print '<p>[&nbsp;班级信息修改&nbsp;]</p>';
-    print '<span>课程类型:<input type="text" name="'.$table_key_names_array['CLASS_TYPE'].'" value="'.$class_info_change_array[$target_array]['CLASS_TYPE'].'" maxlength="2" size="2" /></span><br />';
-    print '<span>学时:<input type="text" name="'.$table_key_names_array['CLASS_PERIOD'].'" value="'.$class_info_change_array[$target_array]['CLASS_PERIOD'].'"  maxlength="3" size="3" /></span><br />';
-    print '<span>班级名称:<input type="text" name="'.$table_key_names_array['CLASS_NAME'].'" value="'.$class_info_change_array[$target_array]['CLASS_NAME'].'"  maxlength="20" size="20" /></span><br />';
-    print '<span>人数:<input type="text" name="'.$table_key_names_array['CLASS_CAPABILITY'].'" value="'.$class_info_change_array[$target_array]['CLASS_CAPABILITY'].'"  maxlength="3" size="3" /></span><br />';
+    print '<span>课程类型:<input type="text" name="'.$table_key_names_array['CLASS_TYPE'].'" value="'.$class_list_array[$target_array]['CLASS_TYPE'].'" maxlength="2" size="2" /></span><br />';
+    print '<span>学时:<input type="text" name="'.$table_key_names_array['CLASS_PERIOD'].'" value="'.$class_list_array[$target_array]['CLASS_PERIOD'].'"  maxlength="3" size="3" /></span><br />';
+    print '<span>班级名称:<input type="text" name="'.$table_key_names_array['CLASS_NAME'].'" value="'.$class_list_array[$target_array]['CLASS_NAME'].'"  maxlength="20" size="20" /></span><br />';
+    print '<span>人数:<input type="text" name="'.$table_key_names_array['CLASS_CAPABILITY'].'" value="'.$class_list_array[$target_array]['CLASS_CAPABILITY'].'"  maxlength="3" size="3" /></span><br />';
     print '<input type="submit" value="修改" name="classInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
 }

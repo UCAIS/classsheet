@@ -7,6 +7,8 @@
 *
 */
 
+//TODO: Change the HTML form tag action
+//TODO: Add the user input filter
 //------ -[ Page  Informatin Vars ]-  ------
 //
 //[ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
@@ -55,7 +57,24 @@ $TABLE_KEY_TYPES_ARRAY[2]['CLASS_TYPE']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[2]['CLASS_PERIOD']		= "int";
 $TABLE_KEY_TYPES_ARRAY[2]['CLASS_NAME']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[2]['CLASS_CAPABILITY']	= "int";
-//$TABLE_KEY_TYPES_ARRAY[2]['WEEK']				= "varchar(15)";
+//$TABLE_KEY_TYPES_ARRAY[2]['WEEK']				= "varchar(15)";	//The type "varchar(15)" is requird
+
+$PAGE_INFO_ARRAY[3]['PAGE_NAME'] 				= "Course Manage";
+$PAGE_INFO_ARRAY[3]['PAGE_NAME_IN_CHINESE'] 	= "课程管理";
+$PAGE_INFO_ARRAY[3]['FILE_NAME']				= "course_manage.php";
+$PAGE_INFO_ARRAY[3]['TABLE_NAME']				= "COURSE";
+$TABLE_KEY_NAMES_ARRAY[3]['ID']					= "ID";
+$TABLE_KEY_NAMES_ARRAY[3]['COURSE_NAME']		= "COURSE_NAME";
+$TABLE_KEY_NAMES_ARRAY[3]['COURSE_CAPABILITY']  = "COURSE_CAPABILITY";
+$TABLE_KEY_NAMES_ARRAY[3]['COURSE_TYPE']		= "COURSE_TYPE";
+//$TABLE_KEY_NAMES_ARRAY[3]['COURSE_PERIOD_A']	= "COURSE_PERIOD_A";
+$TABLE_KEY_TYPES_ARRAY[3]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
+$TABLE_KEY_TYPES_ARRAY[3]['COURSE_NAME']		= "varchar(15)";
+$TABLE_KEY_TYPES_ARRAY[3]['COURSE_CAPABILITY']	= "int";
+$TABLE_KEY_TYPES_ARRAY[3]['COURSE_TYPE']		= "varchar(15)";
+//$TABLE_KEY_TYPES_ARRAY[3]['COURSE_PERIOD_A']	= "int";
+
+
 
 /* These function not in use
 //------  -[ array_Counter Function ]-  ------

@@ -112,6 +112,7 @@ function table_data_change($table_name, $table_key_names_array, $target_id, $tab
         }
         $counter ++;
     }
+    print $sql_table_data_change;
     mysql_query($sql_table_data_change);
     return 0;
 }
