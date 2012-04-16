@@ -7,8 +7,9 @@
 *
 */
 
+//TODO: Upgrade the CLASS_TYPE method and database structure [INPORTANT].
 //Page number
-$PAGE_SWITCH = 2;
+$PAGE_SWITCH = 4;
 //Semester page number
 $SEMESTER_PAGE_SWITCH = 1;
 

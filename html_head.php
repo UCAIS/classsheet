@@ -85,7 +85,7 @@ include('settings.php');
     <a href="index.php" <?php if($PAGE_SWITCH == 0){print ('class="actived"');}?>>[&nbsp;首页&nbsp;]</a>
     <a href="semester_manage.php" <?php if($PAGE_SWITCH == 1){print ('class="actived"');}?>>[&nbsp;学期管理&nbsp;]</a>
     <a href="class_manage.php" <?php if($PAGE_SWITCH == 2){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
-    <a href="course.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
+    <a href="course_manage.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
     <a href="courseTimeSet.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
     <a href="classFormSet.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;周课程表管理&nbsp;]</a>
     <a href="courseForm.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;总课程表管理&nbsp;]</a>

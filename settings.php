@@ -7,7 +7,7 @@
 *
 */
 
-$SYSTEM_NAME = "Classsheet 0.9.1"; 
+$SYSTEM_NAME = "Classsheet 0.9.2"; 
 
 
 //Fin.
