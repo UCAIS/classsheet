@@ -32,7 +32,7 @@ file_a_in_this_folder.php
 
 
 函数
-function function_type_a_names($option_a, $option_b){
+function function_type_a_names($option_a, $option_b此处应按单词字母顺序排列){
 	$sql_select_names_by_id;	//SQL statements
 	$option_a					//Input vars
 	$normalVars					//Normal vars

@@ -2,7 +2,7 @@
 /**
 *	Class Manage Page
 *	
-*	Serial:		120412
+*	Serial:		120422
 *	by:			M.Karminski
 *
 */
@@ -12,6 +12,8 @@
 $PAGE_SWITCH = 4;
 //Semester page number
 $SEMESTER_PAGE_SWITCH = 1;
+//Course type page number
+$COURSE_TYPE_PAGE_SWITCH = 2;
 
 //Include files
 include('settings.php');
@@ -27,17 +29,23 @@ $FILE_NAME = $_SERVER['PHP_SELF'];
 //Load the database table name
 $TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
 $SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
+$COURSE_TYPE_TABLE_NAME = $PAGE_INFO_ARRAY[$COURSE_TYPE_PAGE_SWITCH]['TABLE_NAME'];
 //Load this and semester page database table key names array 
 $THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];	
 $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
+$COURSE_TYPE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$COURSE_TYPE_PAGE_SWITCH];
 //Load this and semester page database table key types array
 $THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];
-$SEMESTER_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$SEMESTER_PAGE_SWITCH];
 //QUERY the $semesterListArray
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 //Load the target array number
 $semesterTargetAarray = $_POST['semesterList'];
 $classTargetAarray = $_POST['classList'];
+//Reform the $COURSE_TYPE_TABLE_NAME
+$COURSE_TYPE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetAarray]['SEMESTER']."_".$semesterListArray[$semesterTargetAarray]['PART'];
+//QUERY the $courseTypeListArray
+$courseTypeListArray = table_data_query($COURSE_TYPE_TABLE_NAME, $COURSE_TYPE_TABLE_KEY_NAMES_ARRAY);
+print $COURSE_TYPE_TABLE_NAME;
 //Reform the classList global vars
 if($semesterTargetAarray != ""){
 	$weekCount = $semesterListArray[$semesterTargetAarray]['WEEK_COUNT'];
@@ -48,14 +56,13 @@ if($semesterTargetAarray != ""){
 $classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 //Load the target array ID number
 $targetId = $classListArray[$classTargetAarray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
-print "ID =".$targetId; 
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
 if($semesterTargetAarray != ""){
 	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $weekCount, "varchar(15)", 1);
 	database_table_create($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $THIS_TABLE_KEY_TYPES_ARRAY);
 }
-//ADD the semester information to database if POST 
+//ADD the information to database if POST 
 if($_POST["classInfoAdd"]){
 	//Load the POST info array
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
@@ -64,11 +71,11 @@ if($_POST["classInfoAdd"]){
 	unset($value);
 	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $classInfoArray);
 }
-//DELETE the semester information to database if POST
+//DELETE the information to database if POST
 if($_POST["classListDelete"]){
 	table_data_delete_by_id($TABLE_NAME, $targetId);
 }
-//CHANGE the semester information to database if POST 
+//CHANGE the information to database if POST 
 if($_POST["classInfoChanged"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
 		$classInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
@@ -97,9 +104,9 @@ div_head_output_with_class_option("mainMiddle");
 		div_head_output_with_class_option("mainMiddleBlockRight");
 		class_list_output($classTargetAarray, $classListArray);
 		if(!$_POST['classListChange']){
-			class_info_output($THIS_TABLE_KEY_NAMES_ARRAY);
+			class_info_output($THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeListArray);
 		}else{
-			class_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $classListArray, $classTargetAarray);
+			class_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $classListArray, $courseTypeListArray, $classTargetAarray);
 		}
 		div_end_output();
 		form_end_output();

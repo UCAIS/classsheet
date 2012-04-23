@@ -72,21 +72,21 @@ $semesterListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
 div_head_output_with_class_option("mainMiddle");
 	//Print Main Title
-	main_title_output($PAGE_SWITCH, $PAGE_INFO_ARRAY);
+	main_title_output($PAGE_INFO_ARRAY, $PAGE_SWITCH);
 	//Print main form
 	div_head_output_with_class_option("form");
 		//Print form Block
 		form_head_output($FILE_NAME, "post");	
 		//Print semesterList Block
 		div_head_output_with_class_option("mainMiddleBlockLeft");
-		semester_list_output($PAGE_SWITCH, $targetArray, $semesterListArray, $THIS_TABLE_KEY_NAMES_ARRAY);
+		semester_list_output($PAGE_SWITCH, $semesterListArray, $THIS_TABLE_KEY_NAMES_ARRAY, $targetArray);
 		div_end_output();
 		//Print semesterInfo Block
 		div_head_output_with_class_option("mainMiddleBlockRight");
 		if(!$_POST["semesterListChange"]){
 			semester_info_output($THIS_TABLE_KEY_NAMES_ARRAY);
 		}elseif($_POST["semesterListChange"]){
-			semester_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $semesterListArray, $targetArray);
+			semester_info_change_output($semesterListArray, $THIS_TABLE_KEY_NAMES_ARRAY, $targetArray);
 		}
 		div_end_output();
 		form_end_output();
