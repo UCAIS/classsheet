@@ -28,10 +28,11 @@ linfcstmr@gmail.com
 //命名规范
 
 文件名
-fileAInThisFolder.php
+file_a_in_this_folder.php
+
 
 函数
-function function_type_a_names($option_a, $option_b){
+function function_type_a_names($option_a, $option_b此处应按单词字母顺序排列){
 	$sql_select_names_by_id;	//SQL statements
 	$option_a					//Input vars
 	$normalVars					//Normal vars
@@ -58,21 +59,21 @@ $timeMachineArrayCount1[][];
 
 //File settings
 
-classManage					班级管理
-classroomManage				教室管理
-classroomScheduleManage		教室课程表
-config						数据库设置
-courseManage				课程管理
-coursePeriodManage			学时管理
-Documents					本文档
-htmlHead					HTML头部
-index						其中.html为登陆页面.php为登录后页面
-semesterManage				学期管理
-settings					设置
-studentsScheduleManage		学生课程表
-teachersManage				教室管理
-totalScheduleMange			总课表管理
-weeksScheduleManage			周课表管理
+class_manage					班级管理
+classroom_manage				教室管理
+classroom_schedule_manage		教室课程表
+config							数据库设置
+course_manage					课程管理
+course_period_manage			学时管理
+Documents						本文档
+html_head						HTML头部
+index							其中.html为登陆页面.php为登录后页面
+semester_manage					学期管理
+settings						设置
+students_schedule_manage		学生课程表
+teachers_manage					教室管理
+total_schedule_mange			总课表管理
+weeks_schedule_manage			周课表管理
 
 //Variables List
 	

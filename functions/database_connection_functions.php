@@ -9,7 +9,7 @@
 
 //Include files
 include('config.php');
-include('databaseCreateFunctions.php');
+include('database_create_functions.php');
 
 //Define the global database connection var
 $DB_CONNECTION = mysql_connect($DB_HOST, $DB_USER, $DB_PASS);

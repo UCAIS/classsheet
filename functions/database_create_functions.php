@@ -11,6 +11,7 @@
 function database_create($database_name, $database_connection){
 	$database_name; 		//For database name
 	$database_connection;	//For database connection
+	
 	if(!mysql_select_db($database_name, $database_connection)){
 		print "Error:System could not select database and creating a new database now.<br />";
 		if(mysql_query('Create database '.$database_name)){
@@ -28,6 +29,7 @@ function database_table_create($table_name, $table_key_names_array, $table_key_t
 	$table_name;				//For database table name
 	$table_key_names_array;		//For database table key names
 	$table_key_types_array;		//For database table key types
+
 	//Count the array
 	$table_key_names_array_count0 = count($table_key_names_array);
 	//Make up the SQL Query
@@ -41,6 +43,7 @@ function database_table_create($table_name, $table_key_names_array, $table_key_t
 		}
 		$counter++;
 	}
+	print($sql_table_create);
     mysql_query($sql_table_create);
     return 0;
 	// print "Table $table_name has been created successfully.<br />";

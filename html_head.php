@@ -49,7 +49,7 @@ include('settings.php');
 
 /**     NAV settings  */
   .actived { background: url(images/active.png) repeat-x; color: #FFF;}
-  .mainTop { width: 100%; height: 30px; background: url(images/titleBannerBG.png) repeat-x;}
+  .mainTop { width: 100%; height: 30px; background: url(images/title_banner_bg.png) repeat-x;}
   .logo { float: left; height: 30px; width: 111px; background: url(images/classsheet.png) no-repeat;}
   .nav { float: left; height: 30px; width: auto;}
   .navRight { float: right; height: 30px; width: auto;}
@@ -60,7 +60,7 @@ include('settings.php');
   .mainMiddleBlockRight { float: left; height: 240px; width: 400px;}
   /**   Main Title settings   */
   .title { float:left; margin: 20px 0 0 0; border-left: 6px #2d2d2d solid; padding-left: 19px;}
-    .underline { height: 2px; width: 500px; background: url(images/subTitleBG.png); font-size: 0px;}  
+    .underline { height: 2px; width: 500px; background: url(images/sub_title_bg.png); font-size: 0px;}  
   .form { border-left: 6px #2d2d2d solid; float: left; margin-top:20px; padding-left:19px;}
   .angle { background: url(images/angle.png) no-repeat; text-align:center;}
   
@@ -83,20 +83,20 @@ include('settings.php');
   <div class="logo"></div>
   <div class="nav">
     <a href="index.php" <?php if($PAGE_SWITCH == 0){print ('class="actived"');}?>>[&nbsp;首页&nbsp;]</a>
-    <a href="semesterManage.php" <?php if($PAGE_SWITCH == 1){print ('class="actived"');}?>>[&nbsp;学期管理&nbsp;]</a>
-    <a href="classManage.php" <?php if($PAGE_SWITCH == 2){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
-    <a href="course.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
-    <a href="courseTimeSet.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
+    <a href="semester_manage.php" <?php if($PAGE_SWITCH == 1){print ('class="actived"');}?>>[&nbsp;学期管理&nbsp;]</a>
+    <a href="course_type_manage.php" <?php if($PAGE_SWITCH == 2){print ('class="actived"');}?>>[&nbsp;课程类型管理&nbsp;]</a>
+    <a href="course_manage.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
+    <a href="class_manage.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
     <a href="classFormSet.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;周课程表管理&nbsp;]</a>
     <a href="courseForm.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;总课程表管理&nbsp;]</a>
     <a href="classRoomSet.php" <?php if($PAGE_SWITCH == 7){print ('class="actived"');}?>>[&nbsp;教室管理&nbsp;]</a>
-    <a href="classRoomCourseForm.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室课程表&nbsp;]</a>
-    <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;学生课程表&nbsp;]</a>
+    <a href="classRoomCourseForm.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室课程表管理&nbsp;]</a>
+    <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;学生课程表辅助信息管理&nbsp;]</a>
+    <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 10){print ('class="actived"');}?>>[&nbsp;学生课程表管理&nbsp;]</a>
   </div>
   <div class="navRight">
     <a href="setting.php" <?php if($PAGE_SWITCH == 10){print ('class="actived"');}?>>[&nbsp;设置&nbsp;]</a>
   </div>
 </div>
 
-<div class="mainMiddle">
 
