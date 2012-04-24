@@ -93,7 +93,7 @@ function table_data_add($table_name, $table_key_names_array, $table_data_input){
 
 //------  -[ table_data_change Function ]-  ------
 function table_data_change($table_name, $table_key_names_array, $target_id, $table_data_change_input){
-    $table_name;                //For lock on the table
+    $table_name;                //For locate on the table
     $table_key_names_array;     //For form the SQL query
     $target_id;                 //For form the SQL query
     $table_data_change_input;   //For form the SQL query

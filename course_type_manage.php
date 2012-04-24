@@ -36,20 +36,20 @@ $SEMESTER_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$SEMESTER_PAGE_SWITCH];
 //QUERY the $semesterListArray
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 //Load the target array number
-$semesterTargetAarray = $_POST['semesterList'];
-$courseTypeTargetAarray = $_POST['courseTypeList'];
+$semesterTargetArray = $_POST['semesterList'];
+$courseTypeTargetArray = $_POST['courseTypeList'];
 //Reform the courseTypeList global vars
-if($semesterTargetAarray != ""){
-	$weekCount = $semesterListArray[$semesterTargetAarray]['WEEK_COUNT'];
-	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetAarray]['SEMESTER']."_".$semesterListArray[$semesterTargetAarray]['PART']; 	
+if($semesterTargetArray != ""){
+	$weekCount = $semesterListArray[$semesterTargetArray]['WEEK_COUNT'];
+	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART']; 	
 }
 //Query the $courseTypeListArray
 $courseTypeListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 //Load the target array ID number
-$targetId = $courseTypeListArray[$courseTypeTargetAarray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
+$targetId = $courseTypeListArray[$courseTypeTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
-if($semesterTargetAarray != ""){
+if($semesterTargetArray != ""){
 	database_table_create($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $THIS_TABLE_KEY_TYPES_ARRAY);
 }
 //ADD the information to database if POST 
@@ -81,22 +81,22 @@ $courseTypeListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY
 //TODO: Create views functions.
 div_head_output_with_class_option("mainMiddle");
 	//Print Main Title 
-	main_title_output($PAGE_SWITCH, $PAGE_INFO_ARRAY);
+	main_title_output($PAGE_INFO_ARRAY, $PAGE_SWITCH);
 	//Print main form
 	div_head_output_with_class_option("form");
 		//Print form Block
 		form_head_output($FILE_NAME, "post");	
 		//Print semesterList Block
 		div_head_output_with_class_option("mainMiddleBlockLeft");
-		semester_list_output($PAGE_SWITCH, $semesterTargetAarray, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
+		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		//Print semesterInfo Block
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		course_type_list_output($courseTypeTargetAarray, $courseTypeListArray);
+		course_type_list_output($courseTypeListArray, $courseTypeTargetArray);
 		if(!$_POST['courseTypeListChange']){
 			course_type_info_output($THIS_TABLE_KEY_NAMES_ARRAY);
 		}else{
-			course_type_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeListArray, $courseTypeTargetAarray);
+			course_type_info_change_output($courseTypeListArray, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeTargetArray);
 		}
 		div_end_output();
 		form_end_output();

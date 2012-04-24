@@ -39,26 +39,26 @@ $THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];
 //QUERY the $semesterListArray
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 //Load the target array number
-$semesterTargetAarray = $_POST['semesterList'];
-$classTargetAarray = $_POST['classList'];
+$semesterTargetArray = $_POST['semesterList'];
+$classTargetArray = $_POST['classList'];
 //Reform the $COURSE_TYPE_TABLE_NAME
-$COURSE_TYPE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetAarray]['SEMESTER']."_".$semesterListArray[$semesterTargetAarray]['PART'];
+$COURSE_TYPE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
 //QUERY the $courseTypeListArray
 $courseTypeListArray = table_data_query($COURSE_TYPE_TABLE_NAME, $COURSE_TYPE_TABLE_KEY_NAMES_ARRAY);
 print $COURSE_TYPE_TABLE_NAME;
 //Reform the classList global vars
-if($semesterTargetAarray != ""){
-	$weekCount = $semesterListArray[$semesterTargetAarray]['WEEK_COUNT'];
-	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetAarray]['SEMESTER']."_".$semesterListArray[$semesterTargetAarray]['PART']; 
+if($semesterTargetArray != ""){
+	$weekCount = $semesterListArray[$semesterTargetArray]['WEEK_COUNT'];
+	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART']; 
 	$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, "WEEK", $weekCount, 1);	
 }
 //Query the $classListArray
 $classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 //Load the target array ID number
-$targetId = $classListArray[$classTargetAarray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
+$targetId = $classListArray[$classTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
-if($semesterTargetAarray != ""){
+if($semesterTargetArray != ""){
 	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $weekCount, "varchar(15)", 1);
 	database_table_create($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $THIS_TABLE_KEY_TYPES_ARRAY);
 }
@@ -91,22 +91,22 @@ $classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
 div_head_output_with_class_option("mainMiddle");
 	//Print Main Title 
-	main_title_output($PAGE_SWITCH, $PAGE_INFO_ARRAY);
+	main_title_output($PAGE_INFO_ARRAY, $PAGE_SWITCH);
 	//Print main form
 	div_head_output_with_class_option("form");
 		//Print form Block
 		form_head_output($FILE_NAME, "post");	
 		//Print semesterList Block
 		div_head_output_with_class_option("mainMiddleBlockLeft");
-		semester_list_output($PAGE_SWITCH, $semesterTargetAarray, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
+		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		//Print semesterInfo Block
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		class_list_output($classTargetAarray, $classListArray);
+		class_list_output($classListArray, $classTargetArray);
 		if(!$_POST['classListChange']){
-			class_info_output($THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeListArray);
+			class_info_output($courseTypeListArray, $THIS_TABLE_KEY_NAMES_ARRAY);
 		}else{
-			class_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $classListArray, $courseTypeListArray, $classTargetAarray);
+			class_info_change_output($classListArray, $courseTypeListArray, $THIS_TABLE_KEY_NAMES_ARRAY, $classTargetArray);
 		}
 		div_end_output();
 		form_end_output();

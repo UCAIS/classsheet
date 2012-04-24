@@ -36,70 +36,66 @@ $SEMESTER_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$SEMESTER_PAGE_SWITCH];
 //QUERY the $semesterListArray
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 //Load the target array number
-$semesterTargetAarray = $_POST['semesterList'];
-$courseTargetAarray = $_POST['courseList'];
+$semesterTargetArray = $_POST['semesterList'];
+$courseTargetArray = $_POST['courseList'];
 //Reform the courseList global vars
-if($semesterTargetAarray != ""){
-	$weekCount = $semesterListArray[$semesterTargetAarray]['WEEK_COUNT'];
-	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetAarray]['SEMESTER']."_".$semesterListArray[$semesterTargetAarray]['PART']; 
-	$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, "COURSE_PERIOD", $weekCount, 1);	
+if($semesterTargetArray != ""){
+	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART']; 
 }
-//Query the $classListArray
-$classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
+//Query the $courseListArray
+$courseListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 //Load the target array ID number
-$targetId = $classListArray[$classTargetAarray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
-print "ID =".$targetId; 
+$targetId = $courseListArray[$courseTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
-if($semesterTargetAarray != ""){
-	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $weekCount, "varchar(15)", 1);
+if($semesterTargetArray != ""){
 	database_table_create($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $THIS_TABLE_KEY_TYPES_ARRAY);
 }
 //ADD the information to database if POST 
-if($_POST["classInfoAdd"]){
+if($_POST["courseInfoAdd"]){
 	//Load the POST info array
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$classInfoArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$courseInfoArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
 	}
 	unset($value);
-	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $classInfoArray);
+	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseInfoArray);
 }
 //DELETE the information to database if POST
-if($_POST["classListDelete"]){
+if($_POST["courseListDelete"]){
 	table_data_delete_by_id($TABLE_NAME, $targetId);
 }
 //CHANGE the information to database if POST 
-if($_POST["classInfoChanged"]){
+if($_POST["courseInfoChanged"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$classInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$courseInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
 	}
 	unset($value);
-	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $classInfoChangeArray);
+	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $courseInfoChangeArray);
 }
 
-//REQUERY the $classListArray for display
-$classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
+//REQUERY the $courseListArray for display
+$courseListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
 	//Print Main Title 
-	main_title_output($PAGE_SWITCH, $PAGE_INFO_ARRAY);
+	main_title_output($PAGE_INFO_ARRAY, $PAGE_SWITCH);
 	//Print main form
 	div_head_output_with_class_option("form");
 		//Print form Block
 		form_head_output($FILE_NAME, "post");	
 		//Print semesterList Block
 		div_head_output_with_class_option("mainMiddleBlockLeft");
-		semester_list_output($PAGE_SWITCH, $semesterTargetAarray, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
+		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		//Print semesterInfo Block
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		course_list_output( $classListArray, $classTargetAarray);
-		if(!$_POST['classListChange']){
+		course_list_output($courseListArray, $courseTargetArray);
+		if(!$_POST['courseListChange']){
 			course_info_output($THIS_TABLE_KEY_NAMES_ARRAY);
 		}else{
-			course_info_change_output($THIS_TABLE_KEY_NAMES_ARRAY, $classListArray, $classTargetAarray);
+			course_info_change_output($courseListArray, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTargetArray);
 		}
 		div_end_output();
 		form_end_output();

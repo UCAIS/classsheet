@@ -90,8 +90,9 @@ include('settings.php');
     <a href="classFormSet.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;周课程表管理&nbsp;]</a>
     <a href="courseForm.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;总课程表管理&nbsp;]</a>
     <a href="classRoomSet.php" <?php if($PAGE_SWITCH == 7){print ('class="actived"');}?>>[&nbsp;教室管理&nbsp;]</a>
-    <a href="classRoomCourseForm.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室课程表&nbsp;]</a>
-    <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;学生课程表&nbsp;]</a>
+    <a href="classRoomCourseForm.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室课程表管理&nbsp;]</a>
+    <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;学生课程表辅助信息管理&nbsp;]</a>
+    <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 10){print ('class="actived"');}?>>[&nbsp;学生课程表管理&nbsp;]</a>
   </div>
   <div class="navRight">
     <a href="setting.php" <?php if($PAGE_SWITCH == 10){print ('class="actived"');}?>>[&nbsp;设置&nbsp;]</a>
