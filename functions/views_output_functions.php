@@ -157,7 +157,7 @@ function course_type_info_output($table_key_names_array){
 
 	print '<p>[&nbsp;模块信息输入&nbsp;]</p>';
 	print '<span>模块名称:<input type="text" name="'.$table_key_names_array['COURSE_TYPE'].'" maxlength="2" size="2" /></span><br />';
-	print '<span>学时:<input type="text" name="'.$table_key_names_array['COURSE_PERIOD'].'" maxlength="3" size="3" /></span>';
+	print '<span>学时:<input type="text" name="'.$table_key_names_array['COURSE_TOTAL_PERIOD'].'" maxlength="3" size="3" /></span>';
 	print '<input type="submit" value="添加" name="courseTypeInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
 }
@@ -170,7 +170,7 @@ function course_type_info_change_output($course_type_list_array, $table_key_name
 
 	print '<p>[&nbsp;模块信息修改&nbsp;]</p>';
 	print '<span>模块名称:<input type="text" name="'.$table_key_names_array['COURSE_TYPE'].'" value="'.$course_type_list_array[$target_array]['COURSE_TYPE'].'" maxlength="2" size="2" /></span><br />';
-	print '<span>学时:<input type="text" name="'.$table_key_names_array['COURSE_PERIOD'].'" value="'.$course_type_list_array[$target_array]['COURSE_PERIOD'].'" maxlength="3" size="3" /></span>';
+	print '<span>学时:<input type="text" name="'.$table_key_names_array['COURSE_TOTAL_PERIOD'].'" value="'.$course_type_list_array[$target_array]['COURSE_TOTAL_PERIOD'].'" maxlength="3" size="3" /></span>';
 	print '<input type="submit" value="修改" name="courseTypeInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
 }

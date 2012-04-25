@@ -8,7 +8,7 @@
 */
 
 //Page number
-$PAGE_SWITCH = 11;
+$PAGE_SWITCH = 12;
 //Semester page number
 $SEMESTER_PAGE_SWITCH = 1;
 

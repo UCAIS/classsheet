@@ -43,15 +43,15 @@ $TABLE_KEY_TYPES_ARRAY[1]['START_DAY'] 			= "int";
 $TABLE_KEY_TYPES_ARRAY[1]['WEEK_COUNT'] 		= "int";
 
 $PAGE_INFO_ARRAY[2]['PAGE_NAME'] 				= "Course Type Manage";
-$PAGE_INFO_ARRAY[2]['PAGE_NAME_IN_CHINESE'] 	= "课程类型管理";
+$PAGE_INFO_ARRAY[2]['PAGE_NAME_IN_CHINESE'] 	= "模块管理";
 $PAGE_INFO_ARRAY[2]['FILE_NAME']				= "course_type_manage.php";
 $PAGE_INFO_ARRAY[2]['TABLE_NAME']				= "COURSE_TYPE";
 $TABLE_KEY_NAMES_ARRAY[2]['ID']					= "ID";
 $TABLE_KEY_NAMES_ARRAY[2]['COURSE_TYPE']		= "COURSE_TYPE";
-$TABLE_KEY_NAMES_ARRAY[2]['COURSE_PERIOD']		= "COURSE_PERIOD";
+$TABLE_KEY_NAMES_ARRAY[2]['COURSE_TOTAL_PERIOD']= "COURSE_TOTAL_PERIOD";
 $TABLE_KEY_TYPES_ARRAY[2]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
 $TABLE_KEY_TYPES_ARRAY[2]['COURSE_TYPE']		= "varchar(15)";
-$TABLE_KEY_TYPES_ARRAY[2]['COURSE_PERIOD']		= "int";
+$TABLE_KEY_TYPES_ARRAY[2]['COURSE_TOTAL_PERIOD']= "int";
 
 $PAGE_INFO_ARRAY[3]['PAGE_NAME'] 				= "Course Manage";
 $PAGE_INFO_ARRAY[3]['PAGE_NAME_IN_CHINESE'] 	= "课程管理";
@@ -81,9 +81,14 @@ $TABLE_KEY_TYPES_ARRAY[4]['CLASS_NAME']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[4]['CLASS_CAPABILITY']	= "int";
 //$TABLE_KEY_TYPES_ARRAY[4]['WEEK']				= "varchar(15)";	//The type "varchar(15)" is requird
 
-$PAGE_INFO_ARRAY[11]['PAGE_NAME'] 				= "Course and Course type Import";
-$PAGE_INFO_ARRAY[11]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
-$PAGE_INFO_ARRAY[11]['FILE_NAME']				= "course_and_course_type_import.php";
+$PAGE_INFO_ARRAY[5]['PAGE_NAME'] 				= "Class Manage";
+$PAGE_INFO_ARRAY[5]['PAGE_NAME_IN_CHINESE'] 	= "班级管理";
+$PAGE_INFO_ARRAY[5]['FILE_NAME']				= "class_manage.php";
+$PAGE_INFO_ARRAY[5]['TABLE_NAME']				= "CLASS";
+
+$PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
+$PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
+$PAGE_INFO_ARRAY[12]['FILE_NAME']				= "course_and_course_type_import.php";
 
 
 

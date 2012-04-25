@@ -12,6 +12,8 @@
 $PAGE_SWITCH = 3;
 //Semester page number
 $SEMESTER_PAGE_SWITCH = 1;
+//Course Type page number
+$COURSE_TYPE_PAGE_SWITCH = 2;
 
 //Include files
 include('settings.php');
@@ -24,31 +26,35 @@ include('functions/views_output_functions.php');
 //TODO: set the default POST value to disable the php notice. 
 //Load the file name for post
 $FILE_NAME = $_SERVER['PHP_SELF'];
-//Load the database table name
-$TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
-$SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
-//Load this and semester page database table key names array 
-$THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];	
-$SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
-//Load this and semester page database table key types array
-$THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];
-$SEMESTER_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$SEMESTER_PAGE_SWITCH];
+
 //QUERY the $semesterListArray
+$SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
+$SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
+
 //Load the target array number
 $semesterTargetArray = $_POST['semesterList'];
 $courseTargetArray = $_POST['courseList'];
-//Reform the courseList global vars
-if($semesterTargetArray != ""){
-	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
-	$courseTypeCount0 = count(var);//TODO [IMPORTANT]
-	$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, "WEEK", $courseTypeCount0);
-	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $courseTypeCount0, "int");
-}
+
+//QUERY the $courseTypeListArray
+$COURSE_TYPE_TABLE_NAME = $PAGE_INFO_ARRAY[$COURSE_TYPE_PAGE_SWITCH]['TABLE_NAME'];
+$COURSE_TYPE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
+$COURSE_TYPE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$COURSE_TYPE_PAGE_SWITCH];
+$courseTypeListArray = table_data_query($COURSE_TYPE_TABLE_NAME, $COURSE_TYPE_TABLE_KEY_NAMES_ARRAY);
+
 //Query the $courseListArray
+$TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
+$THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];	
+$THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];
+$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
+$courseTypeCount0 = count($courseTypeListArray);
+$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeListArray['COURSE_TYPE'], $courseTypeCount0);
+$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, $courseTypeListArray['COURSE_TYPE'], $courseTypeCount0, "int");
 $courseListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
+
 //Load the target array ID number
 $targetId = $courseListArray[$courseTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
+
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
 if($semesterTargetArray != ""){
