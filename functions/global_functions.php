@@ -81,6 +81,10 @@ $TABLE_KEY_TYPES_ARRAY[4]['CLASS_NAME']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[4]['CLASS_CAPABILITY']	= "int";
 //$TABLE_KEY_TYPES_ARRAY[4]['WEEK']				= "varchar(15)";	//The type "varchar(15)" is requird
 
+$PAGE_INFO_ARRAY[11]['PAGE_NAME'] 				= "Course and Course type Import";
+$PAGE_INFO_ARRAY[11]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
+$PAGE_INFO_ARRAY[11]['FILE_NAME']				= "course_and_course_type_import.php";
+
 
 
 
@@ -148,15 +152,22 @@ function table_key_names_auto_fill($target_array, $filled_keywords, $filled_leng
 	$filled_position;		//0,Head 1,Tail[DEFAULT]
 
 	$arrayKeyNamesFormed;	//To storage the formed array key names
-	if($filled_position == 1){
+	if(is_array($filled_keywords)){
 		for($i=0;$i<$filled_length;$i++){
-			$arrayKeyNamesFormed = $filled_keywords."_".$i;
+			$arrayKeyNamesFormed = $filled_keywords[$i];
 			$target_array[$arrayKeyNamesFormed] = $arrayKeyNamesFormed;
 		}
-	}elseif($filled_position == 0){
-		for($i=0;$i<$filled_length;$i++){
-			$arrayKeyNamesFormed = $i."_".$filled_keywords;
-			$target_array[$arrayKeyNamesFormed] = $arrayKeyNamesFormed;
+	}elseif(is_string($filled_keywords)){
+		if($filled_position == 1){
+			for($i=0;$i<$filled_length;$i++){
+				$arrayKeyNamesFormed = $filled_keywords."_".$i;
+				$target_array[$arrayKeyNamesFormed] = $arrayKeyNamesFormed;
+			}
+		}elseif($filled_position == 0){
+			for($i=0;$i<$filled_length;$i++){
+				$arrayKeyNamesFormed = $i."_".$filled_keywords;
+				$target_array[$arrayKeyNamesFormed] = $arrayKeyNamesFormed;
+			}
 		}
 	}
 	return $target_array;
@@ -171,15 +182,22 @@ function table_key_types_auto_fill($target_array, $filled_keywords, $filled_leng
 	$filled_position;		//0,Head 1,Tail[DEFAULT]
 
 	$arrayKeyNamesFormed;	//To storage the formed array key names
-	if($filled_position == 1){
+	if(is_array($filled_keywords)){
 		for($i=0;$i<$filled_length;$i++){
-			$arrayKeyNamesFormed = $filled_keywords."_".$i;
+			$arrayKeyNamesFormed = $filled_keywords[$i];
 			$target_array[$arrayKeyNamesFormed] = $filled_type;
 		}
-	}elseif($filled_position == 0){
-		for($i=0;$i<$filled_length;$i++){
-			$arrayKeyNamesFormed = $i."_".$filled_keywords;
-			$target_array[$arrayKeyNamesFormed] = $filled_type;
+	}elseif(is_string($filled_keywords)){
+		if($filled_position == 1){
+			for($i=0;$i<$filled_length;$i++){
+				$arrayKeyNamesFormed = $filled_keywords."_".$i;
+				$target_array[$arrayKeyNamesFormed] = $filled_type;
+			}
+		}elseif($filled_position == 0){
+			for($i=0;$i<$filled_length;$i++){
+				$arrayKeyNamesFormed = $i."_".$filled_keywords;
+				$target_array[$arrayKeyNamesFormed] = $filled_type;
+			}
 		}
 	}
 	return $target_array;

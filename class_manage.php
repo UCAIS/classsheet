@@ -50,7 +50,8 @@ print $COURSE_TYPE_TABLE_NAME;
 if($semesterTargetArray != ""){
 	$weekCount = $semesterListArray[$semesterTargetArray]['WEEK_COUNT'];
 	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART']; 
-	$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, "WEEK", $weekCount, 1);	
+	$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, "WEEK", $weekCount, 1);
+	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $weekCount, "varchar(15)", 1);	
 }
 //Query the $classListArray
 $classListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
@@ -59,7 +60,6 @@ $targetId = $classListArray[$classTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']
 //TODO : rewrite the database_table_create "if" phrase
 //CREATE the TABLE if not avaliable 
 if($semesterTargetArray != ""){
-	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $weekCount, "varchar(15)", 1);
 	database_table_create($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $THIS_TABLE_KEY_TYPES_ARRAY);
 }
 //ADD the information to database if POST 

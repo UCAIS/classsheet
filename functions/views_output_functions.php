@@ -41,7 +41,7 @@ function form_head_output($action, $method){
 	$action;	//For HTML tag action option
 	$method;	//For HTML tag method option
 
-	print '<form action="'.$action.'" method="'.$method.'">';
+	print '<form action="'.$action.'" enctype="multipart/form-data" method="'.$method.'">';
 	return 0;
 }
 
@@ -135,7 +135,7 @@ function course_type_list_output($course_type_list_array, $target_array){
 	$target_array;				//For HTML tag "selected" values
 
 	$course_type_list_array_count0 = count($course_type_list_array);
-	print '<p>[&nbsp;课程类型列表&nbsp;]</p>';
+	print '<p>[&nbsp;模块列表&nbsp;]</p>';
 	print '<select name="courseTypeList" size="10">';
 	for($i=0;$i<$course_type_list_array_count0;$i++){
 		if($target_array == $i){
@@ -144,7 +144,7 @@ function course_type_list_output($course_type_list_array, $target_array){
 			$selectedValue = "";
 		}
 		print '<option value="'.$i.'" '.$selectedValue.'>';//There a BLANK between value and $selectedValue for HTML tag.
-		print "课程类型".$course_type_list_array[$i]['COURSE_TYPE']."</option>";
+		print "模块".$course_type_list_array[$i]['COURSE_TYPE']."</option>";
 	}
 	print '</select>';
 	print '<input type="submit" value="&nbsp;修改&nbsp;" name="courseTypeListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="courseTypeListDelete" style="margin-top: 10px;" />';
@@ -155,8 +155,8 @@ function course_type_list_output($course_type_list_array, $target_array){
 function course_type_info_output($table_key_names_array){
 	$table_key_names_array;		//For HTML tag "name" values
 
-	print '<p>[&nbsp;课程类型信息输入&nbsp;]</p>';
-	print '<span>课程类型:<input type="text" name="'.$table_key_names_array['COURSE_TYPE'].'" maxlength="2" size="2" /></span><br />';
+	print '<p>[&nbsp;模块信息输入&nbsp;]</p>';
+	print '<span>模块名称:<input type="text" name="'.$table_key_names_array['COURSE_TYPE'].'" maxlength="2" size="2" /></span><br />';
 	print '<span>学时:<input type="text" name="'.$table_key_names_array['COURSE_PERIOD'].'" maxlength="3" size="3" /></span>';
 	print '<input type="submit" value="添加" name="courseTypeInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
@@ -168,8 +168,8 @@ function course_type_info_change_output($course_type_list_array, $table_key_name
 	$table_key_names_array;		//
 	$target_array;				//
 
-	print '<p>[&nbsp;课程类型信息修改&nbsp;]</p>';
-	print '<span>课程类型:<input type="text" name="'.$table_key_names_array['COURSE_TYPE'].'" value="'.$course_type_list_array[$target_array]['COURSE_TYPE'].'" maxlength="2" size="2" /></span><br />';
+	print '<p>[&nbsp;模块信息修改&nbsp;]</p>';
+	print '<span>模块名称:<input type="text" name="'.$table_key_names_array['COURSE_TYPE'].'" value="'.$course_type_list_array[$target_array]['COURSE_TYPE'].'" maxlength="2" size="2" /></span><br />';
 	print '<span>学时:<input type="text" name="'.$table_key_names_array['COURSE_PERIOD'].'" value="'.$course_type_list_array[$target_array]['COURSE_PERIOD'].'" maxlength="3" size="3" /></span>';
 	print '<input type="submit" value="修改" name="courseTypeInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
@@ -205,11 +205,12 @@ function course_info_output($table_key_names_array){
 
 	print '<p>[&nbsp;课程信息输入&nbsp;]</p>';
     print '<span>课程名称:<input type="text" name="'.$table_key_names_array['COURSE_NAME'].'" maxlength="20" size="20" /></span><br />';
-    print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" maxlength="3" size="3" /></span><br />';
+    print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" maxlength="3" size="3" />[单位:班级]</span><br />';
     print '<span>课程方式:<select name="'.$table_key_names_array['COURSE_STYLE'].'">';
-    print '<option value="0">工程实训</option>';
-    print '<option value="1">考试</option>';
-    print '<option value="2">工艺设计</option>';
+    print '<option value="0">概论课</option>';
+    print '<option value="1">工程实训</option>';
+    print '<option value="2">考试</option>';
+    print '<option value="3">工艺设计</option>';
     print '</select></span><br />';
     print '<input type="submit" value="添加" name="courseInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
@@ -223,18 +224,21 @@ function course_info_change_output($course_list_array, $table_key_names_array, $
 
 	print '<p>[&nbsp;课程信息修改&nbsp;]</p>';
 	print '<span>课程名称:<input type="text" name="'.$table_key_names_array['COURSE_NAME'].'" value="'.$course_list_array[$target_array]['COURSE_NAME'].'" maxlength="10" size="10" /></span><br />';
-	print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" value="'.$course_list_array[$target_array]['COURSE_CAPABILITY'].'" maxlength="3" size="3" /></span>';
+	print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" value="'.$course_list_array[$target_array]['COURSE_CAPABILITY'].'" maxlength="3" size="3" />[单位:班级]</span>';
 	print '<span>课程方式:<select name="'.$table_key_names_array['COURSE_STYLE'].'">';
 	if($course_list_array[$target_array]['COURSE_STYLE'] == 0){
 		$option0 = "selected";
 	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == 1){
 		$option1 = "selected";
-	}else{
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == 2){
 		$option2 = "selected";
+	}else{
+		$option3 = "selected";
 	}
-    print '<option value="0" '.$option0.'>工程实训</option>';
-    print '<option value="1" '.$option1.'>考试</option>';
-    print '<option value="2" '.$option2.'>工艺设计</option>';
+    print '<option value="0" '.$option0.'>概论课</option>';
+    print '<option value="1" '.$option1.'>工程实训</option>';
+    print '<option value="2" '.$option2.'>考试</option>';
+    print '<option value="3" '.$option3.'>工艺设计</option>';
     print '</select></span><br />';
 	print '<input type="submit" value="修改" name="courseInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
@@ -310,6 +314,13 @@ function class_info_change_output($class_list_array, $course_type_list_array, $t
     print '<span>人数:<input type="text" name="'.$table_key_names_array['CLASS_CAPABILITY'].'" value="'.$class_list_array[$target_array]['CLASS_CAPABILITY'].'"  maxlength="3" size="3" /></span><br />';
     print '<input type="submit" value="修改" name="classInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
+}
+
+//------  -[ files_upload_output Function ]-  ------
+
+function files_upload_output(){
+	print '请选择上传文件[.csv][文件编码格式必须为UTF-8]<input type="file" name="uploadFiles" value="" /><br />';
+	print '<input type="submit" name="upload" value="上传" />';
 }
 
 

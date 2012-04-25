@@ -7,7 +7,7 @@
 *
 */
 
-
+//TODO: Finish the Database structure.[IMPORTANT]
 //Page number
 $PAGE_SWITCH = 3;
 //Semester page number
@@ -40,7 +40,10 @@ $semesterTargetArray = $_POST['semesterList'];
 $courseTargetArray = $_POST['courseList'];
 //Reform the courseList global vars
 if($semesterTargetArray != ""){
-	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART']; 
+	$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
+	$courseTypeCount0 = count(var);//TODO [IMPORTANT]
+	$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, "WEEK", $courseTypeCount0);
+	$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, "WEEK", $courseTypeCount0, "int");
 }
 //Query the $courseListArray
 $courseListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
