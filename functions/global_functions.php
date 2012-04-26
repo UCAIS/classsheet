@@ -88,7 +88,7 @@ $PAGE_INFO_ARRAY[5]['TABLE_NAME']				= "CLASS";
 
 $PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
 $PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
-$PAGE_INFO_ARRAY[12]['FILE_NAME']				= "course_and_course_type_import.php";
+$PAGE_INFO_ARRAY[12]['FILE_NAME']				= "course_import.php";
 
 
 

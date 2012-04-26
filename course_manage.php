@@ -2,12 +2,12 @@
 /**
 *	Course Manage Page
 *	
-*	Serial:		120416
+*	Serial:		120425
 *	by:			M.Karminski
 *
 */
 
-//TODO: Finish the Database structure.[IMPORTANT]
+
 //Page number
 $PAGE_SWITCH = 3;
 //Semester page number
@@ -48,8 +48,11 @@ $THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];
 $THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];
 $TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
 $courseTypeCount0 = count($courseTypeListArray);
-$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeListArray['COURSE_TYPE'], $courseTypeCount0);
-$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, $courseTypeListArray['COURSE_TYPE'], $courseTypeCount0, "int");
+for($i=0;$i<$courseTypeCount0;$i++){
+	$courseTypeNamesArray[$i] = $courseTypeListArray[$i]['COURSE_TYPE'];
+}
+$THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeNamesArray, $courseTypeCount0);
+$THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, $courseTypeNamesArray, $courseTypeCount0, "varchar(15)");
 $courseListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
 //Load the target array ID number

@@ -87,7 +87,7 @@ include('settings.php');
     <a href="course_type_manage.php" <?php if($PAGE_SWITCH == 2){print ('class="actived"');}?>>[&nbsp;模块管理&nbsp;]</a>
     <a href="course_manage.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
     <a href="class_manage.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
-    <a href="class_manage.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
+    <a href="course_type_manage.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
     <a href="classFormSet.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;周课程表管理&nbsp;]</a>
     <a href="courseForm.php" <?php if($PAGE_SWITCH == 7){print ('class="actived"');}?>>[&nbsp;总课程表管理&nbsp;]</a>
     <a href="classRoomSet.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室管理&nbsp;]</a>
@@ -96,7 +96,7 @@ include('settings.php');
     <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 11){print ('class="actived"');}?>>[&nbsp;学生课程表管理&nbsp;]</a>
   </div>
   <div class="navRight">
-    <a href="course_and_course_type_import.php" <?php if($PAGE_SWITCH == 12){print ('class="actived"');}?>>[&nbsp;导入A&nbsp;]</a>
+    <a href="course_import.php" <?php if($PAGE_SWITCH == 12){print ('class="actived"');}?>>[&nbsp;课程导入&nbsp;]</a>
     <a href="setting.php" <?php if($PAGE_SWITCH == 13){print ('class="actived"');}?>>[&nbsp;设置&nbsp;]</a>
   </div>
 </div>

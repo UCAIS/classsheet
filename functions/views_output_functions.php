@@ -224,7 +224,7 @@ function course_info_change_output($course_list_array, $table_key_names_array, $
 
 	print '<p>[&nbsp;课程信息修改&nbsp;]</p>';
 	print '<span>课程名称:<input type="text" name="'.$table_key_names_array['COURSE_NAME'].'" value="'.$course_list_array[$target_array]['COURSE_NAME'].'" maxlength="10" size="10" /></span><br />';
-	print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" value="'.$course_list_array[$target_array]['COURSE_CAPABILITY'].'" maxlength="3" size="3" />[单位:班级]</span>';
+	print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" value="'.$course_list_array[$target_array]['COURSE_CAPABILITY'].'" maxlength="3" size="3" />[单位:班级]</span><br />';
 	print '<span>课程方式:<select name="'.$table_key_names_array['COURSE_STYLE'].'">';
 	if($course_list_array[$target_array]['COURSE_STYLE'] == 0){
 		$option0 = "selected";
@@ -280,7 +280,7 @@ function class_info_output($course_type_list_array, $table_key_names_array){
     print '<span>课程类型:<select name="'.$table_key_names_array['CLASS_TYPE'].'">';
     for($i=0;$i<$course_type_list_array_count0;$i++){
     	print '<option value="'.$course_type_list_array[$i]['COURSE_TYPE'].'">';
-    	print $course_type_list_array[$i]['COURSE_TYPE']."学时".$course_type_list_array[$i]['COURSE_PERIOD']."</option>";
+    	print $course_type_list_array[$i]['COURSE_TYPE']."学时".$course_type_list_array[$i]['COURSE_TOTAL_PERIOD']."</option>";
     }
     print '</select></br>';
     print '<span>班级名称:<input type="text" name="'.$table_key_names_array['CLASS_NAME'].'" maxlength="20" size="20" /></span><br />';
@@ -307,7 +307,7 @@ function class_info_change_output($class_list_array, $course_type_list_array, $t
 			$selectedValue = "";
 		}
     	print '<option value="'.$course_type_list_array[$i]['COURSE_TYPE'].'" '.$selectedValue.'>';
-    	print $course_type_list_array[$i]['COURSE_TYPE']."学时".$course_type_list_array[$i]['COURSE_PERIOD']."</option>";
+    	print $course_type_list_array[$i]['COURSE_TYPE']."学时".$course_type_list_array[$i]['COURSE_TOTAL_PERIOD']."</option>";
     }
     print '</select></br>';
     print '<span>班级名称:<input type="text" name="'.$table_key_names_array['CLASS_NAME'].'" value="'.$class_list_array[$target_array]['CLASS_NAME'].'"  maxlength="20" size="20" /></span><br />';
