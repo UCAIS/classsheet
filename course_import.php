@@ -7,7 +7,7 @@
 *
 */
 
-
+//TODO: add database_table_create function.
 //Page number
 $PAGE_SWITCH = 12;
 $SEMESTER_PAGE_SWITCH = 1;
@@ -36,14 +36,12 @@ if(is_uploaded_file($_FILES['uploadFiles']['tmp_name'])){
 	$uploadedFiles = file($uploadedFileTempName);
 	$loopCounter = 0;
 	foreach($uploadedFiles as $fileContents){
-		print "<br />".$fileContents."<br />";
 		$courseImportInfoArray[$loopCounter] = explode(",", $fileContents);
 		$loopCounter ++;
 	}
 }
 
 //Form the import data 
-//TODO: Example method.
 $loopCounter = 0;
 $courseImportInfoArrayCount1 = count($courseImportInfoArray[0]);
 foreach($courseImportInfoArray[0] as $value){
@@ -57,10 +55,13 @@ foreach($courseImportInfoArray[0] as $value){
 //Write import data into database
 $COURSE_TABLE_NAME = $PAGE_INFO_ARRAY[$COURSE_PAGE_SWITCH]['TABLE_NAME'];
 $COURSE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
-$tableKeyNumbersCount = $courseImportInfoArrayCount1 - 1;//Drop the array title line
+$tableKeyNumbersCount = count($courseInsertInfoArray);
 for($i=0;$i<$tableKeyNumbersCount;$i++){
 	table_data_add($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $courseInsertInfoArray[$i]);
 }
+
+//QUERY the $courseListArray
+$courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
 
 //------  -[ Views Functions ]-  ------
 
@@ -76,6 +77,7 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		files_upload_output();
+		course_info_table_output($courseListArray, $COURSE_TABLE_KEY_NAMES_ARRAY);
 		form_end_output();
 	div_end_output();
 div_end_output();

@@ -316,11 +316,34 @@ function class_info_change_output($class_list_array, $course_type_list_array, $t
     return 0;
 }
 
+//------  -[ course_info_table_output Function ]-  ------
+function course_info_table_output($course_list_array, $table_key_names_array){
+	$course_list_array;			//
+	$table_key_names_array;		//
+
+	$course_list_array_count0 = count($course_list_array);
+	print '<table align="center">';
+	print '<tr>';
+	foreach($table_key_names_array as $value){
+		print '<td>'.$value.'</td>';
+	}
+	print '</tr>';
+	for($i=0;$i<$course_list_array_count0;$i++){
+		print '<tr>';
+		foreach($table_key_names_array as $value){
+			print '<td>'.$course_list_array[$i][$value].'</td>';
+		}
+		print '</td>';	
+	}
+	print '</table>';
+
+}
+
 //------  -[ files_upload_output Function ]-  ------
 
 function files_upload_output(){
-	print '请选择上传文件[.csv][文件编码格式必须为UTF-8]<input type="file" name="uploadFiles" value="" /><br />';
-	print '<input type="submit" name="upload" value="上传" />';
+	print '<span>请选择上传文件[.csv][文件编码格式必须为UTF-8]<input type="file" name="uploadFiles" value="" />';
+	print '<input type="submit" name="upload" value="上传" /></span>';
 }
 
 

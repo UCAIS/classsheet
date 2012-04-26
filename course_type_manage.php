@@ -7,7 +7,7 @@
 *
 */
 
-
+//TODO: Add the COURSE_TYPE and COURSE_TOTAL_PERIOD auto get method.[IMPORTANT]
 //Page number
 $PAGE_SWITCH = 2;
 //Semester page number
@@ -38,7 +38,6 @@ $courseTypeTargetArray = $_POST['courseTypeList'];
 $TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
 $THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];
 $THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];	
-$weekCount = $semesterListArray[$semesterTargetArray]['WEEK_COUNT'];
 $TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
 $courseTypeListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
