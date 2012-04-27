@@ -208,5 +208,36 @@ function table_key_types_auto_fill($target_array, $filled_keywords, $filled_leng
 	return $target_array;
 }
 
+//------  -[ uploaded_file_data_load Function ]-  ------
+//This function load cvs file contents into an array.
+function uploaded_file_data_load(){
+	if(is_uploaded_file($_FILES['uploadFiles']['tmp_name'])){
+		$uploadedFileTempName = $_FILES['uploadFiles']['tmp_name'];
+		$uploadedFiles = file($uploadedFileTempName);
+		$loopCounter = 0;
+		foreach($uploadedFiles as $fileContents){
+			$importDataArray[$loopCounter] = explode(",", $fileContents);
+			$loopCounter ++;
+		}
+	}
+	return $importDataArray;
+}
+
+//------  -[ import_data_form Function ]-  ------
+//Convert the array to key-values structure
+function import_data_form($import_data_array){
+	$import_data_array;			//Target array
+
+	$loopCounter = 0;
+	$import_data_array_count1 = count($import_data_array[0]);
+	foreach($import_data_array[0] as $value){
+		for($i=0;$i<$import_data_array_count1;$i++){
+			$formedArray[$i][$value] = "'".$import_data_array[$i+1][$loopCounter]."'";
+		}
+		$loopCounter ++; 
+	}
+	return $formedArray;
+}
+
 //Fin.
 ?>

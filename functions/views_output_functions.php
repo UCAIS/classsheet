@@ -336,7 +336,6 @@ function course_info_table_output($course_list_array, $table_key_names_array){
 		print '</td>';	
 	}
 	print '</table>';
-
 }
 
 //------  -[ files_upload_output Function ]-  ------

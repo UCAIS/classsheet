@@ -30,35 +30,31 @@ $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
 
-//Load the Upload file into vars 
-if(is_uploaded_file($_FILES['uploadFiles']['tmp_name'])){
-	$uploadedFileTempName = $_FILES['uploadFiles']['tmp_name'];
-	$uploadedFiles = file($uploadedFileTempName);
-	$loopCounter = 0;
-	foreach($uploadedFiles as $fileContents){
-		$courseImportInfoArray[$loopCounter] = explode(",", $fileContents);
-		$loopCounter ++;
-	}
+//Import method
+if($_POST['upload']){
+	$courseImportInfoArray =  uploaded_file_form();
+	$courseInsertInfoArray = import_data_form($courseImportInfoArray);
+//TODO: Get TABLE_KEY_NAMES_ARRAY.
 }
-
-//Form the import data 
-$loopCounter = 0;
-$courseImportInfoArrayCount1 = count($courseImportInfoArray[0]);
-foreach($courseImportInfoArray[0] as $value){
-	$COURSE_TABLE_KEY_NAMES_ARRAY[] = $value;
-	for($i=0;$i<$courseImportInfoArrayCount1;$i++){
-		$courseInsertInfoArray[$i][$value] = "'".$courseImportInfoArray[$i+1][$loopCounter]."'";
-	}
-	$loopCounter ++; 
-}
-
-//Write import data into database
+//CREATE the COURSE database table
+database_table_create($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $COURSE_TABLE_KEY_TYPES_ARRAY);
+//CREATE the COURSE_TYPE database table
+database_table_create($COURSE_TYPE_TABLE_NAME, $COURSE_TYPE_TABLE_KEY_NAMES_ARRAY, $COURSE_TYPE_TABLE_KEY_TYPES_ARRAY);
+//ADD the COURSE data
 $COURSE_TABLE_NAME = $PAGE_INFO_ARRAY[$COURSE_PAGE_SWITCH]['TABLE_NAME'];
 $COURSE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
 $tableKeyNumbersCount = count($courseInsertInfoArray);
 for($i=0;$i<$tableKeyNumbersCount;$i++){
 	table_data_add($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $courseInsertInfoArray[$i]);
 }
+//ADD the COURSE_TYPE data
+
+
+
+
+
+
+
 
 //QUERY the $courseListArray
 $courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
