@@ -1,12 +1,69 @@
 <?php
 /**
-*	Database query functions page
+*	Database Functions
 *	
-*	Serial:		120404
+*	Serial:		120429
 *	by:			M.Karminski
 *
 */
 
+//Include files
+include('config.php');
+
+//Define the global database connection var
+$DB_CONNECTION = mysql_connect($DB_HOST, $DB_USER, $DB_PASS);
+
+//Database connect status
+if($DB_CONNECTION){
+		print "Database connect success.<br />";
+}else{
+		print "Error:Databse connect fail.<br />";
+}
+
+//Create the database if not exists
+database_create($DB_NAME, $DB_CONNECTION);
+
+//------  -[ database_create function ]-  ------
+function database_create($database_name, $database_connection){
+	$database_name; 		//For database name
+	$database_connection;	//For database connection
+	
+	if(!mysql_select_db($database_name, $database_connection)){
+		print "Error:System could not select database and creating a new database now.<br />";
+		if(mysql_query('Create database '.$database_name)){
+			print "New database has been created.<br />";
+		}else{
+			die("Error:System can not create database, please check settings.<br />");
+		}
+	}else{
+		print "Database ".$database_name." has been found.<br />";
+	}
+}
+
+//------  -[ database_table_create Function ]-  ------
+function database_table_create($table_name, $table_key_names_array, $table_key_types_array){
+	$table_name;				//For database table name
+	$table_key_names_array;		//For database table key names
+	$table_key_types_array;		//For database table key types
+
+	//Count the array
+	$table_key_names_array_count0 = count($table_key_names_array);
+	//Make up the SQL Query
+	$counter = 0;	//Set the counter
+	$sql_table_create = "CREATE TABLE IF NOT EXISTS $table_name ( ";
+	foreach($table_key_names_array as $tableKeyNamesValue){
+		if($counter < $table_key_names_array_count0 - 1){
+			$sql_table_create .= $tableKeyNamesValue." ".$table_key_types_array[$tableKeyNamesValue].", ";
+		}else{
+			$sql_table_create .= $tableKeyNamesValue." ".$table_key_types_array[$tableKeyNamesValue]." )";
+		}
+		$counter++;
+	}
+	print($sql_table_create);
+    mysql_query($sql_table_create);
+    return 0;
+	// print "Table $table_name has been created successfully.<br />";
+}
 
 //------  -[ table_data_query Function ]-  ------
 function table_data_query($table_name, $table_key_names_array){
@@ -37,6 +94,7 @@ function table_data_query($table_name, $table_key_names_array){
     //Query tableData By ID Array
     for($i=0;$i<$idNumbers;$i++){
         $sql_select_values_by_id_formed = $sql_select_values_by_id.$idArray[$i];
+        //print $sql_select_values_by_id_formed;
         $queryResult = mysql_query($sql_select_values_by_id_formed);
         $table_data_array[$i] = mysql_fetch_assoc($queryResult);
     }
@@ -117,25 +175,21 @@ function table_data_change($table_name, $table_key_names_array, $target_id, $tab
 function table_key_names_array_get($target_table_name){
     $target_table_name;         //target database table name.
 
-    $sql_select_id = "SELECT ID FROM $table_name";
+    $sql_select_id = "SELECT ID FROM $target_table_name";
     $queryResult = mysql_query($sql_select_id);
-    $idNumbers = mysql_num_rows($queryResult);
-    for($i=0;$i<$idNumbers;$i++){
-        $idArrayTemp[$i] = mysql_fetch_row($queryResult);
-        $idArray[] = $idArrayTemp[$i][0];
-    }
-    print $idArray[0];
-    $sqlSelectAll = "SELECT * FROM $target_table_name WHERE ID = $idArray[0]";
-    print "<br />".$sqlSelectAll."<br />";
+    $fetchAssocResult = mysql_fetch_assoc($queryResult);
+    $targetId = $fetchAssocResult['ID'];
+    $sqlSelectAll = "SELECT * FROM $target_table_name WHERE ID = $targetId";
     $queryResult = mysql_query($sqlSelectAll);
     $fetchAssocResult = mysql_fetch_assoc($queryResult);
     $fetchAssocResultCount0 = count($fetchAssocResult);
+    $arrayKeyNamesArray = array_keys($fetchAssocResult); 
     for($i=0;$i<$fetchAssocResultCount0;$i++){
-        $fieldName = mysql_field_name($fetchAssocResult, $i);
-        $table_key_names_array[$fieldName] = $fieldName; 
+        $table_key_names_array[$arrayKeyNamesArray[$i]] = $arrayKeyNamesArray[$i]; 
     }
     return $table_key_names_array;
 }
+
 
 
 
