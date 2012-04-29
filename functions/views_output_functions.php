@@ -322,6 +322,7 @@ function course_info_table_output($course_list_array, $table_key_names_array){
 	$table_key_names_array;		//
 
 	$course_list_array_count0 = count($course_list_array);
+	print '<p>[课程信息]</p>';
 	print '<table align="center">';
 	print '<tr>';
 	foreach($table_key_names_array as $value){

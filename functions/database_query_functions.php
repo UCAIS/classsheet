@@ -54,6 +54,7 @@ function table_data_delete_by_id($table_name, $target_id){
 }
 
 //------  -[ table_data_add Function]-  ------
+//TODO: If "ID" at TAIL of the $table_key_names_array, function will miss a ")" in data form method.[BUG] 
 function table_data_add($table_name, $table_key_names_array, $table_data_input){
     $table_name;                //For lock on the table
     $table_key_names_array;     //For form the SQL query
@@ -115,6 +116,31 @@ function table_data_change($table_name, $table_key_names_array, $target_id, $tab
     print $sql_table_data_change;
     mysql_query($sql_table_data_change);
     return 0;
+}
+
+//------  -[ table_key_names_array_get ]-  ------
+//This function return target database table key names.
+function table_key_names_array_get($target_table_name){
+    $target_table_name;         //target database table name.
+
+    $sql_select_id = "SELECT ID FROM $table_name";
+    $queryResult = mysql_query($sql_select_id);
+    $idNumbers = mysql_num_rows($queryResult);
+    for($i=0;$i<$idNumbers;$i++){
+        $idArrayTemp[$i] = mysql_fetch_row($queryResult);
+        $idArray[] = $idArrayTemp[$i][0];
+    }
+    print $idArray[0];
+    $sqlSelectAll = "SELECT * FROM $target_table_name WHERE ID = $idArray[0]";
+    print "<br />".$sqlSelectAll."<br />";
+    $queryResult = mysql_query($sqlSelectAll);
+    $fetchAssocResult = mysql_fetch_assoc($queryResult);
+    $fetchAssocResultCount0 = count($fetchAssocResult);
+    for($i=0;$i<$fetchAssocResultCount0;$i++){
+        $fieldName = mysql_field_name($fetchAssocResult, $i);
+        $table_key_names_array[$fieldName] = $fieldName; 
+    }
+    return $table_key_names_array;
 }
 
 

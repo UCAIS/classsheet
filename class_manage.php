@@ -6,7 +6,7 @@
 *	by:			M.Karminski
 *
 */
-
+//TODO: Fix table name get method.
 //TODO: Upgrade the CLASS_TYPE method and database structure [INPORTANT].
 //Page number
 $PAGE_SWITCH = 4;

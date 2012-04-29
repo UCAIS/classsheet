@@ -30,23 +30,42 @@ $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
 
-//Import method
+//Load import data 
 if($_POST['upload']){
-	$courseImportInfoArray =  uploaded_file_form();
+	$courseImportInfoArray = uploaded_file_data_load();
+	
+	$COURSE_TYPE_TABLE_KEY_NAMES_ARRAY = array_partitioner($COURSE_TABLE_KEY_NAMES_ARRAY, 1, 3);
 	$courseInsertInfoArray = import_data_form($courseImportInfoArray);
-//TODO: Get TABLE_KEY_NAMES_ARRAY.
 }
-//CREATE the COURSE database table
-database_table_create($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $COURSE_TABLE_KEY_TYPES_ARRAY);
-//CREATE the COURSE_TYPE database table
-database_table_create($COURSE_TYPE_TABLE_NAME, $COURSE_TYPE_TABLE_KEY_NAMES_ARRAY, $COURSE_TYPE_TABLE_KEY_TYPES_ARRAY);
+
+//TODO: Get table_key_types_array.
+
 //ADD the COURSE data
-$COURSE_TABLE_NAME = $PAGE_INFO_ARRAY[$COURSE_PAGE_SWITCH]['TABLE_NAME'];
-$COURSE_TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
+$COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+
+//TODO:$COURSE_TABLE_KEY_NAMES_ARRAY get method.
+$COURSE_TABLE_KEY_NAMES_ARRAY = array_picker($courseImportInfoArray, 0);//Pick the table key names from import array.
+$COURSE_TABLE_KEY_NAMES_ARRAY = array_add_key($COURSE_TABLE_KEY_NAMES_ARRAY, "ID", "ID");//The imporrt data not include ID key, so add it.
+if(!is_array($COURSE_TABLE_KEY_NAMES_ARRAY)){
+	$COURSE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($COURSE_TABLE_NAME);
+}
+$COURSE_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($COURSE_TABLE_KEY_TYPES_ARRAY, $COURSE_TABLE_KEY_NAMES_ARRAY, 0, "varchar(15)", 1);
+$COURSE_TABLE_KEY_TYPES_ARRAY = array_add_key($COURSE_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
+database_table_create($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $COURSE_TABLE_KEY_TYPES_ARRAY);
 $tableKeyNumbersCount = count($courseInsertInfoArray);
+print $tableKeyNumbersCount;
 for($i=0;$i<$tableKeyNumbersCount;$i++){
 	table_data_add($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $courseInsertInfoArray[$i]);
 }
+//ADD the COURSE_TYPE data
+
+//CREATE the COURSE database table
+
+//CREATE the COURSE_TYPE database table
+//database_table_create($COURSE_TYPE_TABLE_NAME, $COURSE_TYPE_TABLE_KEY_NAMES_ARRAY, $COURSE_TYPE_TABLE_KEY_TYPES_ARRAY);
+ 
+//Loop and insert data
+
 //ADD the COURSE_TYPE data
 
 

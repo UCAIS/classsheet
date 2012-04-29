@@ -23,6 +23,7 @@ include('functions/database_query_functions.php');
 include('functions/global_functions.php');
 include('functions/views_output_functions.php');
 
+//TODO: Fix table name get method.
 //TODO: set the default POST value to disable the php notice. 
 //Load the file name for post
 $FILE_NAME = $_SERVER['PHP_SELF'];

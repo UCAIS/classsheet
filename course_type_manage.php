@@ -6,7 +6,7 @@
 *	by:			M.Karminski
 *
 */
-
+//TODO: Fix table name get method.
 //TODO: Add the COURSE_TYPE and COURSE_TOTAL_PERIOD auto get method.[IMPORTANT]
 //Page number
 $PAGE_SWITCH = 2;

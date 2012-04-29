@@ -115,27 +115,7 @@ function array_Counter($inputArray, $dimension){
 
 }
 
-//------  -[ array_Partitioner Function ]-  ------
-//This function cut the array and return the part what your need
-//Notes:
-//The $returnLocation optionally value is only 0 or 1, "0" means HEAD and "1" means TAIL 
-function array_Partitioner($inputArray, $returnLocation, $dropLength){
-	$inputArrayCount0 = count($inputArray);
-	$loopLength = $inputArrayCount0 - $dropLength;
-	if($returnLocation == 0){
-		for($i=0;$i<$loopLength;$i++){
-			$outputArray[] = $inputArray[$i];
-		}
-		return $outputArray; 
-	}elseif($returnLocation == 1){
-		for($i=$dropLength;$i<$inputArrayCount0;$i++){
-			$outputArray[] = $inputArray[$i];
-		}
-		return $outputArray;
-	}else{
-		return 0;
-	}
-}
+
 
 //------  -[ post_auto_fill Function ]-  ------
 function post_auto_fill($post_value){
@@ -150,6 +130,7 @@ function post_auto_fill($post_value){
 */
 
 //------  -[ table_key_names_auto_fill Function ]-  ------
+//This function auto fill table key names by input char or char array.
 function table_key_names_auto_fill($target_array, $filled_keywords, $filled_length, $filled_position = 1){
 	$target_array;			//Target array to fill
 	$filled_keywords;		//Define chars to fill array keys and array values 
@@ -179,7 +160,8 @@ function table_key_names_auto_fill($target_array, $filled_keywords, $filled_leng
 }
 
 //------  -[ table_key_types_auto_fill Function ]-  ------
-function table_key_types_auto_fill($target_array, $filled_keywords, $filled_length, $filled_type, $filled_position = 1){
+//This fucntion return a key-values array for storage table key types.
+function table_key_types_auto_fill($target_array, $filled_keywords, $filled_length = 0, $filled_type, $filled_position = 1){
 	$target_array;			//Target array to fill
 	$filled_keywords;		//Define chars to fill array keys and array values 
 	$filled_length;			//Item numbers to fill
@@ -187,6 +169,9 @@ function table_key_types_auto_fill($target_array, $filled_keywords, $filled_leng
 	$filled_position;		//0,Head 1,Tail[DEFAULT]
 
 	$arrayKeyNamesFormed;	//To storage the formed array key names
+	if($filled_length == 0){
+		$filled_length = count($filled_keywords);
+	}
 	if(is_array($filled_keywords)){
 		for($i=0;$i<$filled_length;$i++){
 			$arrayKeyNamesFormed = $filled_keywords[$i];
@@ -224,7 +209,7 @@ function uploaded_file_data_load(){
 }
 
 //------  -[ import_data_form Function ]-  ------
-//Convert the array to key-values structure
+//Convert an array to key-values structure.
 function import_data_form($import_data_array){
 	$import_data_array;			//Target array
 
@@ -239,5 +224,73 @@ function import_data_form($import_data_array){
 	return $formedArray;
 }
 
+//------  -[ array_picker Function ]-  ------
+//This fucntion return an import array's first line.
+function array_picker($import_data_array, $target_line = 0){
+	$import_data_array;			//
+	$target_line;				//
+
+	foreach($import_data_array[$target_line] as $value){
+		$formedArray[] = $value; 
+	}
+	return $formedArray;
+}
+
+//------  -[ array_partitioner Function ]-  ------
+//This function cut the array and return the part what your need.
+//Notes:
+//The $return_location optionally value is only 0 or 1, "0" means HEAD and "1" means TAIL. 
+function array_partitioner($input_array, $return_location, $drop_length){
+	$input_array;				//Target array.
+	$return_location;			//0->HEAD;1->TAIL.
+	$drop_length;				//The length of drop part. 
+
+	$inputArrayCount0 = count($input_array);
+	$loopLength = $inputArrayCount0 - $drop_length;
+	if($return_location == 0){
+		for($i=0;$i<$loopLength;$i++){
+			$outputArray[] = $input_array[$i];
+		}
+		return $outputArray; 
+	}elseif($return_location == 1){
+		for($i=$dropLength;$i<$inputArrayCount0;$i++){
+			$outputArray[] = $input_array[$i];
+		}
+		return $outputArray;
+	}else{
+		return 0;
+	}
+}
+
+//------  -[ table_name_form Function ]-  ------
+//This function return a formed table name.
+function table_name_form($PAGE_INFO_ARRAY, $PAGE_SWITCH, $semester_list_array, $semester_target_array){
+	$PAGE_INFO_ARRAY;			//
+	$PAGE_SWITCH;				//
+	$semester_list_array;		//
+	$semester_target_array;		//
+
+	$tableName = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
+	$tableName .= "_".$semester_list_array[$semester_target_array]['SEMESTER']."_".$semester_list_array[$semester_target_array]['PART'];
+	return $tableName;
+}
+
+//------  -[ array_add_key Function ]-  ------
+//Thsi function add an array keys-values pair.
+function array_add_key($target_array, $key_names, $key_values){
+	$target_array;				//
+	$key_names;					//
+	$key_values;				//
+
+	if(is_array($key_names)){
+		$keyNamesCount0 = count($key_names);
+		for($i=0;$i<$keyNamesCount0;$i++){
+			$target_array[$key_names[$i]] = $key_values[$i];
+		}
+	}elseif(is_string($key_names)){
+		$target_array[$key_names] = $key_values;
+	}
+	return $target_array;
+}
 //Fin.
 ?>
