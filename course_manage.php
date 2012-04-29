@@ -7,7 +7,7 @@
 *
 */
 
-
+//TODO: Upgrade the $TABLE_KEY_NAMES_ARRAY get method.[IMPORTANT]
 //Page number
 $PAGE_SWITCH = 3;
 //Semester page number

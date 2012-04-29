@@ -39,9 +39,9 @@ if($_POST['upload']){
 	$courseInsertInfoArray = import_data_form($courseImportInfoArray);
 	//ADD the COURSE data
 	$COURSE_TABLE_KEY_NAMES_ARRAY = array_picker($courseImportInfoArray, 0);//Pick the table key names from import array.
-	$COURSE_TABLE_KEY_NAMES_ARRAY = array_add_key($COURSE_TABLE_KEY_NAMES_ARRAY, "ID", "ID");//The imporrt data not include ID key, so add it.
+	$COURSE_TABLE_KEY_NAMES_ARRAY = array_key_insert($COURSE_TABLE_KEY_NAMES_ARRAY, "ID", "ID");//The imporrt data not include ID key, so add it.
 	$COURSE_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($COURSE_TABLE_KEY_TYPES_ARRAY, $COURSE_TABLE_KEY_NAMES_ARRAY, 0, "varchar(15)", 1);
-	$COURSE_TABLE_KEY_TYPES_ARRAY = array_add_key($COURSE_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
+	$COURSE_TABLE_KEY_TYPES_ARRAY = array_key_insert($COURSE_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
 	database_table_create($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $COURSE_TABLE_KEY_TYPES_ARRAY);
 	$tableKeyNumbersCount = count($courseInsertInfoArray);
 	for($i=0;$i<$tableKeyNumbersCount;$i++){

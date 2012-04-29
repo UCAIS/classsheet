@@ -10,11 +10,6 @@
 //TODO: Change the HTML form tag action
 //TODO: Add the user input filter
 
-
-
-
-
-
 /* These function not in use
 //------  -[ array_Counter Function ]-  ------
 //This function count the array and return the item numbers of array
@@ -146,7 +141,7 @@ function import_data_form($import_data_array){
 }
 
 //------  -[ array_picker Function ]-  ------
-//This fucntion return an import array's first line.
+//This fucntion return an import array's target line.
 function array_picker($import_data_array, $target_line = 0){
 	$import_data_array;			//
 	$target_line;				//
@@ -169,13 +164,21 @@ function array_partitioner($input_array, $return_location, $drop_length){
 	$inputArrayCount0 = count($input_array);
 	$loopLength = $inputArrayCount0 - $drop_length;
 	if($return_location == 0){
-		for($i=0;$i<$loopLength;$i++){
-			$outputArray[] = $input_array[$i];
+		$loopCounter = 0;
+		foreach($input_array as $value){
+			if($loopCounter<$loopLength){
+				$outputArray[$value] = $input_array[$value];
+			}
+			$loopCounter++;
 		}
 		return $outputArray; 
 	}elseif($return_location == 1){
-		for($i=$dropLength;$i<$inputArrayCount0;$i++){
-			$outputArray[] = $input_array[$i];
+		$loopCounter = $drop_length;
+		foreach($input_array as $value){
+			if($loopCounter<$inputArrayCount0){
+				$outputArray[$value] = $input_array[$value];
+			}
+			$loopCounter++;
 		}
 		return $outputArray;
 	}else{
@@ -196,9 +199,9 @@ function table_name_form($PAGE_INFO_ARRAY, $PAGE_SWITCH, $semester_list_array, $
 	return $tableName;
 }
 
-//------  -[ array_add_key Function ]-  ------
+//------  -[ array_key_insert Function ]-  ------
 //Thsi function add an array keys-values pair.
-function array_add_key($target_array, $key_names, $key_values){
+function array_key_insert($target_array, $key_names, $key_values){
 	$target_array;				//
 	$key_names;					//
 	$key_values;				//

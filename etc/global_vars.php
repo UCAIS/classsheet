@@ -8,7 +8,9 @@
 */
 
 
-//------ -[ Page  Informatin Vars ]-  ------
+//TODO:Rewrite the $PAGE_NUMBER into this page.
+//TODO:Replace all "THIS" method.[IMPORTANT]
+//------ -[ Global Page Informatin Vars ]-  ------
 //
 //[ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
 //

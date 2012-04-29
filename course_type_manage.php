@@ -8,10 +8,11 @@
 */
 //TODO: Fix table name get method.
 //TODO: Add the COURSE_TYPE and COURSE_TOTAL_PERIOD auto get method.[IMPORTANT]
-//Page number
+//Load page number
 $PAGE_SWITCH = 2;
-//Semester page number
 $SEMESTER_PAGE_SWITCH = 1;
+$COURSE_PAGE_SWITCH = 3;
+
 
 //Include files
 include('settings.php');
@@ -34,12 +35,38 @@ $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_
 $semesterTargetArray = $_POST['semesterList'];
 $courseTypeTargetArray = $_POST['courseTypeList'];
 
-//Query the $courseTypeListArray
-$TABLE_NAME = $PAGE_INFO_ARRAY[$PAGE_SWITCH]['TABLE_NAME'];
+//QUERY the $courseTypeListArray
+$TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];
 $THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];	
-$TABLE_NAME .= "_".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
 $courseTypeListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
+
+//QUERY the $courseTypeInfoArray from database.COURSE and insert it into database.
+if(!is_array($courseTypeListArray)){
+	//Get all course type and load in $courseTypeArray.
+	$COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+	print $COURSE_TABLE_NAME;
+	$COURSE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($COURSE_TABLE_NAME);
+	$courseTypeArray = $COURSE_TABLE_KEY_NAMES_ARRAY;
+	unset($courseTypeArray['COURSE_NAME'], $courseTypeArray['COURSE_CAPABILITY'], $courseTypeArray['COURSE_STYLE'], $courseTypeArray['ID']);//So that, Unset the key 'ID'
+	print $courseTypeArray['A'];
+	//Get all course course type total period and load in $courseTypeTotalPeriodArray
+	$courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
+	$courseListArrayCount0 = count($courseListArray);
+	foreach($courseTypeArray as $type){
+		print $type."<br />";
+		for($i=0;$i<$courseListArrayCount0;$i++){
+			$courseTypeTotalPeriodArray[$type] += $courseListArray[$i][$type];
+		}
+	}
+	//Form $courseTypeInfoArray
+	foreach($courseTypeArray as $type){
+		print $type."<br />";
+		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TYPE']] = "'".$type."'";
+		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TOTAL_PERIOD']] = $courseTypeTotalPeriodArray[$type]; 
+		table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeInfoArray);
+	}
+}
 
 //Load the target array ID number
 $targetId = $courseTypeListArray[$courseTypeTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
