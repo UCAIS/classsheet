@@ -54,21 +54,18 @@ function table_data_delete_by_id($table_name, $target_id){
 }
 
 //------  -[ table_data_add Function]-  ------
-//TODO: If "ID" at TAIL of the $table_key_names_array, function will miss a ")" in data form method.[BUG] 
 function table_data_add($table_name, $table_key_names_array, $table_data_input){
     $table_name;                //For lock on the table
     $table_key_names_array;     //For form the SQL query
     $table_data_input;          //For form the SQL query value
 
+    unset($table_key_names_array['ID'], $table_data_input['ID']);//Drop 'ID' key
     $table_key_names_array_count0 = count($table_key_names_array);
     $counter = 0;
     $sql_table_data_add = "INSERT INTO $table_name (";
     foreach($table_key_names_array as $value){
         //print $counter."<br />";
-        if($value == "ID"){
-            $counter ++;    //The syntax "continue" will miss the "$counter++", so add it again at here.
-            continue;
-        }elseif($counter<$table_key_names_array_count0-1){
+        if($counter<$table_key_names_array_count0-1){
             $sql_table_data_add .= $value.", ";
         }else{
             $sql_table_data_add .= $value.") VALUES (";
@@ -77,10 +74,7 @@ function table_data_add($table_name, $table_key_names_array, $table_data_input){
     }
     $counter = 0;
     foreach($table_key_names_array as $value){
-        if($value == "ID"){
-            $counter ++;
-            continue;
-        }elseif($counter<$table_key_names_array_count0-1){
+        if($counter<$table_key_names_array_count0-1){
             $sql_table_data_add .= $table_data_input[$value].", ";
         }else{
             $sql_table_data_add .= $table_data_input[$value].")";
