@@ -69,7 +69,7 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		course_info_table_output($courseListArray, $COURSE_TABLE_KEY_NAMES_ARRAY);
+		table_info_output($COURSE_TABLE_KEY_NAMES_ARRAY, $courseListArray);
 		files_upload_output();
 		div_end_output();
 		form_end_output();

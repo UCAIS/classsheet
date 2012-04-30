@@ -15,7 +15,7 @@ $DB_CONNECTION = mysql_connect($DB_HOST, $DB_USER, $DB_PASS);
 
 //Database connect status
 if($DB_CONNECTION){
-		print "Database connect success.<br />";
+		//print "Database connect success.<br />";
 }else{
 		print "Error:Databse connect fail.<br />";
 }
@@ -36,7 +36,7 @@ function database_create($database_name, $database_connection){
 			die("Error:System can not create database, please check settings.<br />");
 		}
 	}else{
-		print "Database ".$database_name." has been found.<br />";
+		//print "Database ".$database_name." has been found.<br />";
 	}
 }
 

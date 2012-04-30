@@ -88,7 +88,10 @@ weeks_schedule_manage			周课表管理
 	$SYSTEM_NAME		This system name,Show in html head tag.
 
 
+//BUG report
+[BUG][120428_01] 关于导入,导入数据乱码问题.
+[BUG][120429_01] database_query_function.php line 57.[FIX]
+[BUG][120429_02] import length too short at global_functions.php line 165.[FIX]
 
-
-
-[WARING] 关于导入,导入数据乱码问题.
+//Size counter
+120430_1321 119k

@@ -8,15 +8,13 @@
 *
 */
 
-//Include Files
-include('settings.php');
 
 //HTML Area Start
 ?>
 <html>
 
 <!-- 
-            Classsheet Version 0.9.1
+            Classsheet Version 0.9.2
             
             Copyright (C) 2011,2012    M.karminski 
             For more information please see documents.
@@ -87,8 +85,8 @@ include('settings.php');
     <a href="course_type_manage.php" <?php if($PAGE_SWITCH == 2){print ('class="actived"');}?>>[&nbsp;模块管理&nbsp;]</a>
     <a href="course_manage.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
     <a href="class_manage.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
-    <a href="course_type_manage.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
-    <a href="classFormSet.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;周课程表管理&nbsp;]</a>
+    <a href="course_period_manage.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
+    <a href="weeks_schedule_manage.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;周课程表管理&nbsp;]</a>
     <a href="courseForm.php" <?php if($PAGE_SWITCH == 7){print ('class="actived"');}?>>[&nbsp;总课程表管理&nbsp;]</a>
     <a href="classRoomSet.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室管理&nbsp;]</a>
     <a href="classRoomCourseForm.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;教室课程表管理&nbsp;]</a>

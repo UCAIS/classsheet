@@ -316,23 +316,23 @@ function class_info_change_output($class_list_array, $course_type_list_array, $t
     return 0;
 }
 
-//------  -[ course_info_table_output Function ]-  ------
-function course_info_table_output($course_list_array, $table_key_names_array){
-	$course_list_array;			//
+//------  -[ table_info_output Function ]-  ------
+function table_info_output($table_key_names_array, $target_list_array){
 	$table_key_names_array;		//
+	$target_list_array;			//
 
-	$course_list_array_count0 = count($course_list_array);
-	print '<p>[课程信息]</p>';
+	$target_list_array_count0 = count($target_list_array);
+	print '<p>[表信息]</p>';
 	print '<table align="center">';
 	print '<tr>';
 	foreach($table_key_names_array as $value){
 		print '<td>'.$value.'</td>';
 	}
 	print '</tr>';
-	for($i=0;$i<$course_list_array_count0;$i++){
+	for($i=0;$i<$target_list_array_count0;$i++){
 		print '<tr>';
 		foreach($table_key_names_array as $value){
-			print '<td>'.$course_list_array[$i][$value].'</td>';
+			print '<td>'.$target_list_array[$i][$value].'</td>';
 		}
 		print '</td>';	
 	}

@@ -25,6 +25,7 @@ $SETTINGS_PAGE_SWITCH				= 14;
 
 //TODO:Rewrite the $PAGE_NUMBER into this page.
 //TODO:Replace all "THIS" method.[IMPORTANT]
+//TODO:Chage the include files place.
 //------ -[ Global Page Informatin Vars ]-  ------
 //
 //[ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
@@ -97,10 +98,13 @@ $TABLE_KEY_TYPES_ARRAY[4]['CLASS_NAME']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[4]['CLASS_CAPABILITY']	= "int";
 //$TABLE_KEY_TYPES_ARRAY[4]['WEEK']				= "varchar(15)";	//The type "varchar(15)" is requird
 
-$PAGE_INFO_ARRAY[5]['PAGE_NAME'] 				= "Class Manage";
-$PAGE_INFO_ARRAY[5]['PAGE_NAME_IN_CHINESE'] 	= "班级管理";
-$PAGE_INFO_ARRAY[5]['FILE_NAME']				= "class_manage.php";
-$PAGE_INFO_ARRAY[5]['TABLE_NAME']				= "CLASS";
+$PAGE_INFO_ARRAY[5]['PAGE_NAME'] 				= "Course Period Manage";
+$PAGE_INFO_ARRAY[5]['PAGE_NAME_IN_CHINESE'] 	= "学时管理";
+$PAGE_INFO_ARRAY[5]['FILE_NAME']				= "course_period_manage.php";
+
+$PAGE_INFO_ARRAY[6]['PAGE_NAME'] 				= "Weeks Schedule Manage";
+$PAGE_INFO_ARRAY[6]['PAGE_NAME_IN_CHINESE'] 	= "周课表管理";
+$PAGE_INFO_ARRAY[6]['FILE_NAME']				= "weeks_schedule_manage.php";
 
 $PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
 $PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
