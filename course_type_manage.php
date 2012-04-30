@@ -41,32 +41,7 @@ $THIS_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$PAGE_SWITCH];
 $THIS_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$PAGE_SWITCH];	
 $courseTypeListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
-//QUERY the $courseTypeInfoArray from database.COURSE and insert it into database.
-if(!is_array($courseTypeListArray)){
-	//Get all course type and load in $courseTypeArray.
-	$COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
-	print $COURSE_TABLE_NAME;
-	$COURSE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($COURSE_TABLE_NAME);
-	$courseTypeArray = $COURSE_TABLE_KEY_NAMES_ARRAY;
-	unset($courseTypeArray['COURSE_NAME'], $courseTypeArray['COURSE_CAPABILITY'], $courseTypeArray['COURSE_STYLE'], $courseTypeArray['ID']);//So that, Unset the key 'ID'
-	print $courseTypeArray['A'];
-	//Get all course course type total period and load in $courseTypeTotalPeriodArray
-	$courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
-	$courseListArrayCount0 = count($courseListArray);
-	foreach($courseTypeArray as $type){
-		print $type."<br />";
-		for($i=0;$i<$courseListArrayCount0;$i++){
-			$courseTypeTotalPeriodArray[$type] += $courseListArray[$i][$type];
-		}
-	}
-	//Form $courseTypeInfoArray
-	foreach($courseTypeArray as $type){
-		print $type."<br />";
-		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TYPE']] = "'".$type."'";
-		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TOTAL_PERIOD']] = $courseTypeTotalPeriodArray[$type]; 
-		table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeInfoArray);
-	}
-}
+
 
 //Load the target array ID number
 $targetId = $courseTypeListArray[$courseTypeTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
@@ -75,6 +50,27 @@ $targetId = $courseTypeListArray[$courseTypeTargetArray][$THIS_TABLE_KEY_NAMES_A
 //CREATE the TABLE if not avaliable 
 if($semesterTargetArray != ""){
 	database_table_create($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $THIS_TABLE_KEY_TYPES_ARRAY);
+}
+//QUERY the $courseTypeInfoArray from database.COURSE and ADD it into database.
+if(!is_array($courseTypeListArray)){
+	//Get all course type and load in $courseTypeArray.
+	$COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+	$COURSE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($COURSE_TABLE_NAME);
+	$courseTypeArray = $COURSE_TABLE_KEY_NAMES_ARRAY;
+	unset($courseTypeArray['COURSE_NAME'], $courseTypeArray['COURSE_CAPABILITY'], $courseTypeArray['COURSE_STYLE'], $courseTypeArray['ID']);
+	//Get all course course type total period and load in $courseTypeTotalPeriodArray and ADD into database.COURSE_TYPE.
+	$courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
+	$courseListArrayCount0 = count($courseListArray);
+	foreach($courseTypeArray as $type){
+		//LOAD into an array
+		for($i=0;$i<$courseListArrayCount0;$i++){
+			$courseTypeTotalPeriodArray[$type] += $courseListArray[$i][$type];
+		}
+		//ADD into adtabase
+		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TYPE']] = "'".$type."'";
+		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TOTAL_PERIOD']] = $courseTypeTotalPeriodArray[$type]; 
+		table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeInfoArray);
+	}
 }
 //ADD the information to database if POST 
 if($_POST["courseTypeInfoAdd"]){

@@ -31,7 +31,39 @@ function array_Counter($inputArray, $dimension){
 
 }
 
+//------  -[ array_partitioner Function ]-  ------
+//This function cut the array and return the part what your need.
+//Notes:
+//The $return_location optionally value is only 0 or 1, "0" means HEAD and "1" means TAIL. 
+function array_partitioner($input_array, $return_location, $drop_length){
+	$input_array;				//Target array.
+	$return_location;			//0->HEAD;1->TAIL.
+	$drop_length;				//The length of drop part. 
 
+	$inputArrayCount0 = count($input_array);
+	$loopLength = $inputArrayCount0 - $drop_length;
+	if($return_location == 0){
+		$loopCounter = 0;
+		foreach($input_array as $value){
+			if($loopCounter<$loopLength){
+				$outputArray[$value] = $input_array[$value];
+			}
+			$loopCounter++;
+		}
+		return $outputArray; 
+	}elseif($return_location == 1){
+		$loopCounter = $drop_length;
+		foreach($input_array as $value){
+			if($loopCounter<$inputArrayCount0){
+				$outputArray[$value] = $input_array[$value];
+			}
+			$loopCounter++;
+		}
+		return $outputArray;
+	}else{
+		return 0;
+	}
+}
 
 //------  -[ post_auto_fill Function ]-  ------
 function post_auto_fill($post_value){
@@ -130,7 +162,7 @@ function import_data_form($import_data_array){
 	$import_data_array;			//Target array
 
 	$loopCounter = 0;
-	$import_data_array_count1 = count($import_data_array[0]);
+	$import_data_array_count1 = count($import_data_array);
 	foreach($import_data_array[0] as $value){
 		for($i=0;$i<$import_data_array_count1;$i++){
 			$formedArray[$i][$value] = "'".$import_data_array[$i+1][$loopCounter]."'";
@@ -150,40 +182,6 @@ function array_picker($import_data_array, $target_line = 0){
 		$formedArray[] = $value; 
 	}
 	return $formedArray;
-}
-
-//------  -[ array_partitioner Function ]-  ------
-//This function cut the array and return the part what your need.
-//Notes:
-//The $return_location optionally value is only 0 or 1, "0" means HEAD and "1" means TAIL. 
-function array_partitioner($input_array, $return_location, $drop_length){
-	$input_array;				//Target array.
-	$return_location;			//0->HEAD;1->TAIL.
-	$drop_length;				//The length of drop part. 
-
-	$inputArrayCount0 = count($input_array);
-	$loopLength = $inputArrayCount0 - $drop_length;
-	if($return_location == 0){
-		$loopCounter = 0;
-		foreach($input_array as $value){
-			if($loopCounter<$loopLength){
-				$outputArray[$value] = $input_array[$value];
-			}
-			$loopCounter++;
-		}
-		return $outputArray; 
-	}elseif($return_location == 1){
-		$loopCounter = $drop_length;
-		foreach($input_array as $value){
-			if($loopCounter<$inputArrayCount0){
-				$outputArray[$value] = $input_array[$value];
-			}
-			$loopCounter++;
-		}
-		return $outputArray;
-	}else{
-		return 0;
-	}
 }
 
 //------  -[ table_name_form Function ]-  ------

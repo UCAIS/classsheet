@@ -7,6 +7,21 @@
 *
 */
 
+//------  -[ Global Page SWITCH Vars ]-  ------
+//All these vars are used in switch page and array.
+$SEMESTER_PAGE_SWITCH 				= 1;
+$COURSE_TYPE_PAGE_SWITCH			= 2;
+$COURSE_PAGE_SWITCH 				= 3;
+$CLASS_PAGE_SWITCH					= 4;
+$COURSE_PERIOD_PAGE_SWITCH			= 5;
+$WEEKS_SCHEDULE_PAGE_SWITCH 		= 6;
+$TOTAL_SCHEDULE_PAGE_SWITCH			= 7;
+$CLASSROOM_PAGE_SWITCH				= 8;
+$CLASSROOM_SCHEDULE_PAGE_SWITCH		= 9;
+
+$COURSE_IMPORT_PAGE_SWITCH			= 12;
+$CLASS_IMPORT_PAGE_SWITCH			= 13;
+$SETTINGS_PAGE_SWITCH				= 14;
 
 //TODO:Rewrite the $PAGE_NUMBER into this page.
 //TODO:Replace all "THIS" method.[IMPORTANT]
@@ -91,6 +106,9 @@ $PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
 $PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
 $PAGE_INFO_ARRAY[12]['FILE_NAME']				= "course_import.php";
 
+$PAGE_INFO_ARRAY[13]['PAGE_NAME'] 				= "Class and Weeks Schedule Import";
+$PAGE_INFO_ARRAY[13]['PAGE_NAME_IN_CHINESE'] 	= "班级及周课表导入";
+$PAGE_INFO_ARRAY[13]['FILE_NAME']				= "class_import.php";
 
 //Fin.
 ?>
