@@ -109,6 +109,15 @@ $PAGE_INFO_ARRAY[6]['FILE_NAME']				= "weeks_schedule_manage.php";
 $PAGE_INFO_ARRAY[7]['PAGE_NAME'] 				= "Total Schedule Manage";
 $PAGE_INFO_ARRAY[7]['PAGE_NAME_IN_CHINESE'] 	= "总课表管理";
 $PAGE_INFO_ARRAY[7]['FILE_NAME']				= "total_schedule_manage.php";
+$PAGE_INFO_ARRAY[7]['TABLE_NAME']				= "TOTAL_SCHEDULE";
+$TABLE_KEY_NAMES_ARRAY[7]['ID']					= "ID";
+$TABLE_KEY_NAMES_ARRAY[7]['SEMESTER_WEEK']		= "SEMESTER_WEEK";
+$TABLE_KEY_NAMES_ARRAY[7]['WEEK']				= "WEEK";
+//$TABLE_KEY_NAMES_ARRAY[7]['COURSE_0_0']		= "COURSE_0_0";
+$TABLE_KEY_TYPES_ARRAY[7]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
+$TABLE_KEY_TYPES_ARRAY[7]['SEMESTER_WEEK']		= "int";
+$TABLE_KEY_TYPES_ARRAY[7]['WEEK']				= "int";
+//$TABLE_KEY_TYPES_ARRAY[7]['COURSE_0_0']		= "varchar(15)";
 
 $PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
 $PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";

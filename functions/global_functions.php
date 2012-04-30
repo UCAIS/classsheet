@@ -79,13 +79,16 @@ function post_auto_fill($post_value){
 
 //------  -[ table_key_names_auto_fill Function ]-  ------
 //This function auto fill table key names by input char or char array.
-function table_key_names_auto_fill($target_array, $filled_keywords, $filled_length, $filled_position = 1){
+function table_key_names_auto_fill($target_array, $filled_keywords, $filled_length = 0, $filled_position = 1){
 	$target_array;			//Target array to fill
 	$filled_keywords;		//Define chars to fill array keys and array values 
 	$filled_length;			//Item numbers to fill
 	$filled_position;		//0,Head 1,Tail[DEFAULT]
 
 	$arrayKeyNamesFormed;	//To storage the formed array key names
+	if($filled_length == 0){
+		$filled_length = count($filled_keywords);
+	}
 	if(is_array($filled_keywords)){
 		for($i=0;$i<$filled_length;$i++){
 			$arrayKeyNamesFormed = $filled_keywords[$i];
@@ -198,7 +201,7 @@ function table_name_form($PAGE_INFO_ARRAY, $PAGE_SWITCH, $semester_list_array, $
 }
 
 //------  -[ array_key_insert Function ]-  ------
-//Thsi function add an array keys-values pair.
+//This function add an array keys-values pair.
 function array_key_insert($target_array, $key_names, $key_values){
 	$target_array;				//
 	$key_names;					//
@@ -214,6 +217,29 @@ function array_key_insert($target_array, $key_names, $key_values){
 	}
 	return $target_array;
 }
+
+////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  ////
+
+//------  -[ train_course_array_form FUnction ]-  ------
+//This function pickup "train course(实训课程)" into an array, and form table key names.
+function train_course_array_form($course_list_array){
+	$course_list_array;			//Data source
+
+	$courseListArrayCount0 = count($course_list_array);
+	$courseCounter = 0;
+	for($i=0;$i<$courseListArrayCount0;$i++){
+		if($course_list_array[$i]['COURSE_STYLE'] == 1){
+			$trainCourseArray[$courseCounter]['COURSE_NAME'] = $course_list_array[$i]['COURSE_NAME'];
+			$trainCourseArray[$courseCounter]['KEY_NAME'] = "COURSE_".$courseCounter;
+			$courseCounter ++;
+		}
+	}
+	return $trainCourseArray;
+}
+
+
+////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////
+
 
 
 //Fin.
