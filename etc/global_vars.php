@@ -106,6 +106,10 @@ $PAGE_INFO_ARRAY[6]['PAGE_NAME'] 				= "Weeks Schedule Manage";
 $PAGE_INFO_ARRAY[6]['PAGE_NAME_IN_CHINESE'] 	= "周课表管理";
 $PAGE_INFO_ARRAY[6]['FILE_NAME']				= "weeks_schedule_manage.php";
 
+$PAGE_INFO_ARRAY[7]['PAGE_NAME'] 				= "Total Schedule Manage";
+$PAGE_INFO_ARRAY[7]['PAGE_NAME_IN_CHINESE'] 	= "总课表管理";
+$PAGE_INFO_ARRAY[7]['FILE_NAME']				= "total_schedule_manage.php";
+
 $PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
 $PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
 $PAGE_INFO_ARRAY[12]['FILE_NAME']				= "course_import.php";
