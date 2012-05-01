@@ -49,11 +49,10 @@ if($_POST['upload']){
 	$CLASS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($CLASS_TABLE_KEY_TYPES_ARRAY, $CLASS_TABLE_KEY_NAMES_ARRAY, 0, "varchar(15)", 1);
 	$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
 		//COURSE_LEFT TABLE structure create
-		$trainCourseArray = train_course_array_form($courseListArray);
-		$trainCourseArrayCount0 = count($trainCourseArray);
-		for($i=0;$i<$trainCourseArrayCount0;$i++){
-			$CLASS_TABLE_KEY_NAMES_ARRAY = array_key_insert($CLASS_TABLE_KEY_NAMES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $trainCourseArray[$i]['COURSE_KEY_NAME']);
-			$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], "varchar(15)");
+		$courseListArrayCount0 = count($courseListArray);
+		for($i=0;$i<$courseListArrayCount0;$i++){
+			$CLASS_TABLE_KEY_NAMES_ARRAY = array_key_insert($CLASS_TABLE_KEY_NAMES_ARRAY, $courseListArray[$i]['COURSE_KEY_NAME'], $courseListArray[$i]['COURSE_KEY_NAME']);
+			$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, $courseListArray[$i]['COURSE_KEY_NAME'], "varchar(15)");
 		}
 	database_table_create($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $CLASS_TABLE_KEY_TYPES_ARRAY);
 	$tableKeyNumbersCount = count($classInsertInfoArray);	

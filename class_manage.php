@@ -55,11 +55,10 @@ $weekCount = $semesterListArray[$semesterTargetArray]['WEEK_COUNT'];
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($CLASS_TABLE_KEY_NAMES_ARRAY, "WEEK", $weekCount, 1);
 $CLASS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($CLASS_TABLE_KEY_TYPES_ARRAY, "WEEK", $weekCount, "varchar(15)", 1);
 	//COURSE_LEFT TABLE structure create
-	$trainCourseArray = train_course_array_form($courseListArray);
-	$trainCourseArrayCount0 = count($trainCourseArray);
-	for($i=0;$i<$trainCourseArrayCount0;$i++){
-		$CLASS_TABLE_KEY_NAMES_ARRAY = array_key_insert($CLASS_TABLE_KEY_NAMES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $trainCourseArray[$i]['COURSE_KEY_NAME']);
-		$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], "varchar(15)");
+	$courseListArrayCount0 = count($courseListArray);
+	for($i=0;$i<$courseListArrayCount0;$i++){
+		$CLASS_TABLE_KEY_NAMES_ARRAY = array_key_insert($CLASS_TABLE_KEY_NAMES_ARRAY, $courseListArray[$i]['COURSE_KEY_NAME'], $courseListArray[$i]['COURSE_KEY_NAME']);
+		$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, $courseListArray[$i]['COURSE_KEY_NAME'], "varchar(15)");
 	}
 
 //QUERY $classListArray	
@@ -82,7 +81,7 @@ if($_POST["classInfoAdd"]){
 	unset($value);
 		//COURSE_LEFT auto fill method
 		$courseListArrayCount0 = count($courseListArray);
-		$classType = $_POST[$CLASS_TABLE_KEY_NAMES_ARRAY['CLASS_TYPE']];
+		$classType = $_POST[$CLASS_TABLE_KEY_NAMES_ARRAY['CLASS_TYPE']];//TODO: replace this to data_picker();
 		for($i=0;$i<$courseListArrayCount0;$i++){
 			$classInfoArray[$courseListArray[$i]['COURSE_KEY_NAME']] = $courseListArray[$i][$classType];
 		}

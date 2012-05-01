@@ -36,30 +36,35 @@ $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 
 
-//CREATE the TOTAL_SCHEDULE_TABLE and load $trainCourseArray
-//TODO: add "if" phrase.
-//
-//Example:
-//$trainCourseArray[0]['COURSE_NAME'] 		= "概论课";
-//$trainCourseArray[0]['COURSE_KEY_NAME']	= "COURSE_0"; 
-
-	$TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
-	//Form the $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY and $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY
-	$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
-	$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
-	//Load $trainCourseArray
-	$trainCourseArray = train_course_array_form($courseListArray);
-	$trainCourseArrayCount0 = count($trainCourseArray);
-	for($i=0;$i<$trainCourseArrayCount0;$i++){
-		$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $COURSE_IN_A_DAY, 1);
-		$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $COURSE_IN_A_DAY, "varchar(15)", 1);
-	}
+//CREATE the TOTAL_SCHEDULE_TABLE
+//TODO: add "if" phrase.	
+$TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+//Form the $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY and $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY
+$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
+$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
+$courseListArrayCount0 = count($courseListArray);
+for($i=0;$i<$courseListArrayCount0;$i++){
+	$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $courseListArray[$i]['COURSE_KEY_NAME'], $COURSE_IN_A_DAY, 1);
+	$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY, $courseListArray[$i]['COURSE_KEY_NAME'], $COURSE_IN_A_DAY, "varchar(15)", 1);
+}
 database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
 
+//// //// //// //// //// //// //// //// //// //// //// //// - A -
+
+$SEMESTER_WEEK_SET = 0;//First semester week
+	
+//Load $appointedClassArray which has been appointed the week of semester
+//
+//Example:
+//$appointedClassArray[0]['CLASS_NAME'] 	= "机设09-1";
+//$appointedClassArray[0]['CLASS_TYPE'] 	= "A";
+//$appointedClassArray[0]['COURSE_0'] 		= "2";
+
+	$appointedClassArray = class_array_appoint($classListArray, $courseListArray, $SEMESTER_WEEK_SET);
 
 //Create basic storage array [$totalScheduleArray]
 //
-//The course front info list:
+//The course title info list:
 //TI.Training		.I Introduction		[概论课]
 //T0.Training		.0 Theory			[理论课]
 //T1.Training		.1 First 			[实训]
@@ -74,18 +79,19 @@ database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAME
 //$totalScheduleArray[0]['COURSE_0_1'] 		= "T0.电信08-1";
 //$totalScheduleArray[0]['COURSE_0_2'] 		= "T1.电信08-1";
 //$totalScheduleArray[0]['COURSE_0_3'] 		= "TF.电信08-1";
-
-$SEMESTER_WEEK_SET = 0;//First semester week
 	
-//Load $appointedClassArray which has been appointed the week of semester
-//
-//Example:
-//$appointedClassArray[0]['CLASS_NAME'] 	= "机设09-1";
-//$appointedClassArray[0]['CLASS_TYPE'] 	= "A";
-$appointedClassArray = class_array_appoint($classListArray, $SEMESTER_WEEK_SET);
+	$totalScheduleArray;
 
-//Arranged by COURSE
+//Arranged by CLASS
+	$courseListArray;			//Include all course info
+	$courseListArrayCount0;
+	$appointedClassArray;		//Include class info in a semester week
+	$appointedClassArrayCount0 = count($appointedClassArray);
+	$totalScheduleArray;		//Storage array
 
+for($courseCounter=0;$courseCounter<$appointedClassArrayCount0;$courseCounter++){
+
+}
 
 
 
