@@ -31,6 +31,11 @@ $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
 
+//QUERY the $courseListArray
+$COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+$COURSE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($COURSE_TABLE_NAME);
+$courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
+
 //Load $CLASS_TABLE_NAME
 $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 
@@ -43,10 +48,23 @@ if($_POST['upload']){
 	$CLASS_TABLE_KEY_NAMES_ARRAY = array_key_insert($CLASS_TABLE_KEY_NAMES_ARRAY, "ID", "ID");//The imporrt data not include ID key, so add it.
 	$CLASS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($CLASS_TABLE_KEY_TYPES_ARRAY, $CLASS_TABLE_KEY_NAMES_ARRAY, 0, "varchar(15)", 1);
 	$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
+		//COURSE_LEFT TABLE structure create
+		$trainCourseArray = train_course_array_form($courseListArray);
+		$trainCourseArrayCount0 = count($trainCourseArray);
+		for($i=0;$i<$trainCourseArrayCount0;$i++){
+			$CLASS_TABLE_KEY_NAMES_ARRAY = array_key_insert($CLASS_TABLE_KEY_NAMES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $trainCourseArray[$i]['COURSE_KEY_NAME']);
+			$CLASS_TABLE_KEY_TYPES_ARRAY = array_key_insert($CLASS_TABLE_KEY_TYPES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], "varchar(15)");
+		}
 	database_table_create($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $CLASS_TABLE_KEY_TYPES_ARRAY);
-	$tableKeyNumbersCount = count($classInsertInfoArray);
-	print $tableKeyNumbersCount;
+	$tableKeyNumbersCount = count($classInsertInfoArray);	
 	for($i=0;$i<$tableKeyNumbersCount;$i++){
+			//COURSE_LEFT auto fill method
+			$courseListArrayCount0= count($courseListArray);
+			$classType = $classInsertInfoArray[$i]['CLASS_TYPE'];
+			$classType = data_picker("'", $classType);
+			for($j=0;$j<$courseListArrayCount0;$j++){
+				$classInsertInfoArray[$i][$courseListArray[$j]['COURSE_KEY_NAME']] = "'".$courseListArray[$j][$classType]."'";
+			}
 		table_data_add($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $classInsertInfoArray[$i]);
 	}
 }
@@ -72,7 +90,7 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		//class_info_table_output($courseListArray, $CLASS_TABLE_KEY_NAMES_ARRAY);
+		table_info_output($classListArray, $CLASS_TABLE_KEY_NAMES_ARRAY);
 		files_upload_output();
 		div_end_output();
 		form_end_output();

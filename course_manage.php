@@ -56,6 +56,7 @@ $THIS_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($THIS_TABLE_KEY_NAMES_AR
 $THIS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($THIS_TABLE_KEY_TYPES_ARRAY, $courseTypeNamesArray, $courseTypeCount0, "varchar(15)");
 $courseListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 
+
 //Load the target array ID number
 $targetId = $courseListArray[$courseTargetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
 
@@ -71,8 +72,15 @@ if($_POST["courseInfoAdd"]){
 		$courseInfoArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
 	}
 	unset($value);
+	//COURSE_KEY_NAME add method.
+	//TODO: Create this function
+	$courseListArrayCount0 = count($courseListArray);// This function for COURSE_KEY_NAME add method.
+	$courseInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_KEY_NAME']] = "'COURSE_".$courseListArrayCount0."'";
 	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseInfoArray);
 }
+
+
+
 //DELETE the information to database if POST
 if($_POST["courseListDelete"]){
 	table_data_delete_by_id($TABLE_NAME, $targetId);

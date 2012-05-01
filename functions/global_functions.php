@@ -218,24 +218,47 @@ function array_key_insert($target_array, $key_names, $key_values){
 	return $target_array;
 }
 
+//------  -[ data_picker Function ]-  ------
+//This function pick data from a mixed data
+function data_picker($syntax, $data){
+	$outputData = explode($syntax, $data);
+	return $outputData[1];
+}
+
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  ////
 
-//------  -[ train_course_array_form FUnction ]-  ------
+//------  -[ train_course_array_form Function ]-  ------
 //This function pickup "train course(实训课程)" into an array, and form table key names.
 function train_course_array_form($course_list_array){
 	$course_list_array;			//Data source
 
 	$courseListArrayCount0 = count($course_list_array);
-	$courseCounter = 0;
 	for($i=0;$i<$courseListArrayCount0;$i++){
-		if($course_list_array[$i]['COURSE_STYLE'] == 1){
-			$trainCourseArray[$courseCounter]['COURSE_NAME'] = $course_list_array[$i]['COURSE_NAME'];
-			$trainCourseArray[$courseCounter]['KEY_NAME'] = "COURSE_".$courseCounter;
-			$courseCounter ++;
-		}
+			$trainCourseArray[$i]['COURSE_NAME'] = $course_list_array[$i]['COURSE_NAME'];
+			$trainCourseArray[$i]['COURSE_KEY_NAME'] = $course_list_array[$i]['COURSE_KEY_NAME'];
 	}
 	return $trainCourseArray;
 }
+
+//------  -[ class_array_appoint Function ]-  ------
+//This function load queue of CLASS_NAME & CLASS_TYPE in $appointedClassArray which has been appointed the week of semester
+function class_array_appoint($class_list_array, $semester_week_set){
+	$class_list_array;			//
+	$semester_week_set;			//
+
+	$classListArrayCount0 = count($class_list_array);
+	$weekName = "WEEK_".$semester_week_set;
+	$loopCounter = 0;
+	for($i=0;$i<$classListArrayCount0;$i++){
+		if($class_list_array[$i][$weekName] == 1){
+			$appointedClassArray[$loopCounter]['CLASS_NAME'] = $class_list_array[$i]['CLASS_NAME'];
+			$appointedClassArray[$loopCounter]['CLASS_TYPE'] = $class_list_array[$i]['CLASS_TYPE'];
+			$loopCounter ++;
+		}
+	}
+	return $appointedClassArray;
+}
+
 
 
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////

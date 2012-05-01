@@ -326,13 +326,13 @@ function table_info_output($table_key_names_array, $target_list_array){
 	print '<table align="center">';
 	print '<tr>';
 	foreach($table_key_names_array as $value){
-		print '<td>'.$value.'</td>';
+		print '<td class="borderedTd">'.$value.'</td>';
 	}
 	print '</tr>';
 	for($i=0;$i<$target_list_array_count0;$i++){
 		print '<tr>';
 		foreach($table_key_names_array as $value){
-			print '<td>'.$target_list_array[$i][$value].'</td>';
+			print '<td class="borderedTd">'.$target_list_array[$i][$value].'</td>';
 		}
 		print '</td>';	
 	}

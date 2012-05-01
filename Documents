@@ -92,6 +92,7 @@ weeks_schedule_manage			周课表管理
 [BUG][120428_01] 关于导入,导入数据乱码问题.
 [BUG][120429_01] database_query_function.php line 57.[FIX]
 [BUG][120429_02] import length too short at global_functions.php line 165.[FIX]
+[BUG][120501_01] there have a title line at import .csv file, the database record will add a blank line. course_import.php line 42.[FIX]
 
 //Size counter
 120430_1321 119k

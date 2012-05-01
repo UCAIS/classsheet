@@ -36,28 +36,55 @@ $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 
 
-//CREATE the TOTAL_SCHEDULE_TABLE
-$TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
-	//Form the $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY
+//CREATE the TOTAL_SCHEDULE_TABLE and load $trainCourseArray
+//TODO: add "if" phrase.
+//
+//Example:
+//$trainCourseArray[0]['COURSE_NAME'] 		= "概论课";
+//$trainCourseArray[0]['COURSE_KEY_NAME']	= "COURSE_0"; 
+
+	$TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+	//Form the $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY and $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY
 	$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
+	$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
+	//Load $trainCourseArray
 	$trainCourseArray = train_course_array_form($courseListArray);
 	$trainCourseArrayCount0 = count($trainCourseArray);
 	for($i=0;$i<$trainCourseArrayCount0;$i++){
-		$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $trainCourseArray[$i]['KEY_NAME'], 4, 1);
+		$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $COURSE_IN_A_DAY, 1);
+		$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY, $trainCourseArray[$i]['COURSE_KEY_NAME'], $COURSE_IN_A_DAY, "varchar(15)", 1);
 	}
-	//Form the $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY
-	$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$TOTAL_SCHEDULE_PAGE_SWITCH];
-	
-
-
-
-	
-
-
-
-//$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = ;
-//$TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY = ;
 database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
+
+
+//Create basic storage array [$totalScheduleArray]
+//
+//The course front info list:
+//TI.Training		.I Introduction		[概论课]
+//T0.Training		.0 Theory			[理论课]
+//T1.Training		.1 First 			[实训]
+//TF.Training		.F Finish 			[完结]
+//D1.Design			.1 First			[工艺设计]
+//E .Examination	.					[考试]
+//
+//Example:
+//$totalScheduleArray[0]['SEMESTER_WEEK'] 	= 1;
+//$totalScheduleArray[0]['WEEK'] 			= 1;
+//$totalScheduleArray[0]['COURSE_0_0'] 		= "TI.电信08-1";
+//$totalScheduleArray[0]['COURSE_0_1'] 		= "T0.电信08-1";
+//$totalScheduleArray[0]['COURSE_0_2'] 		= "T1.电信08-1";
+//$totalScheduleArray[0]['COURSE_0_3'] 		= "TF.电信08-1";
+
+$SEMESTER_WEEK_SET = 0;//First semester week
+	
+//Load $appointedClassArray which has been appointed the week of semester
+//
+//Example:
+//$appointedClassArray[0]['CLASS_NAME'] 	= "机设09-1";
+//$appointedClassArray[0]['CLASS_TYPE'] 	= "A";
+$appointedClassArray = class_array_appoint($classListArray, $SEMESTER_WEEK_SET);
+
+//Arranged by COURSE
 
 
 
@@ -76,7 +103,7 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		table_info_output($COURSE_TABLE_KEY_NAMES_ARRAY, $courseListArray);
+		table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);
 		div_end_output();
 		form_end_output();
 	div_end_output();

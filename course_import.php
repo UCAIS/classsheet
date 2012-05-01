@@ -37,11 +37,18 @@ $COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $sem
 if($_POST['upload']){
 	$courseImportInfoArray = uploaded_file_data_load();
 	$courseInsertInfoArray = import_data_form($courseImportInfoArray);
+	//COURSE_KEY_NAME info add method.
+	$courseInsertInfoArrayCount0 = count($courseInsertInfoArray);
+	for($i=0;$i<$courseInsertInfoArrayCount0-1;$i++){ //[BUG][120501_1] Import file have a title line, so that "-1".
+		$courseInsertInfoArray[$i]['COURSE_KEY_NAME'] = "'COURSE_".$i."'";
+	}
 	//ADD the COURSE data
 	$COURSE_TABLE_KEY_NAMES_ARRAY = array_picker($courseImportInfoArray, 0);//Pick the table key names from import array.
-	$COURSE_TABLE_KEY_NAMES_ARRAY = array_key_insert($COURSE_TABLE_KEY_NAMES_ARRAY, "ID", "ID");//The imporrt data not include ID key, so add it.
+	$COURSE_TABLE_KEY_NAMES_ARRAY = array_key_insert($COURSE_TABLE_KEY_NAMES_ARRAY, "ID", "ID");//The import data not include ID key, so add it.
+	$COURSE_TABLE_KEY_NAMES_ARRAY = array_key_insert($COURSE_TABLE_KEY_NAMES_ARRAY, "COURSE_KEY_NAME", "COURSE_KEY_NAME");//The import data not include COURSE_KEY_NAME key, so add it.
 	$COURSE_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($COURSE_TABLE_KEY_TYPES_ARRAY, $COURSE_TABLE_KEY_NAMES_ARRAY, 0, "varchar(15)", 1);
 	$COURSE_TABLE_KEY_TYPES_ARRAY = array_key_insert($COURSE_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
+	$COURSE_TABLE_KEY_TYPES_ARRAY = array_key_insert($COURSE_TABLE_KEY_TYPES_ARRAY, "COURSE_KEY_NAME", "varchar(15)");
 	database_table_create($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $COURSE_TABLE_KEY_TYPES_ARRAY);
 	$tableKeyNumbersCount = count($courseInsertInfoArray);
 	for($i=0;$i<$tableKeyNumbersCount;$i++){

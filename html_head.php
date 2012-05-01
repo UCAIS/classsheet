@@ -84,8 +84,8 @@
     <a href="semester_manage.php" <?php if($PAGE_SWITCH == 1){print ('class="actived"');}?>>[&nbsp;学期管理&nbsp;]</a>
     <a href="course_type_manage.php" <?php if($PAGE_SWITCH == 2){print ('class="actived"');}?>>[&nbsp;模块管理&nbsp;]</a>
     <a href="course_manage.php" <?php if($PAGE_SWITCH == 3){print ('class="actived"');}?>>[&nbsp;课程管理&nbsp;]</a>
-    <a href="class_manage.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
     <a href="course_period_manage.php" <?php if($PAGE_SWITCH == 5){print ('class="actived"');}?>>[&nbsp;学时管理&nbsp;]</a>
+    <a href="class_manage.php" <?php if($PAGE_SWITCH == 4){print ('class="actived"');}?>>[&nbsp;班级管理&nbsp;]</a>
     <a href="weeks_schedule_manage.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;周课表管理&nbsp;]</a>
     <a href="total_schedule_manage.php" <?php if($PAGE_SWITCH == 7){print ('class="actived"');}?>>[&nbsp;总课表管理&nbsp;]</a>
     <a href="classRoomSet.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室管理&nbsp;]</a>

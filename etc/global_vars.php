@@ -26,6 +26,11 @@ $SETTINGS_PAGE_SWITCH				= 14;
 //TODO:Rewrite the $PAGE_NUMBER into this page.
 //TODO:Replace all "THIS" method.[IMPORTANT]
 //TODO:Chage the include files place.
+
+//------  -[ Course in a Day ]-  ------
+//How much course in a day.
+$COURSE_IN_A_DAY = 4;
+
 //------ -[ Global Page Informatin Vars ]-  ------
 //
 //[ WARING:All VALUES ARE USED IN GLOBAL, CHANGE IT CAREFULLY ]
@@ -33,8 +38,6 @@ $SETTINGS_PAGE_SWITCH				= 14;
 //$PAGE_INFO_ARRAY			For global page infromations
 //$TABLE_KEY_NAMES_ARRAY 	For database table key names and vars key names
 //$TABLE_KEY_TYPES_ARRAY 	For database table key types, was only used in table creating 
-
-GLOBAL $PAGE_INFO_ARRAY, $TABLE_KEY_NAMES_ARRAY, $TABLE_KEY_TYPES_ARRAY;
 
 $PAGE_INFO_ARRAY[0]['PAGE_NAME'] 				= "index";				
 $PAGE_INFO_ARRAY[0]['PAGE_NAME_IN_CHINESE'] 	= "首页";		
@@ -76,10 +79,12 @@ $PAGE_INFO_ARRAY[3]['FILE_NAME']				= "course_manage.php";
 $PAGE_INFO_ARRAY[3]['TABLE_NAME']				= "COURSE";
 $TABLE_KEY_NAMES_ARRAY[3]['ID']					= "ID";
 $TABLE_KEY_NAMES_ARRAY[3]['COURSE_NAME']		= "COURSE_NAME";
+$TABLE_KEY_NAMES_ARRAY[3]['COURSE_KEY_NAME']	= "COURSE_KEY_NAME";
 $TABLE_KEY_NAMES_ARRAY[3]['COURSE_CAPABILITY']  = "COURSE_CAPABILITY";
 $TABLE_KEY_NAMES_ARRAY[3]['COURSE_STYLE']		= "COURSE_STYLE";
 $TABLE_KEY_TYPES_ARRAY[3]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
 $TABLE_KEY_TYPES_ARRAY[3]['COURSE_NAME']		= "varchar(15)";
+$TABLE_KEY_TYPES_ARRAY[3]['COURSE_KEY_NAME']	= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[3]['COURSE_CAPABILITY']	= "int";
 $TABLE_KEY_TYPES_ARRAY[3]['COURSE_STYLE']		= "varchar(15)";
 
@@ -92,11 +97,13 @@ $TABLE_KEY_NAMES_ARRAY[4]['CLASS_TYPE']			= "CLASS_TYPE";
 $TABLE_KEY_NAMES_ARRAY[4]['CLASS_NAME']			= "CLASS_NAME";
 $TABLE_KEY_NAMES_ARRAY[4]['CLASS_CAPABILITY']	= "CLASS_CAPABILITY";
 //$TABLE_KEY_NAMES_ARRAY[4]['WEEK']				= "WEEK_";
+//...
 $TABLE_KEY_TYPES_ARRAY[4]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
 $TABLE_KEY_TYPES_ARRAY[4]['CLASS_TYPE']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[4]['CLASS_NAME']			= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[4]['CLASS_CAPABILITY']	= "int";
 //$TABLE_KEY_TYPES_ARRAY[4]['WEEK']				= "varchar(15)";	//The type "varchar(15)" is requird
+//...
 
 $PAGE_INFO_ARRAY[5]['PAGE_NAME'] 				= "Course Period Manage";
 $PAGE_INFO_ARRAY[5]['PAGE_NAME_IN_CHINESE'] 	= "学时管理";
@@ -114,10 +121,12 @@ $TABLE_KEY_NAMES_ARRAY[7]['ID']					= "ID";
 $TABLE_KEY_NAMES_ARRAY[7]['SEMESTER_WEEK']		= "SEMESTER_WEEK";
 $TABLE_KEY_NAMES_ARRAY[7]['WEEK']				= "WEEK";
 //$TABLE_KEY_NAMES_ARRAY[7]['COURSE_0_0']		= "COURSE_0_0";
+//...
 $TABLE_KEY_TYPES_ARRAY[7]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
 $TABLE_KEY_TYPES_ARRAY[7]['SEMESTER_WEEK']		= "int";
 $TABLE_KEY_TYPES_ARRAY[7]['WEEK']				= "int";
 //$TABLE_KEY_TYPES_ARRAY[7]['COURSE_0_0']		= "varchar(15)";
+//...
 
 $PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
 $PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
