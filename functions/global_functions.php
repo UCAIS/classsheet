@@ -227,19 +227,6 @@ function data_picker($syntax, $data){
 
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  ////
 
-//------  -[ train_course_array_form Function ]-  ------
-//This function pickup "train course(实训课程)" into an array, and form table key names.
-function train_course_array_form($course_list_array){
-	$course_list_array;			//Data source
-
-	$courseListArrayCount0 = count($course_list_array);
-	for($i=0;$i<$courseListArrayCount0;$i++){
-			$trainCourseArray[$i]['COURSE_NAME'] = $course_list_array[$i]['COURSE_NAME'];
-			$trainCourseArray[$i]['COURSE_KEY_NAME'] = $course_list_array[$i]['COURSE_KEY_NAME'];
-	}
-	return $trainCourseArray;
-}
-
 //------  -[ class_array_appoint Function ]-  ------
 //This function load queue of CLASS_NAME & CLASS_TYPE in $appointedClassArray which has been appointed the week of semester
 function class_array_appoint($class_list_array, $course_list_array, $semester_week_set){

@@ -27,9 +27,21 @@ $SETTINGS_PAGE_SWITCH				= 14;
 //TODO:Replace all "THIS" method.[IMPORTANT]
 //TODO:Chage the include files place.
 
+//------  -[ Course Day of a Week ]-  ------
+//Course day of a week.
+$COURSE_DAY_OF_A_WEEK = 5;
+
 //------  -[ Course in a Day ]-  ------
 //How much course in a day.
 $COURSE_IN_A_DAY = 4;
+
+//------  -[ One Course Period ]-  ------
+//One course equal two course period
+$ONE_COURSE_PERIOD = 2
+
+//------  -[ Max Take Course a Week ]-  ------
+//The max value of take course in a week 
+$MAX_TAKE_COURSE_A_WEEK = $COURSE_DAY_OF_A_WEEK * $COURSE_IN_A_DAY;
 
 //------ -[ Global Page Informatin Vars ]-  ------
 //

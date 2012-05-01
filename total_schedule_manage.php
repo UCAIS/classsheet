@@ -82,16 +82,59 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 	
 	$totalScheduleArray;
 
+//Create Temp Schedule Array
+//
+//Example:
+//$tempScheduleArray[0]['COURSE_0_0']			= "TI.电信08-1";
+
+	$tempScheduleArray;
+
 //Arranged by CLASS
 	$courseListArray;			//Include all course info
 	$courseListArrayCount0;
 	$appointedClassArray;		//Include class info in a semester week
 	$appointedClassArrayCount0 = count($appointedClassArray);
 	$totalScheduleArray;		//Storage array
+	$ONE_COURSE_PERIOD;			//Equal 2
 
-for($courseCounter=0;$courseCounter<$appointedClassArrayCount0;$courseCounter++){
+for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 
+	//1.计算课程排列量
+	$classNameInArrange = $appointedClassArray[$classCounter]['CLASS_NAME'];//课程名
+	//循环并计算可利用课程
+	$courseTakeCounter = 0;
+	for($courseCounter=0;$courseCounter<$courseListArrayCount0;$courseCounter++){
+		$courseName = "COURSE_".$courseCounter;
+		//获取课程可用量
+		//TODO: [BUG] 可用量应达到每节课精度
+		$courseLeftNumber = $courseListArray[$courseCounter]['COURSE_CAPABILITY'];
+		//可排课判断条件为 课程有可用量大于0 与 该班级有这门课且未曾上过 与 周课程量有剩余 
+		if($courseLeftNumber > 0 && $appointedClassArray[$classCounter][$courseName] != 0 && $appointedClassArray[$classCounter][$courseName] != "F" && $totalCourseTakeQuantityInArrange < $MAX_TAKE_COURSE_A_WEEK){
+			//上课数量及名称
+			$courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $appointedClassArray[$classCounter][$courseName]/$ONE_COURSE_PERIOD;
+			$courseTakeInArrangeArray[$courseTakeCounter]['COURSE_KEY_NAME'] = $courseName;
+			//从数组中填充排列完的课程
+			$appointedClassArray[$classCounter][$courseName] = "F";
+			//更新课程可用量
+			$courseListArray[$courseCounter]['COURSE_CAPABILITY'] --;
+			//周课程量计数器
+			$totalCourseTakeQuantityInArrange .= $courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'];
+			$courseTakeCounter ++;
+		}
+		
+	}
+	//将排列课程写入临时数组
+	$courseTakeInArrangeCount0 = count($courseTakeInArrangeArray);
+	for($courseTakePart=0;$courseTakePart<$courseTakeInArrangeCount0;$courseTakePart++){
+		$courseTakeQuantityIntPart = floor($courseTakeInArrange[$courseTakePart]['QUANTITY'] / $COURSE_IN_A_DAY)+1;// +1 for float part
+		$courseTakeQuantityFloatPart = $courseTakeInArrange[$courseTakePart]['QUANTITY'] % $COURSE_IN_A_DAY;
+		for($courseTakeRound=0;$courseTakeRound<$courseTakeQuantityIntPart;$courseTakeRound++){
+			$tempScheduleArray[$courseTakeRound]['COURSE_0_0'] = $classNameInArrange;
+		}
+	}
+	//写入衔接处检测
 }
+//将$appointedClassArray写入数据库
 
 
 
