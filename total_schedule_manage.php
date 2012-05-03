@@ -108,31 +108,65 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 		//获取课程可用量
 		//TODO: [BUG] 可用量应达到每节课精度
 		$courseLeftNumber = $courseListArray[$courseCounter]['COURSE_CAPABILITY'];
+		//检测课程
 		//可排课判断条件为 课程有可用量大于0 与 该班级有这门课且未曾上过 与 周课程量有剩余 
 		if($courseLeftNumber > 0 && $appointedClassArray[$classCounter][$courseName] != 0 && $appointedClassArray[$classCounter][$courseName] != "F" && $totalCourseTakeQuantityInArrange < $MAX_TAKE_COURSE_A_WEEK){
-			//上课数量及名称
-			$courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $appointedClassArray[$classCounter][$courseName]/$ONE_COURSE_PERIOD;
+			//检测是否为概论课
+			if($courseListArray[$courseCounter]['COURSE_STYLE'] == "TI"){
+				//周课程量-1 概论课占用实训课第一节
+				$totalCourseTakeQuantityInArrange - 1;
+			}
+			//TODO:如果是工艺设计或考试   其他课程全部完成之前不可进行排列
+			//上课名称及数量
 			$courseTakeInArrangeArray[$courseTakeCounter]['COURSE_KEY_NAME'] = $courseName;
+			$courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $appointedClassArray[$classCounter][$courseName]/$ONE_COURSE_PERIOD;
 			//从数组中填充排列完的课程
-			$appointedClassArray[$classCounter][$courseName] = "F";
+			$appointedClassArray[$classCounter][$courseName] = "F";//填充F.Finish
 			//更新课程可用量
 			$courseListArray[$courseCounter]['COURSE_CAPABILITY'] --;
 			//周课程量计数器
 			$totalCourseTakeQuantityInArrange .= $courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'];
+			//课程类型计数器
 			$courseTakeCounter ++;
 		}
 		
 	}
 	//将排列课程写入临时数组
+	//$courseTakeInArrangeArray[0]['QUANTITY'] = 8;
+	//$courseTakeInArrangeArray[0]['COURSE_KEY_NAME'] = 'COURSE_0'; 
 	$courseTakeInArrangeCount0 = count($courseTakeInArrangeArray);
+	$dayCourseCounter = 0;//计数日课程循环
+	$dayCounter = 0;//计数上课日
+	//循环$courseTakeInArrangeArray
 	for($courseTakePart=0;$courseTakePart<$courseTakeInArrangeCount0;$courseTakePart++){
-		$courseTakeQuantityIntPart = floor($courseTakeInArrange[$courseTakePart]['QUANTITY'] / $COURSE_IN_A_DAY)+1;// +1 for float part
-		$courseTakeQuantityFloatPart = $courseTakeInArrange[$courseTakePart]['QUANTITY'] % $COURSE_IN_A_DAY;
-		for($courseTakeRound=0;$courseTakeRound<$courseTakeQuantityIntPart;$courseTakeRound++){
-			$tempScheduleArray[$courseTakeRound]['COURSE_0_0'] = $classNameInArrange;
+		$courseTakeKeyName = $courseTakeInArrangeArray[$courseTakePart]['COURSE_KEY_NAME'];
+		$courseTakeQuantity = $courseTakeInArrangeArray[$courseTakePart]['QUANTITY'];
+		//循环$courseTakeInArrangeArray[$courseTakePart]['QUANTITY']
+		for($courseTakeRound=0;$courseTakeRound<$courseTakeQuantity;$courseTakeRound++){
+			if($dayCourseCounter >= $COURSE_IN_A_DAY){
+				$dayCourseCounter = 0;//如果上完了当天的所有课程则置零
+				$dayCounter ++;//上完当天课程进入下一天
+			}
+			//TODO:班级名填充方式
+			$courseKeyName = $courseTakeKeyName."_".$dayCourseCounter;//组合$courseKeyName			
+			$tempScheduleArray[$dayCounter][$courseKeyName] = "T".$courseTakePart.".".$classNameInArrange;//班级名
+			//如果为该课程的最后一节则填充为"TF"
+			if($courseTakeRound == $courseTakeInArrangeCount0-1){
+				$tempScheduleArray[$dayCounter][$courseKeyName] = "TF.".$classNameInArrange;//班级名
+			}
+			//如果上一节课是概论课 与 这节课是本课程的第一节 这节课的上个空课时将被填充成概论课
+			if($courseTakeInArrangeArray[$courseTakePart-1]['COURSE_KEY_NAME'] == "COURSE_0" && $courseTakeRound == 0){
+				$courseKeyName = $courseTakeKeyName."_".$dayCourseCounter-1;//组合$courseKeyName
+				$tempScheduleArray[$dayCounter][$courseKeyName] = "TI.".$classNameInArrange;//班级名
+			}
+			//如果这节是概论课 则填充为"TI"
+			if($courseTakeKeyName == "COURSE_0"){
+				$tempScheduleArray[$dayCounter][$courseKeyName] = "TI.".$classNameInArrange;//班级名
+			}
+			$dayCourseCounter ++;
 		}
 	}
-	//写入衔接处检测
+
 }
 //将$appointedClassArray写入数据库
 

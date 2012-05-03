@@ -26,6 +26,8 @@ $SETTINGS_PAGE_SWITCH				= 14;
 //TODO:Rewrite the $PAGE_NUMBER into this page.
 //TODO:Replace all "THIS" method.[IMPORTANT]
 //TODO:Chage the include files place.
+//TODO:Add Table delete method.[IMPORTANT]
+//TODO:COURSE_TYPE->COURSE_MODE, COURSE_STYLE->COURSE_TYPE.[IMPORTANT]
 
 //------  -[ Course Day of a Week ]-  ------
 //Course day of a week.
@@ -37,7 +39,7 @@ $COURSE_IN_A_DAY = 4;
 
 //------  -[ One Course Period ]-  ------
 //One course equal two course period
-$ONE_COURSE_PERIOD = 2
+$ONE_COURSE_PERIOD = 2;
 
 //------  -[ Max Take Course a Week ]-  ------
 //The max value of take course in a week 
