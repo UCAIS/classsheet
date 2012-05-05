@@ -252,6 +252,25 @@ function class_array_appoint($class_list_array, $course_list_array, $semester_we
 	return $appointedClassArray;
 }
 
+//------  -[ course_capability_array_get Function ]-  ------
+//This function get a course capability left array
+//[WARING]Hardcode.
+function course_capability_array_get($course_list_array, $COURSE_DAY_OF_A_WEEK, $COURSE_IN_A_DAY){
+	$course_list_array;			//Course information array
+	$COURSE_DAY_OF_A_WEEK;		//
+	$COURSE_IN_A_DAY;			//
+
+	$courseListArrayCount0 = count($course_list_array);
+	for($i=0;$i<$COURSE_DAY_OF_A_WEEK;$i++){
+		for($j=0;$i<$courseListArrayCount0;$j++){
+			for($k=0;$k<$COURSE_IN_A_DAY;$k++){
+				$courseKeyName = "COURSE_".$j."_".$k;
+				$courseCapabilityArray[$i][$courseKeyName] = $course_list_array[$j]['COURSE_CAPABILITY'];
+			}
+		}
+	}
+	return $courseCapabilityArray;
+}
 
 
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////

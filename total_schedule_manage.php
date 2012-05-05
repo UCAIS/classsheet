@@ -49,7 +49,8 @@ for($i=0;$i<$courseListArrayCount0;$i++){
 }
 database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
 
-//// //// //// //// //// //// //// //// //// //// //// //// - A -
+
+//// Arrange data preload
 
 $SEMESTER_WEEK_SET = 0;//First semester week
 	
@@ -61,6 +62,7 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 //$appointedClassArray[0]['COURSE_0'] 		= "2";
 
 	$appointedClassArray = class_array_appoint($classListArray, $courseListArray, $SEMESTER_WEEK_SET);
+	$appointedClassArrayCount0 = count($appointedClassArray);
 
 //Create basic storage array [$totalScheduleArray]
 //
@@ -82,6 +84,14 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 	
 	$totalScheduleArray;
 
+//Greate course left capability array [$courseCapabilityArray]
+//Example:
+//$courseCapabilityArray[0]['COURSE_0_0'] = 2;	$courseCapabilityArray[0]['COURSE_0_1'] = 2;	$courseCapabilityArray[0]['COURSE_0_2'] = 2;	$courseCapabilityArray[0]['COURSE_0_3'] = 2;
+//$courseCapabilityArray[0]['COURSE_1_0'] = 2;	$courseCapabilityArray[0]['COURSE_1_1'] = 2;	$courseCapabilityArray[0]['COURSE_1_2'] = 2;	$courseCapabilityArray[0]['COURSE_1_3'] = 2;
+//...
+
+	$courseCapabilityArray = course_capability_array_get($courseListArray, $COURSE_DAY_OF_A_WEEK, $COURSE_IN_A_DAY);
+
 //Create Temp Schedule Array
 //
 //Example:
@@ -89,23 +99,26 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 
 	$tempScheduleArray;
 
-//Arranged by CLASS
-	$courseListArray;			//Include all course info
-	$courseListArrayCount0;
-	$appointedClassArray;		//Include class info in a semester week
-	$appointedClassArrayCount0 = count($appointedClassArray);
-	$totalScheduleArray;		//Storage array
-	$ONE_COURSE_PERIOD;			//Equal 2
 
+////	Arrabg start, arranged by CLASS
+
+//Input data
+	$courseListArray;				//Include all course info
+	$courseListArrayCount0;			//
+	$courseCapabilityArray;			//
+	$appointedClassArray;			//Include class info in a semester week
+	$appointedClassArrayCount0;		//
+	$totalScheduleArray;			//Storage array
+	$ONE_COURSE_PERIOD;				//Equal 2
+
+//班级循环开始
 for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
-
-	//1.计算课程排列量
-	$classNameInArrange = $appointedClassArray[$classCounter]['CLASS_NAME'];//课程名
-	//循环并计算可利用课程
-	$courseTakeCounter = 0;
+	$classNameInArrange = $appointedClassArray[$classCounter]['CLASS_NAME'];//班级名
+	$courseTakeCounter = 0;	//上课课程数计数器
+	//课程循环开始
 	for($courseCounter=0;$courseCounter<$courseListArrayCount0;$courseCounter++){
-		$courseName = "COURSE_".$courseCounter;
-		//获取课程可用量
+		$courseName = "COURSE_".$courseCounter;	//课程名
+		//获取当前课程课程可容纳班级量
 		//TODO: [BUG] 可用量应达到每节课精度
 		$courseLeftNumber = $courseListArray[$courseCounter]['COURSE_CAPABILITY'];
 		//检测课程
@@ -131,6 +144,8 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 		}
 		
 	}
+	//TODO:更新$courseCapabilityArray
+
 	//将排列课程写入临时数组
 	//$courseTakeInArrangeArray[0]['QUANTITY'] = 8;
 	//$courseTakeInArrangeArray[0]['COURSE_KEY_NAME'] = 'COURSE_0'; 
