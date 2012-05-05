@@ -104,12 +104,13 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 
 //Input data
 	$courseListArray;				//Include all course info
-	$courseListArrayCount0;			//
-	$courseCapabilityArray;			//
+	$courseListArrayCount0;			//Length of $courseListArray
+	$courseCapabilityArray;			//Incude course capability info
 	$appointedClassArray;			//Include class info in a semester week
-	$appointedClassArrayCount0;		//
+	$appointedClassArrayCount0;		//length of $appointedClassArray
 	$totalScheduleArray;			//Storage array
-	$ONE_COURSE_PERIOD;				//Equal 2
+	$ONE_COURSE_PERIOD;				//Is 2
+	$COURSE_IN_A_DAY;				//Is 4
 
 //班级循环开始
 for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
@@ -117,13 +118,27 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 	$courseTakeCounter = 0;	//上课课程数计数器
 	//课程循环开始
 	for($courseCounter=0;$courseCounter<$courseListArrayCount0;$courseCounter++){
-		$courseName = "COURSE_".$courseCounter;	//课程名
+		$courseName = "COURSE_".$courseCounter;	//课程名[in course key name]
+		$classType = $appointedClassArray[$classCounter]['CLASS_TYPE'];	//班级参加课程类型
+		$coursePeriod = $courseListArray[$courseCounter][$classType];	//选定课程学时
+		
 		//获取当前课程课程可容纳班级量
-		//TODO: [BUG] 可用量应达到每节课精度
-		$courseLeftNumber = $courseListArray[$courseCounter]['COURSE_CAPABILITY'];
-		//检测课程
+		//TODO: 添加第二节课检测手段
+		$dayCourseCounter = 0;//计数日课程循环
+		$dayCounter = 0;//计数上课日
+		for($courseTakeRound=0;$courseTakeRound<$$coursePeriod;$courseTakeRound++){
+			if($dayCourseCounter >= $COURSE_IN_A_DAY){
+				$dayCourseCounter = 0;//如果上完了当天的所有课程则置零
+				$dayCounter ++;//上完当天课程进入下一天
+			}
+			$courseKeyName = $courseName."_".$dayCourseCounter;//组合$courseKeyName
+			$courseCapabilityLeftCounter += $courseCapabilityArray[$dayCounter][$courseKeyName];
+			$dayCourseCounter ++;
+		}
+
+		//排列课程并写入临时数组
 		//可排课判断条件为 课程有可用量大于0 与 该班级有这门课且未曾上过 与 周课程量有剩余 
-		if($courseLeftNumber > 0 && $appointedClassArray[$classCounter][$courseName] != 0 && $appointedClassArray[$classCounter][$courseName] != "F" && $totalCourseTakeQuantityInArrange < $MAX_TAKE_COURSE_A_WEEK){
+		if($!!!courseCapabilityLeftCounter > 0 && $appointedClassArray[$classCounter][$courseName] != 0 && $appointedClassArray[$classCounter][$courseName] != "F" && $totalCourseTakeQuantityInArrange < $MAX_TAKE_COURSE_A_WEEK){
 			//检测是否为概论课
 			if($courseListArray[$courseCounter]['COURSE_STYLE'] == "TI"){
 				//周课程量-1 概论课占用实训课第一节
@@ -132,17 +147,17 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			//TODO:如果是工艺设计或考试   其他课程全部完成之前不可进行排列
 			//上课名称及数量
 			$courseTakeInArrangeArray[$courseTakeCounter]['COURSE_KEY_NAME'] = $courseName;
-			$courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $appointedClassArray[$classCounter][$courseName]/$ONE_COURSE_PERIOD;
+			//$!!!courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $appointedClassArray[$classCounter][$courseName]/$ONE_COURSE_PERIOD;
+			$courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $coursePeriod;
 			//从数组中填充排列完的课程
 			$appointedClassArray[$classCounter][$courseName] = "F";//填充F.Finish
 			//更新课程可用量
-			$courseListArray[$courseCounter]['COURSE_CAPABILITY'] --;
+			//$courseListArray[$courseCounter]['COURSE_CAPABILITY'] --;
 			//周课程量计数器
 			$totalCourseTakeQuantityInArrange .= $courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'];
 			//课程类型计数器
 			$courseTakeCounter ++;
 		}
-		
 	}
 	//TODO:更新$courseCapabilityArray
 
