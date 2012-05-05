@@ -272,6 +272,26 @@ function course_capability_array_get($course_list_array, $COURSE_DAY_OF_A_WEEK, 
 	return $courseCapabilityArray;
 }
 
+//------  -[ course_period_left_get Function ]-  ------
+//This function return appointed class array left course period quantity
+function course_period_left_get($appointed_class_array, $course_list_array, $return_type){
+	$appointed_class_array;		//
+	$course_list_array;			//
+	$return_type;				//"0" return all train course, "1" return all course
+
+	$courseListArrayCount0 = count($course_list_array);
+	for($i=0;$i<$courseListArrayCount0;$i++){
+		$courseKeyName = "COURSE_".$i;
+		$courseStyle = $course_list_array[$i]['COURSE_STYLE'];
+		if(($courseStyle == "D" || $courseStyle == "E") && $return_type == 0){
+			continue;
+		}
+		if($courseStyle == "E" && $return_type == 1){
+			continue;
+		}
+		$coursePeriodLeft += $appointed_class_array[$courseKeyName];
+	}
+}
 
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////
 

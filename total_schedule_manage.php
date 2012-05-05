@@ -126,7 +126,8 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 		$coursePeriod = $courseListArray[$courseCounter][$classType];	//选定课程学时
 		
 		//获取当前课程课程可容纳班级量
-		$totalCourseTakeQuantityInArrange; 
+		$courseCapabilityLeftCounter = 0;//Reset the course capability left counter
+		$totalCourseTakeQuantityInArrange;//已参加课程计数器 
 		$dayCourseCounter = 0;//计数日课程循环
 		$dayCounter = 0;//计数上课日
 		for($courseTakeRound=0;$courseTakeRound<$$coursePeriod+$totalCourseTakeQuantityInArrange;$courseTakeRound++){
@@ -149,6 +150,14 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 				//周课程量-1 概论课占用实训课第一节
 				$totalCourseTakeQuantityInArrange - 1;
 			}
+			//检测是否为工艺设计
+			if($courseListArray[$courseCounter]['COURSE_STYLE'] == "D" && $allTrainCourseLeft == 0){
+				continue;
+			}
+			//检测是否为考试
+			if($courseListArray[$courseCounter]['COURSE_STYLE'] == "E" && $allCourseLeft == 0){
+				continue;
+			}
 			//TODO:如果是工艺设计或考试   其他课程全部完成之前不可进行排列
 			//上课名称及数量
 			$courseTakeInArrangeArray[$courseTakeCounter]['COURSE_KEY_NAME'] = $courseName;
@@ -156,7 +165,7 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			$courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'] = $coursePeriod;
 			//从数组中填充排列完的课程
 			$appointedClassArray[$classCounter][$courseName] = "F";//填充F.Finish
-			//更新课程可用量
+			//更新课程可用量[Ready to remove]
 			//$courseListArray[$courseCounter]['COURSE_CAPABILITY'] --;
 			//周课程量计数器
 			$totalCourseTakeQuantityInArrange .= $courseTakeInArrangeArray[$courseTakeCounter]['QUANTITY'];
@@ -164,7 +173,6 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			$courseTakeCounter ++;
 		}
 	}
-	//TODO:更新$courseCapabilityArray
 
 	//将排列课程写入临时数组并更新$courseCapabilityArray
 	//$courseTakeInArrangeArray[0]['QUANTITY'] = 8;
