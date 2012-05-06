@@ -77,6 +77,11 @@ function post_auto_fill($post_value){
 } 
 */
 
+//------  -[ vars_checkout Function ]- ------
+function vars_checkout($vars, $vars_name){
+	print "<br />\$".$vars_name." = ".$vars;
+}
+
 //------  -[ table_key_names_auto_fill Function ]-  ------
 //This function auto fill table key names by input char or char array.
 function table_key_names_auto_fill($target_array, $filled_keywords, $filled_length = 0, $filled_position = 1){
@@ -262,7 +267,7 @@ function course_capability_array_get($course_list_array, $COURSE_DAY_OF_A_WEEK, 
 
 	$courseListArrayCount0 = count($course_list_array);
 	for($i=0;$i<$COURSE_DAY_OF_A_WEEK;$i++){
-		for($j=0;$i<$courseListArrayCount0;$j++){
+		for($j=0;$j<$courseListArrayCount0;$j++){
 			for($k=0;$k<$COURSE_IN_A_DAY;$k++){
 				$courseKeyName = "COURSE_".$j."_".$k;
 				$courseCapabilityArray[$i][$courseKeyName] = $course_list_array[$j]['COURSE_CAPABILITY'];
@@ -291,6 +296,7 @@ function course_period_left_get($appointed_class_array, $course_list_array, $ret
 		}
 		$coursePeriodLeft += $appointed_class_array[$courseKeyName];
 	}
+	return $coursePeriodLeft;
 }
 
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////
