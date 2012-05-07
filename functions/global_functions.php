@@ -299,6 +299,20 @@ function course_period_left_get($appointed_class_array, $course_list_array, $ret
 	return $coursePeriodLeft;
 }
 
+//------  -[ serial_counter Function ]-  ------
+//
+function serial_counter($total_schedule_array, $serial, $key){
+	$total_schedule_array;		//
+	$serial;					//
+	$key;						//
+	
+	if($total_schedule_array[$serial][$key] != "" || $total_schedule_array[$serial][$key] != 0){
+		$serial ++;
+		$serial = serial_counter($total_schedule_array, $serial, $key);
+	}
+	return $serial;
+}
+
 ////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////
 
 

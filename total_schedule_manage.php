@@ -78,11 +78,12 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 //Create Temp Schedule Array
 //
 //Example:
-//$tempScheduleArray[0]['COURSE_0_0']			= "TI.电信08-1";
-//$tempScheduleArray[0]['COURSE_1_0']			= "TI.电信08-1";
-//$tempScheduleArray[0]['COURSE_1_1']			= "T0.电信08-1";
+//$tempScheduleArray[$classCounter][0]['COURSE_0_0']			= "TI.电信08-1";
+//$tempScheduleArray[$classCounter][0]['COURSE_1_0']			= "TI.电信08-1";
+//$tempScheduleArray[$classCounter][0]['COURSE_1_1']			= "T0.电信08-1";
+//...
 
-	$tempScheduleArray;
+	$tempScheduleArray[$classCounter];
 
 //Create basic storage array [$totalScheduleArray]
 //
@@ -115,14 +116,14 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 	$appointedClassArray;			//Include class info in a semester week
 	$appointedClassArrayCount0 = 2;		//length of $appointedClassArray
 	$totalScheduleArray;			//Total schedule storage array
-	$tempScheduleArray;				//Schedule array for one class
+	$tempScheduleArray[$classCounter];				//Schedule array for one class
 	$ONE_COURSE_PERIOD;				//Is 2
 	$COURSE_IN_A_DAY;				//Is 4
 
 //班级循环开始
 for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 	//vars_checkout($classCounter, "classCounter");
-	unset($courseTakeInArrangeArray, $tempScheduleArray);
+	unset($courseTakeInArrangeArray);
 	$classNameInArrange = $appointedClassArray[$classCounter]['CLASS_NAME'];//班级名
 	vars_checkout($classNameInArrange, "classNameInArrange");
 	$courseTakeCounter = 0;	//上课课程数计数器
@@ -222,7 +223,7 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			///填充开始
 			//如果这节是概论课 则填充为"TI"
 			if($courseTakeInArrangeArray[$courseTakePart]['COURSE_STYLE'] == "TI"){
-				$tempScheduleArray[$dayCounter][$courseKeyName] = "TI.".$classNameInArrange;//班级名
+				$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "TI.".$classNameInArrange;//班级名
 			}
 			//如果为实训课程则正常填充
 			if($courseTakeInArrangeArray[$courseTakePart]['COURSE_STYLE'] == "T"){
@@ -230,44 +231,80 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 				if($courseTakeInArrangeArray[$courseTakePart-1]['COURSE_STYLE'] == "TI" && $courseTakeRound == 0){
 					$dayCourseCounter = 0;
 					$courseKeyNameTemp = $courseTakeKeyName."_".$dayCourseCounter;//组合$courseKeyName	
-					$tempScheduleArray[$dayCounter][$courseKeyNameTemp] = "TI.".$classNameInArrange;//班级名
+					$tempScheduleArray[$classCounter][$dayCounter][$courseKeyNameTemp] = "TI.".$classNameInArrange;//班级名
 				}
 				//按序列填充
-				$tempScheduleArray[$dayCounter][$courseKeyName] = "T".$courseTakeRound.".".$classNameInArrange;
+				$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "T".$courseTakeRound.".".$classNameInArrange;
 				//
 				if($courseTakeInArrangeArray[$courseTakePart-1]['COURSE_STYLE'] == "TI" && $courseTakeRound != 0){
-					$tempScheduleArray[$dayCounter][$courseKeyName] = "T".($courseTakeRound-1).".".$classNameInArrange;
+					$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "T".($courseTakeRound-1).".".$classNameInArrange;
 				}
 				//如果为该课程的最后一节则填充为"TF"
 				if($courseTakeRound == ($courseTakeQuantity/2-1)){
-					$tempScheduleArray[$dayCounter][$courseKeyName] = "TF.".$classNameInArrange;//班级名
+					$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "TF.".$classNameInArrange;//班级名
 				}
 			}
 			//课程设计 Title Info 填充
 			if($courseTakeInArrangeArray[$courseTakePart]['COURSE_STYLE'] == "D"){
 				if($courseTakeRound == $courseTakeInArrangeCount0-1){
-					$tempScheduleArray[$dayCounter][$courseKeyName] = "DF.".$classNameInArrange;
+					$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "DF.".$classNameInArrange;
 				}else{
-					$tempScheduleArray[$dayCounter][$courseKeyName] = "D".($courseTakeQuantity-1).".".$classNameInArrange;
+					$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "D".($courseTakeQuantity-1).".".$classNameInArrange;
 				}
 			}
 			//考试 Title Info 填充
 			if($courseTakeInArrangeArray[$courseTakePart]['COURSE_STYLE'] == "E"){
-				$tempScheduleArray[$dayCounter][$courseKeyName] = "E.".$classNameInArrange;
+				$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = "E.".$classNameInArrange;
 			}
 			//
 			$dayCourseCounter ++;
 		}
 	}
 	print "<br />";
-	var_dump($tempScheduleArray);
+	var_dump($tempScheduleArray[$classCounter]);
 
-	//TODO: 将$tempScheduleArray载入$totalScheduleArray
+}
+
+//TODO: 将$tempScheduleArray[$classCounter]载入$totalScheduleArray
+
+	//$tempScheduleArray
+	//
+	//Example:			[班级序列号]   [星期][课程]
+	//$tempScheduleArray[$classCounter][0]['COURSE_0_0']			= "TI.电信08-1";
+	//$tempScheduleArray[$classCounter][0]['COURSE_1_0']			= "TI.电信08-1";
+	//$tempScheduleArray[$classCounter][0]['COURSE_1_1']			= "T0.电信08-1";
+	//...
+	$tempScheduleArray[$classCounter];
+
+	//$totalScheduleArray
+	//
+	//Example:
+	//$totalScheduleArray[0]['SEMESTER_WEEK'] 	= 1;
+	//$totalScheduleArray[0]['WEEK'] 			= 1;
+	//$totalScheduleArray[0]['COURSE_0_0'] 		= "TI.电信08-1";
+	//$totalScheduleArray[0]['COURSE_0_1'] 		= "T0.电信08-1";
+	//$totalScheduleArray[0]['COURSE_0_2'] 		= "T1.电信08-1";
+	//$totalScheduleArray[0]['COURSE_0_3'] 		= "TF.电信08-1";
+	//...
+	$totalScheduleArray;
+
+//按周循环
+for($week=0;$week<$COURSE_DAY_OF_A_WEEK;$week++){
+	for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
+		$serial = 0;
+		foreach($tempScheduleArray[$classCounter][$week] as $key => $value){
+			$serial = serial_counter($totalScheduleArray, $serial, $key);
+			vars_checkout($serial, "serial");
+			$totalScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;//1
+			$totalScheduleArray[$serial]['WEEK'] = $week;
+			$totalScheduleArray[$serial][$key] = $value;
+		}
+	}
+}
+	
 	
 	print "<br />";
 	var_dump($totalScheduleArray);
-
-}
 
 //TODO: 将$appointedClassArray写入数据库
 //TODO: 将$totalScheduleArray写入数据库

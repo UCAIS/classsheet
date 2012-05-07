@@ -13,8 +13,6 @@
  程序针对学期、学时、班级、课程类型、工种的块状连续课程进行自动随机排列.并输出总课程表,班级课程表,教室课程表.
  另有手动排列,数据导入,插入开会进度等功能.
 
- So what, this is a BUG camp. If you want F**k it just mail me. I will pleasure with it.(￣Д￣)
-
  This program is a course schedule system for USTH Train Center.
  It base on PHP and powered by MySQL.
 
