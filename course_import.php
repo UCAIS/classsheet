@@ -8,6 +8,7 @@
 */
 
 //TODO:ADD database table drop method.[IMPORTANT]
+//TODO: Import data leave a blank line.[IMPORTANT][★]
 //Page number
 $PAGE_SWITCH = 12;
 $SEMESTER_PAGE_SWITCH = 1;
@@ -40,7 +41,7 @@ if($_POST['upload']){
 	//COURSE_KEY_NAME info add method.
 	$courseInsertInfoArrayCount0 = count($courseInsertInfoArray);
 	for($i=0;$i<$courseInsertInfoArrayCount0-1;$i++){ //[BUG][120501_1] Import file have a title line, so that "-1".
-		$courseInsertInfoArray[$i]['COURSE_KEY_NAME'] = "'COURSE_".$i."'";
+		$courseInsertInfoArray[$i]['COURSE_KEY_NAME'] = "COURSE_".$i;
 	}
 	//ADD the COURSE data
 	$COURSE_TABLE_KEY_NAMES_ARRAY = array_picker($courseImportInfoArray, 0);//Pick the table key names from import array.
@@ -50,8 +51,7 @@ if($_POST['upload']){
 	$COURSE_TABLE_KEY_TYPES_ARRAY = array_key_insert($COURSE_TABLE_KEY_TYPES_ARRAY, "ID", "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)");
 	$COURSE_TABLE_KEY_TYPES_ARRAY = array_key_insert($COURSE_TABLE_KEY_TYPES_ARRAY, "COURSE_KEY_NAME", "varchar(15)");
 	database_table_create($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $COURSE_TABLE_KEY_TYPES_ARRAY);
-	$tableKeyNumbersCount = count($courseInsertInfoArray);
-	for($i=0;$i<$tableKeyNumbersCount;$i++){
+	for($i=0;$i<$courseInsertInfoArrayCount0-1;$i++){	//Import file have a title line, so that "-1".
 		table_data_add($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY, $courseInsertInfoArray[$i]);
 	}
 }

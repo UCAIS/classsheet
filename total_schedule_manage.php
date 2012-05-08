@@ -63,9 +63,11 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 //$appointedClassArray[0]['COURSE_0'] 		= "2";
 //$appointedClassArray[0]['COURSE_1'] 		= "24";
 
-	$appointedClassArray = class_array_appoint($classListArray, $courseListArray, $SEMESTER_WEEK_SET);
+	$appointedClassArray = class_array_appoint($classListArray, $SEMESTER_WEEK_SET);
 	$appointedClassArrayCount0 = count($appointedClassArray);
-
+	print "<br />";
+	var_dump($appointedClassArray);
+	print "<br />";
 //Greate course left capability array [$courseCapabilityArray]
 //Example:
 //$courseCapabilityArray[0]['COURSE_0_0'] = 4;	$courseCapabilityArray[0]['COURSE_0_1'] = 4;	$courseCapabilityArray[0]['COURSE_0_2'] = 4;	$courseCapabilityArray[0]['COURSE_0_3'] = 4;

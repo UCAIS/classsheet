@@ -173,7 +173,7 @@ function import_data_form($import_data_array){
 	$import_data_array_count1 = count($import_data_array);
 	foreach($import_data_array[0] as $value){
 		for($i=0;$i<$import_data_array_count1;$i++){
-			$formedArray[$i][$value] = "'".$import_data_array[$i+1][$loopCounter]."'";
+			$formedArray[$i][$value] = $import_data_array[$i+1][$loopCounter];
 		}
 		$loopCounter ++; 
 	}
@@ -234,24 +234,16 @@ function data_picker($syntax, $data){
 
 //------  -[ class_array_appoint Function ]-  ------
 //This function load queue of CLASS_NAME & CLASS_TYPE in $appointedClassArray which has been appointed the week of semester
-function class_array_appoint($class_list_array, $course_list_array, $semester_week_set){
+function class_array_appoint($class_list_array, $semester_week_set){
 	$class_list_array;			//
-	$course_list_array;			//
 	$semester_week_set;			//
 
 	$classListArrayCount0 = count($class_list_array);
-	$courseListArrayCount0 = count($course_list_array);
 	$weekName = "WEEK_".$semester_week_set;
 	$loopCounter = 0;
 	for($i=0;$i<$classListArrayCount0;$i++){
 		if($class_list_array[$i][$weekName] == 1){
-			$appointedClassArray[$loopCounter]['CLASS_NAME'] = $class_list_array[$i]['CLASS_NAME'];
-			$appointedClassArray[$loopCounter]['CLASS_TYPE'] = $class_list_array[$i]['CLASS_TYPE'];
-			$appointedClassArray[$loopCounter]['ID'] = $class_list_array[$i]['ID'];
-			for($j=0;$j<$courseListArrayCount0;$j++){
-				$courseName = "COURSE_".$j;
-				$appointedClassArray[$loopCounter][$courseName] = $class_list_array[$i][$courseName];
-			}
+			$appointedClassArray[$loopCounter] = $class_list_array[$i];
 			$loopCounter ++;
 		}
 	}

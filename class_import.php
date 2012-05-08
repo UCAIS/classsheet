@@ -60,9 +60,8 @@ if($_POST['upload']){
 			//COURSE_LEFT auto fill method
 			$courseListArrayCount0= count($courseListArray);
 			$classType = $classInsertInfoArray[$i]['CLASS_TYPE'];
-			$classType = data_picker("'", $classType);
 			for($j=0;$j<$courseListArrayCount0;$j++){
-				$classInsertInfoArray[$i][$courseListArray[$j]['COURSE_KEY_NAME']] = "'".$courseListArray[$j][$classType]."'";
+				$classInsertInfoArray[$i][$courseListArray[$j]['COURSE_KEY_NAME']] = $courseListArray[$j][$classType];
 			}
 		table_data_add($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $classInsertInfoArray[$i]);
 	}

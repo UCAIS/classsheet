@@ -47,7 +47,7 @@ if(!$semesterListArray){
 if($_POST["semesterInfoAdd"]){
 	//Load the POST info array
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$semesterInfoArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$semesterInfoArray[$value] = $_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $semesterInfoArray);
@@ -59,7 +59,7 @@ if($_POST["semesterListDelete"]){
 //CHANGE the semester information to database if POST 
 if($_POST["semesterInfoChange"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$semesterInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$semesterInfoChangeArray[$value] = $_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $semesterInfoChangeArray);

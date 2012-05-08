@@ -66,7 +66,7 @@ if(!is_array($courseTypeListArray)){
 			$courseTypeTotalPeriodArray[$type] += $courseListArray[$i][$type];
 		}
 		//ADD into adtabase
-		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TYPE']] = "'".$type."'";
+		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TYPE']] = $type;
 		$courseTypeInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_TOTAL_PERIOD']] = $courseTypeTotalPeriodArray[$type]; 
 		table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeInfoArray);
 	}
@@ -75,7 +75,7 @@ if(!is_array($courseTypeListArray)){
 if($_POST["courseTypeInfoAdd"]){
 	//Load the POST info array
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$courseTypeInfoArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$courseTypeInfoArray[$value] = $_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseTypeInfoArray);
@@ -87,7 +87,7 @@ if($_POST["courseTypeListDelete"]){
 //CHANGE the information to database if POST 
 if($_POST["courseTypeInfoChanged"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$courseTypeInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$courseTypeInfoChangeArray[$value] = $_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $courseTypeInfoChangeArray);

@@ -76,7 +76,7 @@ if($semesterTargetArray != ""){
 if($_POST["classInfoAdd"]){
 	//Load the POST info array
 	foreach($CLASS_TABLE_KEY_NAMES_ARRAY as $value){
-		$classInfoArray[$value] = "'".$_POST[$CLASS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$classInfoArray[$value] = $_POST[$CLASS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 		//COURSE_LEFT auto fill method
@@ -94,7 +94,7 @@ if($_POST["classListDelete"]){
 //CHANGE the information to database if POST 
 if($_POST["classInfoChanged"]){
 	foreach($CLASS_TABLE_KEY_NAMES_ARRAY as $value){
-		$classInfoChangeArray[$value] = "'".$_POST[$CLASS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$classInfoChangeArray[$value] = $_POST[$CLASS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $classInfoChangeArray);

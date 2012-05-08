@@ -69,13 +69,13 @@ if($semesterTargetArray != ""){
 if($_POST["courseInfoAdd"]){
 	//Load the POST info array
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$courseInfoArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$courseInfoArray[$value] = $_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	//COURSE_KEY_NAME add method.
 	//TODO: Create this function
 	$courseListArrayCount0 = count($courseListArray);// This function for COURSE_KEY_NAME add method.
-	$courseInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_KEY_NAME']] = "'COURSE_".$courseListArrayCount0."'";
+	$courseInfoArray[$THIS_TABLE_KEY_NAMES_ARRAY['COURSE_KEY_NAME']] = "COURSE_".$courseListArrayCount0;
 	table_data_add($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $courseInfoArray);
 }
 
@@ -88,7 +88,7 @@ if($_POST["courseListDelete"]){
 //CHANGE the information to database if POST 
 if($_POST["courseInfoChanged"]){
 	foreach($THIS_TABLE_KEY_NAMES_ARRAY as $value){
-		$courseInfoChangeArray[$value] = "'".$_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]]."'";
+		$courseInfoChangeArray[$value] = $_POST[$THIS_TABLE_KEY_NAMES_ARRAY[$value]];
 	}
 	unset($value);
 	table_data_change($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY, $targetId, $courseInfoChangeArray);
