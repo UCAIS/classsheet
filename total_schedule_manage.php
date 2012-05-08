@@ -59,6 +59,7 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 //Example:
 //$appointedClassArray[0]['CLASS_NAME'] 	= "机设09-1";
 //$appointedClassArray[0]['CLASS_TYPE'] 	= "A";
+//$appointedClassArray[0]['ID'] 			= "0";
 //$appointedClassArray[0]['COURSE_0'] 		= "2";
 //$appointedClassArray[0]['COURSE_1'] 		= "24";
 
@@ -252,7 +253,7 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 
 }
 
-//TODO: 将$tempScheduleArray[$classCounter]载入$totalScheduleArray
+//将$tempScheduleArray[$classCounter]载入$totalScheduleArray
 
 	//$tempScheduleArray
 	//
@@ -299,9 +300,21 @@ for($week=0;$week<5;$week++){
 }
 
 
-//TODO: 将$appointedClassArray写入数据库
-//TODO: 将$totalScheduleArray写入数据库
-
+//将$appointedClassArray写入数据库
+/*
+$appointedClassArrayCount0 = count($appointedClassArray);
+for($i=0;$i<$appointedClassArrayCount0;$i++){
+	$targetId = $appointedClassArray[$i]['ID'];
+	table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $appointedClassArray[$i]);
+}
+*/
+//将$totalScheduleArray写入数据库
+/*
+$totalScheduleArrayCount0 = count($totalScheduleArray);
+for($i=0;$i<$totalScheduleArrayCount0;$i++){
+		table_data_add($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray[$i]);
+}
+*/
 
 
 //------  -[ Views Functions ]-  ------

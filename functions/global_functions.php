@@ -247,6 +247,7 @@ function class_array_appoint($class_list_array, $course_list_array, $semester_we
 		if($class_list_array[$i][$weekName] == 1){
 			$appointedClassArray[$loopCounter]['CLASS_NAME'] = $class_list_array[$i]['CLASS_NAME'];
 			$appointedClassArray[$loopCounter]['CLASS_TYPE'] = $class_list_array[$i]['CLASS_TYPE'];
+			$appointedClassArray[$loopCounter]['ID'] = $class_list_array[$i]['ID'];
 			for($j=0;$j<$courseListArrayCount0;$j++){
 				$courseName = "COURSE_".$j;
 				$appointedClassArray[$loopCounter][$courseName] = $class_list_array[$i][$courseName];
@@ -305,7 +306,7 @@ function serial_counter($total_schedule_array, $serial, $key){
 	$total_schedule_array;		//
 	$serial;					//
 	$key;						//
-	
+
 	if($total_schedule_array[$serial][$key] != "" || $total_schedule_array[$serial][$key] != 0){
 		$serial ++;
 		$serial = serial_counter($total_schedule_array, $serial, $key);

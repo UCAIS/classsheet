@@ -112,6 +112,7 @@ function table_data_delete_by_id($table_name, $target_id){
 }
 
 //------  -[ table_data_add Function]-  ------
+//TODO: chage the data insert method "'".
 function table_data_add($table_name, $table_key_names_array, $table_data_input){
     $table_name;                //For lock on the table
     $table_key_names_array;     //For form the SQL query
@@ -133,9 +134,9 @@ function table_data_add($table_name, $table_key_names_array, $table_data_input){
     $counter = 0;
     foreach($table_key_names_array as $value){
         if($counter<$table_key_names_array_count0-1){
-            $sql_table_data_add .= $table_data_input[$value].", ";
+            $sql_table_data_add .= "'".$table_data_input[$value]."', ";
         }else{
-            $sql_table_data_add .= $table_data_input[$value].")";
+            $sql_table_data_add .= "'".$table_data_input[$value]."')";
         }
         $counter ++;
     }
@@ -159,9 +160,9 @@ function table_data_change($table_name, $table_key_names_array, $target_id, $tab
             $counter ++;
             continue;
         }elseif($counter<$table_key_names_array_count0-1){
-            $sql_table_data_change .= $table_key_names_array[$value]." = ".$table_data_change_input[$value].", ";
+            $sql_table_data_change .= $table_key_names_array[$value]." = '".$table_data_change_input[$value]."', ";
         }else{
-            $sql_table_data_change .= $table_key_names_array[$value]." = ".$table_data_change_input[$value]." WHERE ID = ".$target_id;
+            $sql_table_data_change .= $table_key_names_array[$value]." = '".$table_data_change_input[$value]."' WHERE ID = ".$target_id;
         }
         $counter ++;
     }
