@@ -114,7 +114,7 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 	$courseCapabilityArray;			//Incude course capability info 
 	$courseCapabilityArrayCount0;	//Length of $courseCapabilityArray
 	$appointedClassArray;			//Include class info in a semester week
-	$appointedClassArrayCount0 = 2;		//length of $appointedClassArray
+	$appointedClassArrayCount0;		//length of $appointedClassArray
 	$totalScheduleArray;			//Total schedule storage array
 	$tempScheduleArray[$classCounter];				//Schedule array for one class
 	$ONE_COURSE_PERIOD;				//Is 2
@@ -125,29 +125,21 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 	//vars_checkout($classCounter, "classCounter");
 	unset($courseTakeInArrangeArray);
 	$classNameInArrange = $appointedClassArray[$classCounter]['CLASS_NAME'];//班级名
-	vars_checkout($classNameInArrange, "classNameInArrange");
 	$courseTakeCounter = 0;	//上课课程数计数器
 	$totalCourseTakeQuantityInArrange = 0;//已参加课程计数器
 	//课程循环开始
 	for($courseCounter=0;$courseCounter<$courseListArrayCount0;$courseCounter++){
 		//vars_checkout($courseCounter, "courseCounter");
 		$courseName = "COURSE_".$courseCounter;	//课程名[in course key name]
-		vars_checkout($courseName, "courseName");
 		$courseStyle = $courseListArray[$courseCounter]['COURSE_STYLE'];//课程标志
-		vars_checkout($courseStyle, "courseStyle");
 		$classType = $appointedClassArray[$classCounter]['CLASS_TYPE'];	//班级参加课程类型
-		vars_checkout($classType, "classType");
 		$coursePeriod = $courseListArray[$courseCounter][$classType];	//选定课程学时
-		vars_checkout($coursePeriod, "coursePeriod");
 		$allTrainCourseLeft = course_period_left_get($appointedClassArray[$classCounter], $courseListArray, 0);
-		vars_checkout($allTrainCourseLeft, "allTrainCourseLeft");
 		$allCourseLeft = course_period_left_get($appointedClassArray[$classCounter], $courseListArray, 1);
-		vars_checkout($allCourseLeft, "allCourseLeft");
 		
 		//获取当前课程课程可容纳班级量
 		$courseCapabilityLeftCounter = 0;//Reset the course capability left counter
 		$totalCourseTakeQuantityInArrange;//已参加课程计数器
-		vars_checkout($totalCourseTakeQuantityInArrange, "totalCourseTakeQuantityInArrange"); 
 		$dayCourseCounter = 0;//计数日课程循环
 		$dayCounter = 0;//计数上课日
 		for($courseTakeRound=0;$courseTakeRound<($coursePeriod+$totalCourseTakeQuantityInArrange)/2;$courseTakeRound++){
@@ -165,7 +157,6 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			}
 			$dayCourseCounter ++;
 		}
-		vars_checkout($courseCapabilityLeftCounter, "courseCapabilityLeftCounter");
 
 		//排列课程并写入临时数组
 		//可排课判断条件为 课程有可用量 与 该班级有这门课且未曾上过 与 周课程量有剩余 
@@ -197,9 +188,7 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			//课程类型计数器
 			$courseTakeCounter ++;
 		}
-		print "<br />";
 	}
-	var_dump($courseTakeInArrangeArray);print "<br />";
 
 	//将排列课程写入临时数组并更新$courseCapabilityArray
 	//$courseTakeInArrangeArray[0]['QUANTITY'] = 8;
@@ -260,8 +249,6 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 			$dayCourseCounter ++;
 		}
 	}
-	print "<br />";
-	var_dump($tempScheduleArray[$classCounter]);
 
 }
 
@@ -289,22 +276,28 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 	$totalScheduleArray;
 
 //按周循环
-for($week=0;$week<$COURSE_DAY_OF_A_WEEK;$week++){
+$appointedClassArrayCount0 = count($tempScheduleArray);
+$weekTemp = 0;
+vars_checkout($appointedClassArrayCount0, "appointedClassArrayCount0");
+$totalScheduleArrayCount0 = 0;
+for($week=0;$week<5;$week++){
 	for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
-		$serial = 0;
-		foreach($tempScheduleArray[$classCounter][$week] as $key => $value){
-			$serial = serial_counter($totalScheduleArray, $serial, $key);
-			vars_checkout($serial, "serial");
-			$totalScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;//1
-			$totalScheduleArray[$serial]['WEEK'] = $week;
-			$totalScheduleArray[$serial][$key] = $value;
+		if($tempScheduleArray[$classCounter][$week]){
+			foreach($tempScheduleArray[$classCounter][$week] as $key => $value){
+				if($week != $weekTemp){
+					$totalScheduleArrayCount0 = count($totalScheduleArray);
+					$weekTemp ++;
+				}
+				$serial = $totalScheduleArrayCount0;
+				$serial = serial_counter($totalScheduleArray, $serial, $key);
+				$totalScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;//1
+				$totalScheduleArray[$serial]['WEEK'] = $week;
+				$totalScheduleArray[$serial][$key] = $value;
+			}
 		}
 	}
 }
-	
-	
-	print "<br />";
-	var_dump($totalScheduleArray);
+
 
 //TODO: 将$appointedClassArray写入数据库
 //TODO: 将$totalScheduleArray写入数据库
