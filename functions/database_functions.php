@@ -66,9 +66,10 @@ function database_table_create($table_name, $table_key_names_array, $table_key_t
 }
 
 //------  -[ table_data_query Function ]-  ------
-function table_data_query($table_name, $table_key_names_array){
+function table_data_query($table_name, $table_key_names_array, $sql_arguments = ""){
     $table_name;                //For lock on the table
     $table_key_names_array;     //For from the SQL query
+    $sql_arguments;             //Fro sql query arguments(Optional) 
 
     //Select ID and get ID array
     $sql_select_id = "SELECT ID FROM $table_name";
@@ -93,7 +94,11 @@ function table_data_query($table_name, $table_key_names_array){
     }
     //Query tableData By ID Array
     for($i=0;$i<$idNumbers;$i++){
-        $sql_select_values_by_id_formed = $sql_select_values_by_id.$idArray[$i];
+        if($sql_arguments != ""){
+            $queryAddArguments = " AND ".$sql_arguments;
+        }
+        $sql_select_values_by_id_formed = $sql_select_values_by_id.$idArray[$i].$queryAddArguments;
+        vars_checkout($sql_select_values_by_id_formed, "sql_select_values_by_id_formed");
         //print $sql_select_values_by_id_formed;
         $queryResult = mysql_query($sql_select_values_by_id_formed);
         $table_data_array[$i] = mysql_fetch_assoc($queryResult);

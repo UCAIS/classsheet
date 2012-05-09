@@ -8,6 +8,9 @@
 */
 
 
+//TODO: Add schedule start method.
+//TODO: Add views functions[Include round start button and total schedule table]. 
+
 //Page switch
 $PAGE_SWITCH = $TOTAL_SCHEDULE_PAGE_SWITCH = 7;
 //Include files
@@ -25,6 +28,8 @@ $SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
 $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
+//TODO: Load post.
+$SEMESTER_WEEK_SET = 0;//First semester week
 
 
 //Preload all info array
@@ -49,10 +54,10 @@ for($i=0;$i<$courseListArrayCount0;$i++){
 }
 database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
 
+//QUERY the $totalScheduleArray
+$totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");
 
 //// Arrange data preload
-
-$SEMESTER_WEEK_SET = 0;//First semester week
 	
 //Load $appointedClassArray which has been appointed the week of semester
 //
@@ -65,9 +70,7 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 
 	$appointedClassArray = class_array_appoint($classListArray, $SEMESTER_WEEK_SET);
 	$appointedClassArrayCount0 = count($appointedClassArray);
-	print "<br />";
-	var_dump($appointedClassArray);
-	print "<br />";
+
 //Greate course left capability array [$courseCapabilityArray]
 //Example:
 //$courseCapabilityArray[0]['COURSE_0_0'] = 4;	$courseCapabilityArray[0]['COURSE_0_1'] = 4;	$courseCapabilityArray[0]['COURSE_0_2'] = 4;	$courseCapabilityArray[0]['COURSE_0_3'] = 4;
@@ -112,17 +115,17 @@ $SEMESTER_WEEK_SET = 0;//First semester week
 ////	Arrabg start, arranged by CLASS
 
 //Input data
-	$courseListArray;				//Include all course info
-	$courseListArrayCount0;			//Length of $courseListArray
-	$courseCapabilityArray;			//Incude course capability info 
-	$courseCapabilityArrayCount0;	//Length of $courseCapabilityArray
-	$appointedClassArray;			//Include class info in a semester week
-	$appointedClassArrayCount0;		//length of $appointedClassArray
-	$totalScheduleArray;			//Total schedule storage array
-	$tempScheduleArray[$classCounter];				//Schedule array for one class
-	$ONE_COURSE_PERIOD;				//Is 2
-	$COURSE_IN_A_DAY;				//Is 4
-
+	$courseListArray;					//Include all course info
+	$courseListArrayCount0;				//Length of $courseListArray
+	$courseCapabilityArray;				//Incude course capability info 
+	$courseCapabilityArrayCount0;		//Length of $courseCapabilityArray
+	$appointedClassArray;				//Include class info in a semester week
+	$appointedClassArrayCount0;			//length of $appointedClassArray
+	$totalScheduleArray;				//Total schedule storage array
+	$tempScheduleArray[$classCounter];	//Schedule array for one class
+	$ONE_COURSE_PERIOD;					//Is 2
+	$COURSE_IN_A_DAY;					//Is 4
+/*
 //班级循环开始
 for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 	//vars_checkout($classCounter, "classCounter");
@@ -300,7 +303,7 @@ for($week=0;$week<5;$week++){
 		}
 	}
 }
-
+*/
 
 //将$appointedClassArray写入数据库
 /*
