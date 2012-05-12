@@ -362,7 +362,82 @@ function reschedule_button_output(){
 	return 0;
 }
 
+//------  -[ classroom_list_output Function ]-  ------
+function classroom_list_output($classroom_list_array, $target_array){
+	$classroom_list_array;			//
+	$target_array;					//
 
+	$classroom_list_array_count0 = count($classroom_list_array);
+	print '<p>[&nbsp;教室列表&nbsp;]</p>';
+	print '<select name="classroomTypeList" size="10">';
+	for($i=0;$i<$classroom_list_array_count0;$i++){
+		if($target_array == $i){
+			$selectedValue = "selected";
+		}else{
+			$selectedValue = "";
+		}
+		print '<option value="'.$i.'" '.$selectedValue.'>';//There a BLANK between value and $selectedValue for HTML tag.
+		print $classroom_list_array[$i]['CLASSROOM_NAME']."</option>";
+	}
+	print '</select>';
+	print '<input type="submit" value="&nbsp;修改&nbsp;" name="classroomListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="classroomListDelete" style="margin-top: 10px;" />';
+	return 0;
+
+}
+
+//------  -[ classroomm_info_output Function ]-  ------
+function classroom_info_output($table_key_names_array){
+	$table_key_names_array;			//
+
+	print '<p>[&nbsp;教室信息输入&nbsp;]</p>';
+	print '<span>教室名称:<input type="text" name="'.$table_key_names_array['CLASSROOM_NAME'].'" maxlength="10" size="10" /></span><br />';
+	print '<span>教室类型:<select name="'.$table_key_names_array['CLASSROOM_TYPE'].'">';
+    print '<option value="Si">教室[Si]</option>';
+    print '<option value="Pr">编程室[Pr]</option>';
+    print '<option value="We">焊接室[We]</option>';
+    print '<option value="Ha">锻压室[Ha]</option>';
+    print '<option value="Fo">铸热室[Fo]</option>';
+    print '<option value="Sp">特加室[Sp]</option>';
+    print '</select></span><br />';
+	print '<input type="submit" value="添加" name="classroomInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
+    return 0;
+
+
+}
+
+//------  -[ classroom_info_change_output Function ]-  ------
+function classroom_info_change_output($classroom_list_array, $table_key_names_array, $target_array){
+	$classroom_list_array;			//
+	$table_key_names_array;			//
+	$target_array;					//
+
+	print '<p>[&nbsp;教室信息修改&nbsp;]</p>';
+	print '<span>教室名称:<input type="text" name="'.$table_key_names_array['CLASSROOM_NAME'].'" value="'.$classroom_list_array[$target_array]['CLASSROOM_NAME'].'" maxlength="10" size="10" /></span><br />';
+	print '<span>教室类型:<select name="'.$table_key_names_array['CLASSROOM_TYPE'].'">';
+	if($classroom_list_array[$target_array]['CLASSROOM_TYPE'] == "Si"){
+		$option0 = "selected";
+	}elseif($classroom_list_array[$target_array]['CLASSROOM_TYPE'] == "Pr"){
+		$option1 = "selected";
+	}elseif($classroom_list_array[$target_array]['CLASSROOM_TYPE'] == "We"){
+		$option2 = "selected";
+	}elseif($classroom_list_array[$target_array]['CLASSROOM_TYPE'] == "Ha"){
+		$option3 = "selected";
+	}elseif($classroom_list_array[$target_array]['CLASSROOM_TYPE'] == "Fo"){
+		$option4 = "selected";
+	}elseif($classroom_list_array[$target_array]['CLASSROOM_TYPE'] == "Sp"){
+		$option5 = "selected";
+	}
+    print '<option value="Si" '.$option0.'>教室</option>';
+    print '<option value="Pr" '.$option1.'>编程室</option>';
+    print '<option value="We" '.$option2.'>焊接室</option>';
+    print '<option value="Ha" '.$option3.'>锻压室</option>';
+    print '<option value="Fo" '.$option4.'>铸热室</option>';
+    print '<option value="Sp" '.$option5.'>特加室</option>';
+    print '</select></span><br />';
+	print '<input type="submit" value="修改" name="classroomInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
+    return 0;
+
+}
 
 
 

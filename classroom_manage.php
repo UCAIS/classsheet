@@ -25,12 +25,23 @@ $SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
 $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
+//Load target classroom
+$classroomTargetArray = $_POST['classroomList'];
 
 //QUERY the $classroomListArray
 $CLASSROOM_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASSROOM_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASSROOM_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_PAGE_SWITCH];
 $CLASSROOM_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$CLASSROOM_PAGE_SWITCH];
 $classroomListArray = table_data_query($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY);
+
+//Load the target array ID number
+$targetId = $classroomListArray[$classroomTargetArray][$CLASSROOM_TABLE_KEY_NAMES_ARRAY['ID']];
+
+//TODO : rewrite the database_table_create "if" phrase
+//CREATE the TABLE if not avaliable 
+if($semesterTargetArray != ""){
+	database_table_create($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $CLASSROOM_TABLE_KEY_TYPES_ARRAY);
+}
 
 //------  -[ Views Functions ]-  ------
 
