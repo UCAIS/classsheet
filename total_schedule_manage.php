@@ -8,11 +8,11 @@
 */
 
 
-//TODO: Add schedule start method.
-//TODO: Add views functions[Include round start button and total schedule table]. 
+//TODO: Add views functions [Include total schedule table]. 
 
 //Page switch
 $PAGE_SWITCH = $TOTAL_SCHEDULE_PAGE_SWITCH = 7;
+
 //Include files
 include('settings.php');
 include('html_head.php');
@@ -28,9 +28,6 @@ $SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
 $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
-//TODO: Load post.
-$SEMESTER_WEEK_SET = 0;//First semester week
-
 
 //Preload all info array
 $COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
@@ -39,7 +36,6 @@ $courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_
 $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
-
 
 //CREATE the TOTAL_SCHEDULE_TABLE
 //TODO: add "if" phrase.	
@@ -54,10 +50,18 @@ for($i=0;$i<$courseListArrayCount0;$i++){
 }
 database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $TOTAL_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
 
+
+//// Arrange data preload
+
+
+//Load semester week
+$SEMESTER_WEEK_SET = $_POST[$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY['SEMESTER_WEEK']];//Load semester week
+
 //QUERY the $totalScheduleArray
 $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");
 
-//// Arrange data preload
+//Reschedule determinative syntax
+if($_POST['RESCHEDULE']){
 	
 //Load $appointedClassArray which has been appointed the week of semester
 //
@@ -108,11 +112,13 @@ $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDU
 //$totalScheduleArray[0]['COURSE_0_1'] 		= "T0.电信08-1";
 //$totalScheduleArray[0]['COURSE_0_2'] 		= "T1.电信08-1";
 //$totalScheduleArray[0]['COURSE_0_3'] 		= "TF.电信08-1";
+//...
 	
 	$totalScheduleArray;
+	unset($totalScheduleArray);//Unset for reschedule.
 	
 
-////	Arrabg start, arranged by CLASS
+////	Arrange start, arranged by CLASS
 
 //Input data
 	$courseListArray;					//Include all course info
@@ -125,7 +131,7 @@ $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDU
 	$tempScheduleArray[$classCounter];	//Schedule array for one class
 	$ONE_COURSE_PERIOD;					//Is 2
 	$COURSE_IN_A_DAY;					//Is 4
-/*
+
 //班级循环开始
 for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 	//vars_checkout($classCounter, "classCounter");
@@ -303,24 +309,22 @@ for($week=0;$week<5;$week++){
 		}
 	}
 }
-*/
 
 //将$appointedClassArray写入数据库
-/*
 $appointedClassArrayCount0 = count($appointedClassArray);
 for($i=0;$i<$appointedClassArrayCount0;$i++){
 	$targetId = $appointedClassArray[$i]['ID'];
 	table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $appointedClassArray[$i]);
 }
-*/
+
 //将$totalScheduleArray写入数据库
-/*
 $totalScheduleArrayCount0 = count($totalScheduleArray);
 for($i=0;$i<$totalScheduleArrayCount0;$i++){
 		table_data_add($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray[$i]);
 }
-*/
 
+
+}//Bracket for reschedule determinative syntax
 
 //------  -[ Views Functions ]-  ------
 
@@ -336,7 +340,9 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
+		week_select_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);
 		table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);
+		reschedule_button_output();
 		div_end_output();
 		form_end_output();
 	div_end_output();

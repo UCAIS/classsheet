@@ -337,15 +337,30 @@ function table_info_output($table_key_names_array, $target_list_array){
 		print '</td>';	
 	}
 	print '</table>';
+	return 0;
 }
 
 //------  -[ files_upload_output Function ]-  ------
-
 function files_upload_output(){
 	print '<span>请选择上传文件[.csv][文件编码格式必须为UTF-8]<input type="file" name="uploadFiles" value="" />';
 	print '<input type="submit" name="upload" value="上传" /></span>';
+	return 0;
 }
 
+//------  -[ week_select_output Function ]-  ------
+function week_select_output($total_schedule_table_key_names_array, $semester_week_set){
+	$total_schedule_table_key_names_array;		//
+	$semester_week_set;							//
+
+	print '<span>学期第<input type="text" name="'.$total_schedule_table_key_names_array['SEMESTER_WEEK'].'" value="'.$semester_week_set.'"  maxlength="2" size="2" />周<input type="submit" name="SEMESTER_WEEK_CONFIRM" value="确定" /></span>';
+	return 0;
+}
+
+//------  -[ reschedule_button_output Function ]-  ------
+function reschedule_button_output(){
+	print '<span><input type="submit" name="RESCHEDULE" value="重新排列课程并保存" /></span>';
+	return 0;
+}
 
 
 

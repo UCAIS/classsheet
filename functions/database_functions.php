@@ -98,7 +98,6 @@ function table_data_query($table_name, $table_key_names_array, $sql_arguments = 
             $queryAddArguments = " AND ".$sql_arguments;
         }
         $sql_select_values_by_id_formed = $sql_select_values_by_id.$idArray[$i].$queryAddArguments;
-        vars_checkout($sql_select_values_by_id_formed, "sql_select_values_by_id_formed");
         //print $sql_select_values_by_id_formed;
         $queryResult = mysql_query($sql_select_values_by_id_formed);
         $table_data_array[$i] = mysql_fetch_assoc($queryResult);
