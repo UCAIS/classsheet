@@ -369,7 +369,7 @@ function classroom_list_output($classroom_list_array, $target_array){
 
 	$classroom_list_array_count0 = count($classroom_list_array);
 	print '<p>[&nbsp;教室列表&nbsp;]</p>';
-	print '<select name="classroomTypeList" size="10">';
+	print '<select name="classroomList" size="10">';
 	for($i=0;$i<$classroom_list_array_count0;$i++){
 		if($target_array == $i){
 			$selectedValue = "selected";
@@ -446,7 +446,7 @@ function classroom_info_change_output($classroom_list_array, $table_key_names_ar
         
     
 
-
+       
 
 //Fin.
 ?>

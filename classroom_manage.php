@@ -43,6 +43,34 @@ if($semesterTargetArray != ""){
 	database_table_create($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $CLASSROOM_TABLE_KEY_TYPES_ARRAY);
 }
 
+//ADD the information to database if POST
+print $_POST['CLASSROOM_NAME']; 
+if($_POST["classroomInfoAdd"]){
+	//Load the POST info array
+	foreach($CLASSROOM_TABLE_KEY_NAMES_ARRAY as $value){
+		$classroomInfoArray[$value] = $_POST[$value];
+	}
+	var_dump($classroomInfoArray);
+	unset($value);
+	table_data_add($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $classroomInfoArray);
+}
+//DELETE the information from database if POST
+if($_POST["classroomListDelete"]){
+	table_data_delete_by_id($CLASSROOM_TABLE_NAME, $targetId);
+}
+//CHANGE the information to database if POST 
+if($_POST["classroomInfoChanged"]){
+	foreach($CLASSROOM_TABLE_KEY_NAMES_ARRAY as $value){
+		$classroomInfoChangeArray[$value] = $_POST[$CLASSROOM_TABLE_KEY_NAMES_ARRAY[$value]];
+	}
+	unset($value);
+	table_data_change($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $targetId, $classroomInfoChangeArray);
+}
+
+//REQUERY the $classroomListArray for display
+$classroomListArray = table_data_query($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY);
+
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
@@ -57,7 +85,12 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);
+		classroom_list_output($classroomListArray, $classroomTargetArray);
+		if(!$_POST['classroomListChange']){
+			classroom_info_output($CLASSROOM_TABLE_KEY_NAMES_ARRAY);
+		}else{
+			classroom_info_change_output($classroomListArray, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $classroomTargetArray);
+		}
 		div_end_output();
 		form_end_output();
 	div_end_output();

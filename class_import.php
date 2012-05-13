@@ -9,7 +9,7 @@
 
 //TODO:ADD database table drop method.[IMPORTANT]
 //Page number
-$PAGE_SWITCH = 13;
+$PAGE_SWITCH = 14;
 $CLASS_TABLE_NAME;
 $SEMESTER_PAGE_SWITCH = 1;
 $COURSE_TYPE_PAGE_SWITCH = 2;

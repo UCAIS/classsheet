@@ -153,14 +153,39 @@ $TABLE_KEY_TYPES_ARRAY[8]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(
 $TABLE_KEY_TYPES_ARRAY[8]['CLASSROOM_NAME']		= "varchar(15)";
 $TABLE_KEY_TYPES_ARRAY[8]['CLASSROOM_TYPE']		= "varchar(15)";
 
+$PAGE_INFO_ARRAY[9]['PAGE_NAME'] 				= "Teachers Manage";
+$PAGE_INFO_ARRAY[9]['PAGE_NAME_IN_CHINESE'] 	= "教师管理";
+$PAGE_INFO_ARRAY[9]['FILE_NAME']				= "teachers_manage.php";
+$PAGE_INFO_ARRAY[9]['TABLE_NAME']				= "TEACHER";
+$TABLE_KEY_NAMES_ARRAY[9]['ID']					= "ID";
+$TABLE_KEY_NAMES_ARRAY[9]['CLASSROOM_NAME']		= "TEACHER_NAME";
+$TABLE_KEY_NAMES_ARRAY[9]['CLASSROOM_TYPE']		= "TEACHER_TYPE";
+$TABLE_KEY_TYPES_ARRAY[9]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
+$TABLE_KEY_TYPES_ARRAY[9]['CLASSROOM_NAME']		= "varchar(15)";
+$TABLE_KEY_TYPES_ARRAY[9]['CLASSROOM_TYPE']		= "varchar(15)";
 
-$PAGE_INFO_ARRAY[12]['PAGE_NAME'] 				= "Course and Course type Import";
-$PAGE_INFO_ARRAY[12]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
-$PAGE_INFO_ARRAY[12]['FILE_NAME']				= "course_import.php";
+$PAGE_INFO_ARRAY[10]['PAGE_NAME'] 				= "Classroom Schedule Manage";
+$PAGE_INFO_ARRAY[10]['PAGE_NAME_IN_CHINESE'] 	= "教室课程表管理";
+$PAGE_INFO_ARRAY[10]['FILE_NAME']				= "classroom_schedule_manage.php";
+$PAGE_INFO_ARRAY[10]['TABLE_NAME']				= "CLASSROOM_SCHEDULE";
+$TABLE_KEY_NAMES_ARRAY[10]['ID']					= "ID";
+$TABLE_KEY_NAMES_ARRAY[10]['CLASSROOM_NAME']		= "CLASSROOM_NAME";
+$TABLE_KEY_NAMES_ARRAY[10]['CLASSROOM_TYPE']		= "CLASSROOM_TYPE";
+$TABLE_KEY_TYPES_ARRAY[10]['ID']					= "int NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID)";
+$TABLE_KEY_TYPES_ARRAY[10]['CLASSROOM_NAME']		= "varchar(15)";
+$TABLE_KEY_TYPES_ARRAY[10]['CLASSROOM_TYPE']		= "varchar(15)";
 
-$PAGE_INFO_ARRAY[13]['PAGE_NAME'] 				= "Class and Weeks Schedule Import";
-$PAGE_INFO_ARRAY[13]['PAGE_NAME_IN_CHINESE'] 	= "班级及周课表导入";
-$PAGE_INFO_ARRAY[13]['FILE_NAME']				= "class_import.php";
+//11
+
+//12
+
+$PAGE_INFO_ARRAY[13]['PAGE_NAME'] 				= "Course and Course type Import";
+$PAGE_INFO_ARRAY[13]['PAGE_NAME_IN_CHINESE'] 	= "课程及模块导入";
+$PAGE_INFO_ARRAY[13]['FILE_NAME']				= "course_import.php";
+
+$PAGE_INFO_ARRAY[14]['PAGE_NAME'] 				= "Class and Weeks Schedule Import";
+$PAGE_INFO_ARRAY[14]['PAGE_NAME_IN_CHINESE'] 	= "班级及周课表导入";
+$PAGE_INFO_ARRAY[14]['FILE_NAME']				= "class_import.php";
 
 //Fin.
 ?>

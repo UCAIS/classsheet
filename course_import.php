@@ -10,7 +10,7 @@
 //TODO:ADD database table drop method.[IMPORTANT]
 //TODO: Import data leave a blank line.[IMPORTANT][★]
 //Page number
-$PAGE_SWITCH = 12;
+$PAGE_SWITCH = 13;
 $SEMESTER_PAGE_SWITCH = 1;
 $COURSE_TYPE_PAGE_SWITCH = 2;
 $COURSE_PAGE_SWITCH = 3;
