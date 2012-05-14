@@ -89,7 +89,7 @@
     <a href="weeks_schedule_manage.php" <?php if($PAGE_SWITCH == 6){print ('class="actived"');}?>>[&nbsp;周课表管理&nbsp;]</a>
     <a href="total_schedule_manage.php" <?php if($PAGE_SWITCH == 7){print ('class="actived"');}?>>[&nbsp;总课表管理&nbsp;]</a>
     <a href="classroom_manage.php" <?php if($PAGE_SWITCH == 8){print ('class="actived"');}?>>[&nbsp;教室管理&nbsp;]</a>
-    <a href="teachers_manage.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;教师管理&nbsp;]</a>
+    <a href="teacher_manage.php" <?php if($PAGE_SWITCH == 9){print ('class="actived"');}?>>[&nbsp;教师管理&nbsp;]</a>
     <a href="classroom_schedule_manage.php" <?php if($PAGE_SWITCH == 10){print ('class="actived"');}?>>[&nbsp;教室课程表管理&nbsp;]</a>
     <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 11){print ('class="actived"');}?>>[&nbsp;学生课程表信息&nbsp;]</a>
     <a href="studentsCourseForm.php" <?php if($PAGE_SWITCH == 12){print ('class="actived"');}?>>[&nbsp;学生课程表管理&nbsp;]</a>
