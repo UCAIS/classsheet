@@ -400,6 +400,7 @@ function classroom_info_output($table_key_names_array){
     print '<option value="Fo">铸热室[Fo]</option>';
     print '<option value="Sp">特加室[Sp]</option>';
     print '</select></span><br />';
+    print '<span>教室容纳班级量:<input type="text" name="'.$table_key_names_array['CLASSROOM_CAPABILITY'].'" maxlength="2" size="2" /></span><br />';
 	print '<input type="submit" value="添加" name="classroomInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
 }
@@ -433,6 +434,7 @@ function classroom_info_change_output($classroom_list_array, $table_key_names_ar
     print '<option value="Fo" '.$option4.'>铸热室</option>';
     print '<option value="Sp" '.$option5.'>特加室</option>';
     print '</select></span><br />';
+    print '<span>教室容纳班级量:<input type="text" name="'.$table_key_names_array['CLASSROOM_CAPABILITY'].'" value="'.$classroom_list_array[$target_array]['CLASSROOM_CAPABILITY'].'" maxlength="2" size="2" /></span><br />';
 	print '<input type="submit" value="修改" name="classroomInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
 }

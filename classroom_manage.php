@@ -50,7 +50,6 @@ if($_POST["classroomInfoAdd"]){
 	foreach($CLASSROOM_TABLE_KEY_NAMES_ARRAY as $value){
 		$classroomInfoArray[$value] = $_POST[$value];
 	}
-	var_dump($classroomInfoArray);
 	unset($value);
 	table_data_add($CLASSROOM_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $classroomInfoArray);
 }

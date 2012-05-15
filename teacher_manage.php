@@ -5,8 +5,7 @@
 *	Serial:		120512
 *	by:			M.Karminski
 *
-*
-* 	Teacher Manage
+* 	Teacher Manage Method
 *	$TEACHER_TABLE_KEY_NAMES_ARRAY
 *		['ID']
 *		['TEACHER_NAME']
