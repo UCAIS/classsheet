@@ -5,7 +5,26 @@
 *	Serial:		120512
 *	by:			M.Karminski
 *
-*/
+*
+* 	Teacher Manage
+*	$TEACHER_TABLE_KEY_NAMES_ARRAY
+*		['ID']
+*		['TEACHER_NAME']
+*		The teacher type data access from course type, and storage in course key names format.
+*		Teacher Type include:概论课教师, 工种理论课教师, 工种组教师, 工艺设计教师, 监考教师.
+*		['TEACHER_TYPE_INTRO'] "T" means true
+*		['TEACHER_TYPE_DESIGN']
+*		['TEACHER_TYPE_EXAM']
+*		['TEACHER_TYPE_TRAIN'] Include [Fo]铸造 [We]焊接 [La]车工 [Be]钳工 [Nc]数控 [Sp]特加 [S]h铣刨磨 [Ha]锻压
+*		['TEACH_FREQUENCE']	Default value is 0.
+*
+*	$TEACHER_TABLE_KEY_TYPES_ARRAY
+*
+*	Database structure
+*	| ID | TEACHER_NAME | TEACHER_TYPE_INTRO | TEACHER_TYPE_DESIGN | TEACHER_TYPE_EXAM | TEACHER_TYPE_TRAIN | TEACH_FREQUENCY |
+*
+*	Possible Bug: One teacher sometimes can take two or more course, so it can jam in course taking.  
+*/ 
 
 
 //Page switch
@@ -26,27 +45,6 @@ $SEMESTER_TABLE_NAME = $PAGE_INFO_ARRAY[$SEMESTER_PAGE_SWITCH]['TABLE_NAME'];
 $SEMESTER_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$SEMESTER_PAGE_SWITCH];
 $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_NAMES_ARRAY);
 $semesterTargetArray = $_POST['semesterList'];
-
-/**
-* @todo:	Teacher Manage
-*			$TEACHER_TABLE_KEY_NAMES_ARRAY
-*				['ID']
-*				['TEACHER_NAME']
-*				The teacher type data access from course type, and storage in course key names format.
-*				Teacher Type include:概论课教师, 工种理论课教师, 工种组教师, 工艺设计教师, 监考教师.
-*				['TEACHER_TYPE_INTRO'] "T" means true
-*				['TEACHER_TYPE_DESIGN']
-*				['TEACHER_TYPE_EXAM']
-*				['TEACHER_TYPE_TRAIN'] Include [Fo]铸造 [We]焊接 [La]车工 [Be]钳工 [Nc]数控 [Sp]特加 [S]h铣刨磨 [Ha]锻压
-*				['TEACH_FREQUENCE']	Default value is 0.
-*
-*			$TEACHER_TABLE_KEY_TYPES_ARRAY
-*
-*			Database structure
-*			| ID | TEACHER_NAME | TEACHER_TYPE | TEACH_FREQUENCY |
-*
-*			Possible Bug: One teacher sometimes can take two or more course, so it can jam in course taking.  
-*/ 
 
 //Load target teacher
 $teacherTargetArray = $_POST['teacherList'];
