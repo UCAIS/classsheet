@@ -62,6 +62,7 @@ $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDU
 //$classroomListArray[0]['CLASSROOM_CAPABILITY']= "4";
 
 	$classroomListArray;
+	$classroomListArrayCount0 = count($classroomListArray);
 
 //$teacherListArray Structure Describe
 //
@@ -74,6 +75,7 @@ $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDU
 //$teacherListArray[0]['TEACH_FREQUENCY']		= "";		
 
 	$teacherListArray;
+	$teacherListArrayCount0 = count($teacherListArray);
 
 //$totalScheduleArray Structure Describe
 //
@@ -95,6 +97,92 @@ $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDU
 //...
 
 	$totalScheduleArray;
+	$totalScheduleArrayCount0 = count($totalScheduleArray);
+
+//$classroomScheduleArray Structure Describe
+//
+//$classroomScheduleArray[0]['ID']				= 0;		
+//$classroomScheduleArray[0]['SEMESTER_WEEK']	= 0;
+//$classroomScheduleArray[0]['WEEK']			= 0;
+//$classroomScheduleArray[0]['CLASSROOM_NAME']	= "实216";
+//$classroomScheduleArray[0]['COURSE_PART_0']	= "COURSE_0";
+//$classroomScheduleArray[0]['TEACHER_PART_0']	= "李文双";
+//$classroomScheduleArray[0]['CLASS_PART_0']	= "TI.机设09-1";
+
+
+////Classroom Schedule Arrange Start
+
+for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$totalScheduleCounter++){
+	foreach($totalScheduleArray[$totalScheduleCounter] as $key => $value){
+		//Ignore the "SEMESTER_WEEK", "WEEK", "COURSE_0_0"~"COURSE_0_3".
+		if($key == "SEMESTER_WEEK" || $key == "WEEK" || $key == "COURSE_0_0" || $key == "COURSE_0_1" || $key == "COURSE_0_2" || $key == "COURSE_0_3"){
+			continue;
+		}
+		//Class itile info explode
+		$dotExplodeArray = explode(".", $value); //$dotExplodeArray[0] is class title info.
+		$underlineExplodeArray = explode("_", $key); //underlineExplodeArray[1] is course key name serial number, [2] is course part serial number.
+		//概论课
+		if($dotExplodeArray[0] == "TI"){
+			vars_checkout($value, "value");
+			//Load in classroom schedule
+			for($classroomCounter=0;$classroomCounter<$classroomListArrayCount0;$classroomCounter++){
+				if($classroomListArray[$classroomCounter]['CLASSROOM_TYPE'] == "Si" && $classroomListArray[$classroomCounter]['CLASSROOM_CAPABILITY']>0){
+					//Load $classroomScheduleArray key names
+					$coursePartName = "COURSE_PART_".$underlineExplodeArray[2];
+					$teacherPartName = "TEACHER_PART_".$underlineExplodeArray[2];
+					$classPartName = "CLASS_PART_".$underlineExplodeArray[2];
+					//Load $classroomScheduleArray serial number
+					$classroomScheduleArrayCount0 = count($classroomScheduleArray);
+					$serial = $classroomScheduleArrayCount0;
+					$serial = serial_counter($classroomScheduleArray, $serial, $classPartName);
+					//Load teacher info
+					for($teacherCounter=0;$teacherCounter<$teacherListArrayCount0;$teacherCounter++){
+						//TODO: Add teacher overload test method, may be add a overload status array.
+						//TODO: The teacherStatus should include a serial counter for take more than one course in a week.
+						//TODO: Add teacher TEACH_FREQUENCY CAL method, and "if" phrase.
+						if($teacherListArray[$teacherCounter]['TEACHER_TYPE_INTRO'] == "T" && $teacherStatusArray[$teacherCounter]['WEEK'] != "" && $teacherStatusArray[$teacherCounter]['COURSE_PART'] != ""){
+							$activeTeacher = $teacherListArray[$teacherCounter]['TEACHER_NAME'];
+							//Auto increase TEACH_FREQUENCY
+							$teacherListArray[$teacherCounter]['TEACH_FREQUENCY'] ++;
+							//Update the teacher teach status
+							$teacherStatusArray[$teacherCounter]['WEEK'] = "";
+							$teacherStatusArray[$teacherCounter]['COURSE_PART'] = "";
+							//Break loop
+							break;
+						}
+					}
+
+					//Load data in $classroomScheduleArray
+					$classroomScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;
+					$classroomScheduleArray[$serial]['WEEK'] = $totalScheduleArray[$totalScheduleCounter]['WEEK'];
+					$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+					$classroomScheduleArray[$serial][$coursePartName] = "COURSE_0"; //Just TI course
+					$classroomScheduleArray[$serial][$teacherPartName] = $activeTeacher;
+					$classroomScheduleArray[$serial][$classPartName] = $value;
+					//TODO: CLASSROOM_CAPABILITY -1 
+					
+					//Break loop
+					break;
+				}
+			}
+		
+		}
+		//工艺设计
+		if($dotExplodeArray[0] == "D1" || $dotExplodeArray[0] == "D2"){
+			vars_checkout($value, "value");
+		}
+		//考试
+		if($dotExplodeArray[0] == "E"){
+			vars_checkout($value, "value");
+		}
+		//工种理论课
+		if($dotExplodeArray[0] == "T0"){
+			vars_checkout($value, "value");
+		}
+	}
+}
+
+//TODO: Upload $teacherListArray TEACH_FREQUENCY data.
 
 
 //------  -[ Views Functions ]-  ------
