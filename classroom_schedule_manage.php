@@ -53,6 +53,10 @@ $teacherListArray = table_data_query($TEACHER_TABLE_NAME, $TEACHER_TABLE_KEY_NAM
 $TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($TOTAL_SCHEDULE_TABLE_NAME);
 $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");
+//Load $classroomScheduleArray
+$CLASSROOM_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASSROOM_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+$CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SCHEDULE_PAGE_SWITCH];
+//TODO: $classroomScheduleArray = table_data_query($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");;
 
 //$classroomListArray Structure Describe
 //
@@ -135,32 +139,15 @@ for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$tot
 					$classroomScheduleArrayCount0 = count($classroomScheduleArray);
 					$serial = $classroomScheduleArrayCount0;
 					$serial = serial_counter($classroomScheduleArray, $serial, $classPartName);
-					//Load teacher info
-					for($teacherCounter=0;$teacherCounter<$teacherListArrayCount0;$teacherCounter++){
-						//TODO: Add teacher overload test method, may be add a overload status array.
-						//TODO: The teacherStatus should include a serial counter for take more than one course in a week.
-						//TODO: Add teacher TEACH_FREQUENCY CAL method, and "if" phrase.
-						if($teacherListArray[$teacherCounter]['TEACHER_TYPE_INTRO'] == "T" && $teacherStatusArray[$teacherCounter]['WEEK'] != "" && $teacherStatusArray[$teacherCounter]['COURSE_PART'] != ""){
-							$activeTeacher = $teacherListArray[$teacherCounter]['TEACHER_NAME'];
-							//Auto increase TEACH_FREQUENCY
-							$teacherListArray[$teacherCounter]['TEACH_FREQUENCY'] ++;
-							//Update the teacher teach status
-							$teacherStatusArray[$teacherCounter]['WEEK'] = "";
-							$teacherStatusArray[$teacherCounter]['COURSE_PART'] = "";
-							//Break loop
-							break;
-						}
-					}
-
 					//Load data in $classroomScheduleArray
 					$classroomScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;
 					$classroomScheduleArray[$serial]['WEEK'] = $totalScheduleArray[$totalScheduleCounter]['WEEK'];
 					$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
-					$classroomScheduleArray[$serial][$coursePartName] = "COURSE_0"; //Just TI course
-					$classroomScheduleArray[$serial][$teacherPartName] = $activeTeacher;
+					$classroomScheduleArray[$serial][$coursePartName] = "COURSE_0"; //Just for "TI" course
+					//$classroomScheduleArray[$serial][$teacherPartName] = $activeTeacher;
 					$classroomScheduleArray[$serial][$classPartName] = $value;
-					//TODO: CLASSROOM_CAPABILITY -1 
-					
+					//CLASSROOM_CAPABILITY -1 
+					$classroomListArray[$classroomCounter]['CLASSROOM_CAPABILITY'] --;
 					//Break loop
 					break;
 				}
@@ -201,7 +188,7 @@ div_head_output_with_class_option("mainMiddle");
 		div_head_output_with_class_option("mainMiddleBlockRight");
 
 		//week_select_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);//Temporary views output
-		table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);//Temporary views output
+		table_info_output($CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $classroomScheduleArray);//Temporary views output
 
 		div_end_output();
 		form_end_output();
