@@ -230,7 +230,7 @@ function data_picker($syntax, $data){
 	return $outputData[1];
 }
 
-////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  ////
+////  ////  ////  ////  ////  [ total_schedule FUNCTIONS ]  ////  ////  ////  ////  ////
 
 //------  -[ class_array_appoint Function ]-  ------
 //This function load queue of CLASS_NAME & CLASS_TYPE in $appointedClassArray which has been appointed the week of semester
@@ -306,9 +306,20 @@ function serial_counter($total_schedule_array, $serial, $key){
 	return $serial;
 }
 
-////  ////  ////  ////  ////  [ TOTAL SCHEDULE FUNCTIONS ]  ////  ////  ////  ////  /////
+////  ////  ////  ////  ////  [ classroom_schedule FUNCTIONS ]  ////  ////  ////  ////  /////
 
+//------  -[ teach_frequency_averange Function ]-  ------
+//Count the teacher averange TEACH_FREQUENCY
+function teach_frequency_averange($teacher_list_array){
+	$teacher_list_array;				//
 
+	$teacherListArrayCount0 = count($teacher_list_array);
+	for($teacherCounter=0;$teacherCounter<$teacherListArrayCount0;$teacherCounter++){
+		$teachFrequencyTotal .= $teacher_list_array[$teacherCounter]['TEACH_FREQUENCY'];
+	}
+	$teachFrequencyAverange = $teachFrequencyTotal/$teacherListArrayCount0;
+	return $teachFrequencyAverange;
+}
 
 //Fin.
 ?>
