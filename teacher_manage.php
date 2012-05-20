@@ -14,7 +14,7 @@
 *		['TEACHER_TYPE_INTRO'] "T" means true
 *		['TEACHER_TYPE_DESIGN']
 *		['TEACHER_TYPE_EXAM']
-*		['TEACHER_TYPE_TRAIN'] Include [Fo]铸造 [We]焊接 [La]车工 [Be]钳工 [Nc]数控 [Sp]特加 [S]h铣刨磨 [Ha]锻压
+*		['TEACHER_TYPE_TRAIN'] Include [Z]铸造 [H]焊接 [C]车工 [Q]钳工 [S]数控 [T]特加 [X]铣刨磨 [D]锻压
 *		['TEACH_FREQUENCE']	Default value is 0.
 *
 *	$TEACHER_TABLE_KEY_TYPES_ARRAY
