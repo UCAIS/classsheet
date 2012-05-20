@@ -207,10 +207,17 @@ function course_info_output($table_key_names_array){
     print '<span>课程名称:<input type="text" name="'.$table_key_names_array['COURSE_NAME'].'" maxlength="20" size="20" /></span><br />';
     print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" maxlength="3" size="3" />[单位:班级]</span><br />';
     print '<span>课程方式:<select name="'.$table_key_names_array['COURSE_STYLE'].'">';
-    print '<option value="TI">概论课</option>';
-    print '<option value="T">工程实训</option>';
-    print '<option value="D">工艺设计</option>';
-    print '<option value="E">考试</option>';
+    print '<option value="G">概论课</option>';
+    print '<option value="Z">铸造</option>';
+    print '<option value="D">锻压</option>';
+    print '<option value="H">焊接</option>';
+    print '<option value="C">车工</option>';
+    print '<option value="X">铣刨磨</option>';
+    print '<option value="S">数控</option>';
+    print '<option value="T">特种加工</option>';
+    print '<option value="Q">钳工</option>';
+    print '<option value="GY">工艺设计</option>';
+    print '<option value="K">考试</option>';
     print '</select></span><br />';
     print '<input type="submit" value="添加" name="courseInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;
@@ -226,19 +233,40 @@ function course_info_change_output($course_list_array, $table_key_names_array, $
 	print '<span>课程名称:<input type="text" name="'.$table_key_names_array['COURSE_NAME'].'" value="'.$course_list_array[$target_array]['COURSE_NAME'].'" maxlength="10" size="10" /></span><br />';
 	print '<span>课程容量:<input type="text" name="'.$table_key_names_array['COURSE_CAPABILITY'].'" value="'.$course_list_array[$target_array]['COURSE_CAPABILITY'].'" maxlength="3" size="3" />[单位:班级]</span><br />';
 	print '<span>课程方式:<select name="'.$table_key_names_array['COURSE_STYLE'].'">';
-	if($course_list_array[$target_array]['COURSE_STYLE'] == "TI"){
+	if($course_list_array[$target_array]['COURSE_STYLE'] == "G"){
 		$option0 = "selected";
-	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "T"){
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "Z"){
 		$option1 = "selected";
 	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "D"){
 		$option2 = "selected";
-	}else{
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "H"){
 		$option3 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "C"){
+		$option4 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "X"){
+		$option5 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "S"){
+		$option6 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "T"){
+		$option7 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "Q"){
+		$option8 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "GY"){
+		$option9 = "selected";
+	}elseif($course_list_array[$target_array]['COURSE_STYLE'] == "K"){
+		$option10 = "selected";
 	}
-    print '<option value="TI" '.$option0.'>概论课</option>';
-    print '<option value="T" '.$option1.'>工程实训</option>';
-    print '<option value="D" '.$option2.'>工艺设计</option>';
-    print '<option value="E" '.$option3.'>考试</option>';
+    print '<option value="G" '.$option0.'>概论课</option>';
+    print '<option value="Z" '.$option1.'>铸造</option>';
+    print '<option value="D" '.$option2.'>锻压</option>';
+    print '<option value="H" '.$option3.'>焊接</option>';
+    print '<option value="C" '.$option4.'>车工</option>';
+    print '<option value="X" '.$option5.'>铣刨磨</option>';
+    print '<option value="S" '.$option6.'>数控</option>';
+    print '<option value="T" '.$option7.'>特种加工</option>';
+    print '<option value="Q" '.$option8.'>钳工</option>';
+    print '<option value="GY" '.$option9.'>工艺设计</option>';
+    print '<option value="K" '.$option10.'>考试</option>';
     print '</select></span><br />';
 	print '<input type="submit" value="修改" name="courseInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
     return 0;

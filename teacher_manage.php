@@ -10,10 +10,10 @@
 *		['ID']
 *		['TEACHER_NAME']
 *		The teacher type data access from course type, and storage in course key names format.
-*		Teacher Type include:概论课教师, 工种理论课教师, 工种组教师, 工艺设计教师, 监考教师.
-*		['TEACHER_TYPE_INTRO'] "T" means true
-*		['TEACHER_TYPE_DESIGN']
-*		['TEACHER_TYPE_EXAM']
+*		Teacher Type include: [G]概论课教师, 工种理论课教师, 工种组教师, [GY]工艺设计教师, [K]监考教师.
+*		['TEACHER_TYPE_INTRO'] 		[G]概论课
+*		['TEACHER_TYPE_DESIGN']		[GY]工艺设计
+*		['TEACHER_TYPE_EXAM']		[K]考试
 *		['TEACHER_TYPE_TRAIN'] Include [Z]铸造 [H]焊接 [C]车工 [Q]钳工 [S]数控 [T]特加 [X]铣刨磨 [D]锻压
 *		['TEACH_FREQUENCE']	Default value is 0.
 *
