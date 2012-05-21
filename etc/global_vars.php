@@ -24,7 +24,6 @@ $COURSE_IMPORT_PAGE_SWITCH			= 13;
 $CLASS_IMPORT_PAGE_SWITCH			= 14;
 $SETTINGS_PAGE_SWITCH				= 15;
 
-//TODO:Rewrite the $PAGE_NUMBER into this page.
 //TODO:Replace all "THIS" method.[IMPORTANT]
 //TODO:Chage the include files place.
 //TODO:Add Table delete method.[IMPORTANT]
