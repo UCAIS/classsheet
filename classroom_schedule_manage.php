@@ -170,7 +170,12 @@ $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SC
 	}
 
 
-////Classroom Schedule Arrange Start
+/**
+*	Classroom Schedule Arrange Start
+*
+*	This code block make the classroom schedule array.
+*
+*/
 
 for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$totalScheduleCounter++){
 	foreach($totalScheduleArray[$totalScheduleCounter] as $key => $value){
@@ -224,6 +229,7 @@ for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$tot
 					$classroomScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;
 					$classroomScheduleArray[$serial]['WEEK'] = $week;
 					$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+					$classroomScheduleArray[$serial]['CLASSROOM_TYPE'] = "J";
 					$classroomScheduleArray[$serial][$coursePartName] = $courseNameG;
 					$classroomScheduleArray[$serial][$teacherPartName] = $activeTeacher;
 					$classroomScheduleArray[$serial][$classPartName] = $value;
@@ -287,26 +293,31 @@ for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$tot
 			if($classTitleInfo == "T0"){
 				$classroomCounter = $classroomKeyNameSerialArray['T'];// Load the classroom serial number.
 				$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+				$classroomScheduleArray[$serial]['CLASSROOM_TYPE'] = "T";
 			}
 			//Classroom for course: [Z]铸造
 			if($classTitleInfo == "Z0"){
 				$classroomCounter = $classroomKeyNameSerialArray['Z'];// Load the classroom serial number.
 				$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+				$classroomScheduleArray[$serial]['CLASSROOM_TYPE'] = "Z";
 			}
 			//Classroom for course: [D]锻压
 			if($classTitleInfo == "D0"){
 				$classroomCounter = $classroomKeyNameSerialArray['D'];// Load the classroom serial number.
 				$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+				$classroomScheduleArray[$serial]['CLASSROOM_TYPE'] = "D";
 			}
 			//Classroom for course: [H]焊接
 			if($classTitleInfo == "H0"){
 				$classroomCounter = $classroomKeyNameSerialArray['H'];// Load the classroom serial number.
 				$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+				$classroomScheduleArray[$serial]['CLASSROOM_TYPE'] = "H";
 			}
 			//Classroom for course: [S]数控
 			if($classTitleInfo == "S0"){
 				$classroomCounter = $classroomKeyNameSerialArray['S'];// Load the classroom serial number.
 				$classroomScheduleArray[$serial]['CLASSROOM_NAME'] = $classroomListArray[$classroomCounter]['CLASSROOM_NAME'];
+				$classroomScheduleArray[$serial]['CLASSROOM_TYPE'] = "S";
 			}
 			//Load data in $classroomScheduleArray
 			$classroomScheduleArray[$serial]['SEMESTER_WEEK'] = $SEMESTER_WEEK_SET;
@@ -327,7 +338,15 @@ for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$tot
 	}
 }
 
-////$classroomScheduleArray Optimize
+/**
+*	$classroomScheduleArray Optimize 
+*
+*	This code block optimize the public classroom in $classroomScheduleArray. 
+*	Move the Train theory course into blank public classroom.
+*
+*/
+
+//$classroomScheduleArray Structure Describe
 //
 //$classroomScheduleArray[0]['ID']				= 0;		
 //$classroomScheduleArray[0]['SEMESTER_WEEK']	= 0;
@@ -340,9 +359,55 @@ for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$tot
 	$classroomScheduleArray;
 	$classroomScheduleArrayCount0 = count($classroomScheduleArray);
 
-for($classroomScheduleCounter=0;$classroomScheduleCounter<$classroomScheduleArrayCount0;$classroomScheduleCounter++){
-	
+//$classroomCapabilityArray Structure Describe
+//
+//$classroomScheduleArray[CLASSROOM_SERIAL][WEEK][COURSE_PART];
+//$classroomCapabilityArray[0][0]['CAPABILITY_COURSE_PART_0'] = 4;
+//$classroomCapabilityArray[0][0]['PROGRESS_COURSE_PART_0'] = "COURSE_0";
+
+	$classroomCapabilityArray;
+
+//Public classroom [TYPE "J"] and Theory classroom [TYPE NOT "J"] serial pickup method.
+for($i=0;$i<$classroomListArrayCount0;$i++){
+	if($classroomListArray[$i]['CLASSROOM_TYPE'] == "J"){
+		$publicClassroomSerialArray[] = $i;
+	}else{
+		$theoryClassroomSerialArray[] = $i;
+	}
+
 }
+$publicClassroomSerialArrayCount0 = count($publicClassroomSerialArray);
+$theoryClassroomSerialArrayCount0 = count($theoryClassroomSerialArray);
+
+//Loop the public classroom [TYPE "J"] and fill the blank classroom
+
+for($weekCounter=0;$weekCounter<$COURSE_DAY_OF_A_WEEK;$weekCounter++){
+	for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
+		$progressCourseKeyName = "PROGRESS_COURSE_PART_".$courseCounter;
+		$coursePartName = "COURSE_PART_".$courseCounter;
+		for($publicClassroomCounter=0;$publicClassroomCounter<$publicClassroomSerialArrayCount0;$publicClassroomCounter++){
+			$publicClassroomSerial = $publicClassroomSerialArray[$publicClassroomCounter];//Load classroom serial
+			//If that time have no course in public classroom and...
+			if(!$classroomCapabilityArray[$publicClassroomSerial][$weekCounter][$progressCourseKeyName]){
+				$blankPublicClassroomName = $classroomListArray[$publicClassroomSerial]['CLASSROOM_NAME'];
+				//...And if that time have course in train theory classroom, then change the theory classroom into public classroom
+				for($classroomScheduleCounter=0;$classroomScheduleCounter<$classroomScheduleArrayCount0;$classroomScheduleCounter++){
+					$optimizedClassroomCounter =0;
+					if($classroomScheduleArray[$classroomScheduleCounter]['WEEK'] == $weekCounter && $classroomScheduleArray[$classroomScheduleCounter][$coursePartName] != $courseNameG && $classroomScheduleArray[$classroomScheduleCounter][$coursePartName] != "" && $classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] != "J" && $optimizedClassroomCounter == 0){
+						$pastTheoryClassroomName = $classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_NAME'];
+						//$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_NAME'] = $blankPublicClassroomName;
+						$optimizedClassroomCounter ++;
+					}elseif($optimizedClassroomCounter != 0 && $classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_NAME'] == $pastTheoryClassroomName){
+						//$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_NAME'] = $blankPublicClassroomName;
+						$optimizedClassroomCounter ++;
+					}
+				}
+
+			}
+		}
+	}
+}
+
 
 
 
