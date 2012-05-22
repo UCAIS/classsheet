@@ -95,6 +95,8 @@ weeks_schedule_manage			周课表管理
 [BUG_120501_01] There have a title line at import .csv file, the database record will add a blank line. course_import.php line 42.[FIX]
 [BUG_120520_01] The after course_period_manage change the course_manage will lost course period data.
 [BUG_120520_02] The totalScheduleArray have such blanks.
+[BUG_120521_01]	If one train course just have 4 course period and first 2 course period taked by theory course, 
+				then last 2 course period title info will fill with "W" which means "Finish". The "0" is required.
 
 //Size counter
 120430_1321 119k
