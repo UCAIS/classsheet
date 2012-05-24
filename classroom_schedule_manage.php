@@ -39,7 +39,7 @@ $semesterListArray = table_data_query($SEMESTER_TABLE_NAME, $SEMESTER_TABLE_KEY_
 $semesterTargetArray = $_POST['semesterList'];
 
 //Load semester week
-$SEMESTER_WEEK_SET = 1;
+$SEMESTER_WEEK_SET = 0;
 
 ////Load cloassroom schedule source data
 
@@ -379,20 +379,21 @@ for($i=0;$i<$classroomListArrayCount0;$i++){
 }
 $publicClassroomSerialArrayCount0 = count($publicClassroomSerialArray);
 $theoryClassroomSerialArrayCount0 = count($theoryClassroomSerialArray);
+
 //Loop the public classroom [TYPE "J"] and fill the blank classroom
 //TODO: [BUG: antoher public classroom should in arrange, but it's not.]
-for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){//Comment is $COURSE_IN_A_DAY
-	for($weekCounter=0;$weekCounter<$COURSE_DAY_OF_A_WEEK;$weekCounter++){//Comment is $COUESE_DAY_OF_A_WEEK
+for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
+	for($weekCounter=0;$weekCounter<$COURSE_DAY_OF_A_WEEK;$weekCounter++){
 		$progressCourseKeyName = "PROGRESS_COURSE_PART_".$courseCounter;
 		$capabilityPartName = "CAPABILITY_COURSE_PART_".$courseCounter;
 		$coursePartName = "COURSE_PART_".$courseCounter;
-		
 		$pastTheoryClassroomType = 0;
 		$blankPublicClassroomName = 0;
 		for($publicClassroomCounter=0;$publicClassroomCounter<$publicClassroomSerialArrayCount0;$publicClassroomCounter++){
 			$publicClassroomSerial = $publicClassroomSerialArray[$publicClassroomCounter];//Load classroom serial
 			if($classroomCapabilityArray[$publicClassroomSerial][$weekCounter][$progressCourseKeyName] == ""){
 				$blankPublicClassroomName = $classroomListArray[$publicClassroomSerial]['CLASSROOM_NAME'];
+				vars_checkout($blankPublicClassroomName, "blankPublicClassroomName");
 				$optimizedClassroomCounter = 0;
 				for($classroomScheduleCounter=0;$classroomScheduleCounter<$classroomScheduleArrayCount0;$classroomScheduleCounter++){
 					if($classroomScheduleArray[$classroomScheduleCounter]['WEEK'] != $weekCounter){
@@ -405,13 +406,11 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){//Comment
 						&& $classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] != "J" 			//确定该课程使用的不是概论课教室
 						&& $optimizedClassroomCounter == 0)
 					{													
-
 							$pastTheoryClassroomType = $classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'];
 							$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_NAME'] = $blankPublicClassroomName;
-							$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] == "J";
+							$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] = "J";
 							$classroomCapabilityArray[$publicClassroomSerial][$weekCounter][$progressCourseKeyName] = $classroomScheduleArray[$classroomScheduleCounter][$coursePartName];
 							$optimizedClassroomCounter ++;
-
 					}
 					elseif($classroomScheduleArray[$classroomScheduleCounter]['WEEK'] == $weekCounter 
 						&& $classroomScheduleArray[$classroomScheduleCounter][$coursePartName] != $courseNameG 
@@ -420,26 +419,12 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){//Comment
 						&& $classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] == $pastTheoryClassroomType)
 					{
 						$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_NAME'] = $blankPublicClassroomName;
-						$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] == "J";
+						$classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] = "J";
 						$optimizedClassroomCounter ++;
 					}
 				}
 			}
-			//Theory course left test
-			$optimizeContinueSwitch = 0;
-			for($classroomScheduleCounter=0;$classroomScheduleCounter<$classroomScheduleArrayCount0;$classroomScheduleCounter++){
-				if($classroomScheduleArray[$classroomScheduleCounter]['WEEK'] != $weekCounter){
-					continue;
-				}
-				if($classroomScheduleArray[$classroomScheduleCounter]['CLASSROOM_TYPE'] != "J"){
-					$optimizeContinueSwitch = 1; 
-				}
-			}
-			if($optimizeContinueSwitch == 1){
-				break;
-			}
 		}
-
 	}
 }
 
