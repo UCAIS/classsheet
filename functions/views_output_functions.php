@@ -482,7 +482,7 @@ function teacher_list_output($teacher_list_array, $target_array){
 			$selectedValue = "";
 		}
 		print '<option value="'.$i.'" '.$selectedValue.'>';//There a BLANK between value and $selectedValue for HTML tag.
-		print "[".$teacher_list_array[$i]['TEACHER_TYPE_TRAIN']."]".$teacher_list_array[$i]['TEACHER_NAME']."</option>";
+		print $teacher_list_array[$i]['TEACHER_NAME']."[".$teacher_list_array[$i]['TEACHER_TYPE_INTRO'].".".$teacher_list_array[$i]['TEACHER_TYPE_DESIGN'].".".$teacher_list_array[$i]['TEACHER_TYPE_EXAM'].".".$teacher_list_array[$i]['TEACHER_TYPE_TRAIN']."]"."</option>";
 	}
 	print '</select>';
 	print '<input type="submit" value="&nbsp;修改&nbsp;" name="teacherListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="teacherListDelete" style="margin-top: 10px;" />';
@@ -502,13 +502,14 @@ function teacher_info_output($table_key_names_array){
 	print '<input type="checkbox" name="'.$table_key_names_array['TEACHER_TYPE_DESIGN'].'" id="'.$table_key_names_array['TEACHER_TYPE_DESIGN'].'" value="GY" /><label for="'.$table_key_names_array['TEACHER_TYPE_DESIGN'].'">工艺设计教师[GY]</label><br />';
 	print '<input type="checkbox" name="'.$table_key_names_array['TEACHER_TYPE_EXAM'].'" id="'.$table_key_names_array['TEACHER_TYPE_EXAM'].'" value="K" /><label for="'.$table_key_names_array['TEACHER_TYPE_EXAM'].'">监考教师[K]</label><br />';
 	print '<span>教师教学类型:<select name="'.$table_key_names_array['TEACHER_TYPE_TRAIN'].'">';
+	print '<option value="" selected>无</option>';
     print '<option value="Z">铸造理论课教师[Z]</option>';
     print '<option value="H">焊接理论课教师[H]</option>';
     print '<option value="C">车工理论课教师[C]</option>';
     print '<option value="Q">钳工理论课教师[Q]</option>';
     print '<option value="S">数控理论课教师[S]</option>';
     print '<option value="T">特加理论课教师[T]</option>';
-    print '<option value="S">铣刨磨理论课教师[S]</option>';
+    print '<option value="X">铣刨磨理论课教师[X]</option>';
     print '<option value="D">锻压理论课教师[D]</option>';
     print '</select></span><br />';
 	print '<input type="submit" value="添加" name="teacherInfoAdd" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
@@ -538,28 +539,31 @@ function teacher_info_change_output($teacher_list_array, $table_key_names_array,
 	print '<span>教师教学类型:<select name="'.$table_key_names_array['TEACHER_TYPE_TRAIN'].'">';
 	if($teacher_list_array[$target_array]['TEACHER_TYPE'] == "Z"){
 		$option0 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "H"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "H"){
 		$option1 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "C"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "C"){
 		$option2 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "Q"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "Q"){
 		$option3 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "S"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "S"){
 		$option4 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "T"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "T"){
 		$option5 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "S"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "X"){
 		$option6 = "selected";
-	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE'] == "D"){
+	}elseif($teacher_list_array[$target_array]['TEACHER_TYPE_TRAIN'] == "D"){
 		$option7 = "selected";
+	}else{
+		$optionNull = "selected";
 	}
+	print '<option value="" '.$optionNull.'>无</option>';
     print '<option value="Z" '.$option0.'>铸造理论课教师[Z]</option>';
     print '<option value="H" '.$option1.'>焊接理论课教师[H]</option>';
     print '<option value="C" '.$option2.'>车工理论课教师[C]</option>';
     print '<option value="Q" '.$option3.'>钳工理论课教师[Q]</option>';
     print '<option value="S" '.$option4.'>数控理论课教师[S]</option>';
     print '<option value="T" '.$option5.'>特加理论课教师[T]</option>';
-    print '<option value="S" '.$option6.'>铣刨磨理论课教师[S]</option>';
+    print '<option value="X" '.$option6.'>铣刨磨理论课教师[X]</option>';
     print '<option value="D" '.$option7.'>锻压理论课教师[D]</option>';
     print '</select></span><br />';
 	print '<input type="submit" value="修改" name="teacherInfoChanged" style="margin-top: 10px;" /> <input type="reset" value="重置" style="margin-top: 10px;" />';
