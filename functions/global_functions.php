@@ -321,5 +321,19 @@ function teach_frequency_averange($teacher_list_array){
 	return $teachFrequencyAverange;
 }
 
+//------  -[ course_style_array_get Function ]-  ------
+//This function load course style into a key-value array which array key is course key name
+function course_style_array_get($course_list_array){
+	$course_list_array;				//
+
+	$courseListArrayCount0 = count($course_list_array);
+	for($i=0;$i<$courseListArrayCount0;$i++){
+		$courseKeyName = $course_list_array[$i]['COURSE_KEY_NAME'];
+		$courseStyle = $course_list_array[$i]['COURSE_STYLE'];
+		$courseStyleArray[$courseKeyName] = $courseStyle;
+	}
+	return $courseStyleArray;
+}
+
 //Fin.
 ?>

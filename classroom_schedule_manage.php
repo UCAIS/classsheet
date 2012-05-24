@@ -426,6 +426,68 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 	}
 }
 
+/**
+*	Add theacher into $classroomSecheduleArray
+*
+*	This code block add theacher into $classroomScheduleArray
+*
+*/
+
+//load the $courseStyleArray
+$courseStyleArray = course_style_array_get($courseListArray);
+
+for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
+	for($weekCounter=0;$weekCounter<$COURSE_DAY_OF_A_WEEK;$weekCounter++){
+		$coursePartName = "COURSE_PART_".$courseCounter;
+		$teacherPartName = "TEACHER_PART_".$courseCounter;
+/////
+		for($classroomScheduleCounter=0;$classroomScheduleCounter<$classroomScheduleArrayCount0;$classroomScheduleCounter++){
+			if($classroomScheduleArray[$classroomScheduleCounter]['WEEK'] != $weekCounter){
+				continue;
+			}
+
+			if($classroomScheduleArray[$classroomScheduleCounter]['WEEK'] == $weekCounter
+				&& $classroomScheduleArray[$classroomScheduleCounter][$coursePartName] != ""){
+				//Load course Title info
+				$courseKeyName = $classroomScheduleArray[$classroomScheduleCounter][$coursePartName];
+				//Load teacher teach averange frequency
+				$teachFrequencyAverange = teach_frenquency_averange($teacherListArray);
+				for($teacherCounter=0;$teacherCounter<$teacherListArrayCount0;$teacherCounter++){
+					//laod course style
+					$courseStyle = $courseStyleArray[$courseKeyName];
+					//Load teacher name 
+					$activeTeacherName = $teacherListArray[$teacherCounter]['TEACHER_NAME'];
+
+					//概论课教师 [G]
+					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_INTRO'] == $courseStyle 			//Teacher type is "G"
+						$teacherListArray[$teacherCounter]['TEACH_FREQUENCY'] <= $teachFrequencyAverange 	//Teacher teach frequency <= everange
+
+						){
+						$classroomScheduleArray[$classroomScheduleCounter][$teacherPartName] = $activeTeacherName;
+						//Break loop
+						break;
+					}
+					//工艺设计教师 [GY]
+					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_DESIGN'] == $courseStyle){
+
+					}
+					//监考教师 [K]
+					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_DESIGN'] == $courseStyle){
+
+					}
+					//理论课教师 [C, X, S, H, T, Z, Q, D]
+					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_DESIGN'] == $courseStyle){
+
+					}
+					
+				}
+			}
+
+		}
+
+/////
+	}
+}
 
 
 
