@@ -451,7 +451,6 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 				//Load course Title info
 				$courseKeyName = $classroomScheduleArray[$classroomScheduleCounter][$coursePartName];
 				//Load teacher teach averange frequency
-			//TODO: The teach frequency should deivde by teach type.
 				$teachFrequencyAverangeArray = teach_frequency_averange($teacherListArray);
 				for($teacherCounter=0;$teacherCounter<$teacherListArrayCount0;$teacherCounter++){
 					//laod course style
@@ -476,12 +475,33 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 						break;
 					}
 					//工艺设计教师 [GY]
-					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_DESIGN'] == $courseStyle){
-
+					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_DESIGN'] == $courseStyle
+					&& $teacherListArray[$teacherCounter]['TEACH_FREQUENCY_DESIGN'] <= $teachFrequencyAverangeArray['DESIGN'] //Teacher teach frequency <= everange
+					&& $classroomStatusArray[$progressClassroomNameWithCRCEncode] == ""	//Selected classroom already have teacher in it
+					){
+						//Load in array
+						$classroomScheduleArray[$classroomScheduleCounter][$teacherPartName] = $activeTeacherName;
+						//Load classroom status
+						$classroomStatusArray[$progressClassroomNameWithCRCEncode] = $activeTeacherName;
+						//Update the teach frequency data
+						$teacherListArray[$teacherCounter]['TEACH_FREQUENCY_DESIGN'] ++;
+						//Break loop
+						break;
 					}
 					//监考教师 [K]
-					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_EXAM'] == $courseStyle){
-
+					//TODO: EXAM needs two teacher
+					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_EXAM'] == $courseStyle
+					&& $teacherListArray[$teacherCounter]['TEACH_FREQUENCY_EXAM'] <= $teachFrequencyAverangeArray['EXAM'] //Teacher teach frequency <= everange
+					&& $classroomStatusArray[$progressClassroomNameWithCRCEncode] == ""	//Selected classroom already have teacher in it
+					){
+						//Load in array
+						$classroomScheduleArray[$classroomScheduleCounter][$teacherPartName] = $activeTeacherName;
+						//Load classroom status
+						$classroomStatusArray[$progressClassroomNameWithCRCEncode] = $activeTeacherName;
+						//Update the teach frequency data
+						$teacherListArray[$teacherCounter]['TEACH_FREQUENCY_EXAM'] ++;
+						//Break loop
+						break;
 					}
 					//理论课教师 [C, X, S, H, T, Z, Q, D]
 					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_TRAIN'] == $courseStyle
