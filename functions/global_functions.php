@@ -281,10 +281,10 @@ function course_period_left_get($appointed_class_array, $course_list_array, $ret
 	for($i=0;$i<$courseListArrayCount0;$i++){
 		$courseKeyName = "COURSE_".$i;
 		$courseStyle = $course_list_array[$i]['COURSE_STYLE'];
-		if(($courseStyle == "D" || $courseStyle == "E") && $return_type == 0){
+		if(($courseStyle == "GY" || $courseStyle == "K") && $return_type == 0){
 			continue;
 		}
-		if($courseStyle == "E" && $return_type == 1){
+		if($courseStyle == "K" && $return_type == 1){
 			continue;
 		}
 		$coursePeriodLeft += $appointed_class_array[$courseKeyName];

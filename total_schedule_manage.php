@@ -179,7 +179,8 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 				//周课程量-1 概论课占用实训课第一节
 				$totalCourseTakeQuantityInArrange - 2;
 			}
-			//检测是否为工艺设计
+			//检测是否为工艺设计, 所有训练科目结束之后方可进行工艺设计
+			vars_checkout($allTrainCourseLeft, "allTrainCourseLeft");
 			if($courseListArray[$courseCounter]['COURSE_STYLE'] == "GY" && $allTrainCourseLeft != 0){
 				continue;
 			}
@@ -246,6 +247,7 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 					$tempScheduleArray[$classCounter][$dayCounter][$courseKeyName] = $courseTakeInArrangeArray[$courseTakePart]['COURSE_STYLE']."W.".$classNameInArrange;//班级名
 				}
 			}
+			//TODO: The Design and Exam course have no effect.[IMPORTANT]
 			//课程设计 Title Info 填充
 			if($courseTakeInArrangeArray[$courseTakePart]['COURSE_STYLE'] == "GY"){
 				if($courseTakeRound == $courseTakeInArrangeCount0-1){
@@ -292,7 +294,6 @@ for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
 //按周循环
 $appointedClassArrayCount0 = count($tempScheduleArray);
 $weekTemp = 0;
-vars_checkout($appointedClassArrayCount0, "appointedClassArrayCount0");
 $totalScheduleArrayCount0 = 0;
 for($week=0;$week<5;$week++){
 	for($classCounter=0;$classCounter<$appointedClassArrayCount0;$classCounter++){
@@ -316,13 +317,13 @@ for($week=0;$week<5;$week++){
 $appointedClassArrayCount0 = count($appointedClassArray);
 for($i=0;$i<$appointedClassArrayCount0;$i++){
 	$targetId = $appointedClassArray[$i]['ID'];
-	table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $appointedClassArray[$i]);
+	//table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $appointedClassArray[$i]);
 }
 
 //将$totalScheduleArray写入数据库
 $totalScheduleArrayCount0 = count($totalScheduleArray);
 for($i=0;$i<$totalScheduleArrayCount0;$i++){
-	table_data_add($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray[$i]);
+	//table_data_add($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray[$i]);
 }
 
 //var_dump($totalScheduleArray);

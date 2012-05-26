@@ -101,6 +101,7 @@ weeks_schedule_manage			周课表管理
 //Size counter
 120430_1321 119k
 120520_1702	183k
+120526_1434	201k
 
 //Type names
 Course type title key names:	
@@ -109,3 +110,8 @@ Classroom type title key names:
 [J]教室 [S]编程室 [H]焊接室 [D]锻压室 [Z]铸热室 [T]特加室
 Teacher type title key names:	
 [G]概论课教师 [GY]工艺设计教师 [K]监考教师 [Z]铸造理论课教师 [H]焊接理论课教师 [C]车工理论课教师 [Q]钳工理论课教师 [S]数控理论课教师 [T]特加理论课教师 [S]铣刨磨理论课教师 [D]锻压理论课教师
+
+//Issues
+1.考试地点问题,为什么现在在科厦统一考试
+2.概论课教师问题,为什么概论课教师会包括理论课教师
+3.遇到开会情况直接删除课程真的大丈夫？

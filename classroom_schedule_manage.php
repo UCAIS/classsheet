@@ -193,11 +193,12 @@ for($totalScheduleCounter=0;$totalScheduleCounter<$totalScheduleArrayCount0;$tot
 		$coursePartName = "COURSE_PART_".$underlineExplodeArray[2];
 		$capabilityPartName = "CAPABILITY_".$coursePartName;
 		$progressPartName = "PROGRESS_".$coursePartName;
-		$teacherPartName = "TEACHER_PART_".$underlineExplodeArray[2];
+		$teacherPartName = "TEACHER_PART_".$underlineExplodeArray[2];       
 		$classPartName = "CLASS_PART_".$underlineExplodeArray[2];
 		//Load week number
 		$week = $totalScheduleArray[$totalScheduleCounter]['WEEK'];
 		//Load $classroomScheduleArray serial number
+		//TODO: Optimize the serial method.
 		$classroomScheduleArrayCount0 = count($classroomScheduleArray);
 		$serial = $classroomScheduleArrayCount0;
 		$serial = serial_counter($classroomScheduleArray, $serial, $classPartName);
