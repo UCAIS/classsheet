@@ -16,7 +16,7 @@
 *		The teacher's take course number base on average value of 'TEACH_FREQUENCY'.
 */
 
-//TODO: Optimize the classroom schedule method.
+//TODO: Database function does not work[INPORTANT]
 //TODO: Rrewrite the comment.
 
 //Page switch
@@ -62,7 +62,21 @@ $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDU
 //Load $classroomScheduleArray
 $CLASSROOM_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASSROOM_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SCHEDULE_PAGE_SWITCH];
-//TODO: $classroomScheduleArray = table_data_query($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");;
+$CLASSROOM_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$CLASSROOM_SCHEDULE_PAGE_SWITCH];
+$classroomScheduleArray = table_data_query($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");;
+//If TABLE 'CLASSROOM_SCHEDULE' does not exist, create it.
+if(!$classroomScheduleArray){
+	database_table_create($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $CLASSROOM_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
+}
+
+//// Arrange data preload
+
+
+//Load semester week
+$SEMESTER_WEEK_SET = $_POST[$CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY['SEMESTER_WEEK']];//Load semester week
+
+//Reschedule determinative syntax
+if($_POST['RESCHEDULE']){
 
 //$courseListArray Structure Describe
 //
@@ -505,6 +519,7 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 						break;
 					}
 					//理论课教师 [C, X, S, H, T, Z, Q, D]
+					//TODO:理论课教师参加概论课教学问题
 					if($teacherListArray[$teacherCounter]['TEACHER_TYPE_TRAIN'] == $courseStyle
 					&& $teacherListArray[$teacherCounter]['TEACH_FREQUENCY'] <= $teachFrequencyAverangeArray['TRAIN'] 	//Teacher teach frequency <= everange
 					&& $classroomStatusArray[$progressClassroomNameWithCRCEncode] == ""						//Selected classroom already have teacher in it){
@@ -528,11 +543,20 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 	}
 }
 
+//Write $teacherListArray into database
+$teacherListArrayCount0 = count($teacherListArray);
+for($i=0;$i<$teacherListArrayCount0;$i++){
+	$targetId = $teacherListArray[$i]['ID'];
+	//table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $teacherListArray[$i]);
+}
 
+//Write $classroomScheduleArray into database
+$classroomScheduleArrayCount0 = count($classroomSecheduleArray);
+for($i=0;$i<$classroomScheduleArrayCount0;$i++){
+	//table_data_add($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $classroomSecheduleArray[$i]);
+}
 
-
-//TODO: Upload $teacherListArray TEACH_FREQUENCY data.
-
+}//Bracket for reschedule determinative syntax
 
 //------  -[ Views Functions ]-  ------
 
@@ -549,8 +573,9 @@ div_head_output_with_class_option("mainMiddle");
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
 
-		//week_select_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);//Temporary views output
+		week_select_output($CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);//Temporary views output
 		table_info_output($CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $classroomScheduleArray);//Temporary views output
+		reschedule_button_output();
 
 		div_end_output();
 		form_end_output();

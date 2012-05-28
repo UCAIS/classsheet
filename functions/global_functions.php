@@ -316,22 +316,22 @@ function teach_frequency_averange($teacher_list_array){
 	$teacherListArrayCount0 = count($teacher_list_array);
 	for($teacherCounter=0;$teacherCounter<$teacherListArrayCount0;$teacherCounter++){
 		//For teacher type INTRO
-		if($teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_INTRO']){
+		if($teacher_list_array[$teacherCounter]['TEACH_TYPE_INTRO']){
 			$totalIntroFrequency += $teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_INTRO'];
 			$totalIntroCounter ++;
 		}
 		//For teacher type DESIGN
-		if($teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_DESIGN']){
+		if($teacher_list_array[$teacherCounter]['TEACH_TYPE_DESIGN']){
 			$totalDesignFrequency += $teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_DESIGN'];
 			$totalDesignCounter ++;
 		}
 		//For teacher type EXAM
-		if($teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_EXAM']){
+		if($teacher_list_array[$teacherCounter]['TEACH_TYPE_EXAM']){
 			$totalExamFrequency += $teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_EXAM'];
 			$totalExamcounter ++;
 		}
 		//For teacher type TRAIN
-		if($teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_TRAIN']){
+		if($teacher_list_array[$teacherCounter]['TEACH_TYPE_TRAIN']){
 			$totalTrainFrequency += $teacher_list_array[$teacherCounter]['TEACH_FREQUENCY_TRAIN'];
 			$totalTrainCounter ++;
 		}
