@@ -144,7 +144,7 @@ function table_data_add($table_name, $table_key_names_array, $table_data_input){
         }
         $counter ++;
     }
-    print $sql_table_data_add;
+    vars_checkout($sql_table_data_add, "sql_table_data_add");
     mysql_query($sql_table_data_add);
     return 0;
 }
@@ -170,7 +170,7 @@ function table_data_change($table_name, $table_key_names_array, $target_id, $tab
         }
         $counter ++;
     }
-    print $sql_table_data_change;
+    vars_checkout($sql_table_data_change, "sql_table_data_change");
     mysql_query($sql_table_data_change);
     return 0;
 }

@@ -65,9 +65,8 @@ $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SC
 $CLASSROOM_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$CLASSROOM_SCHEDULE_PAGE_SWITCH];
 $classroomScheduleArray = table_data_query($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");;
 //If TABLE 'CLASSROOM_SCHEDULE' does not exist, create it.
-if(!$classroomScheduleArray){
-	database_table_create($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_TABLE_KEY_NAMES_ARRAY, $CLASSROOM_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
-}
+database_table_create($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $CLASSROOM_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
+
 
 //// Arrange data preload
 
@@ -442,7 +441,7 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 }
 
 /**
-*	Add theacher into $classroomSecheduleArray
+*	Add theacher into $classroomScheduleArray
 *
 *	This code block add theacher into $classroomScheduleArray
 *
@@ -547,13 +546,14 @@ for($courseCounter=0;$courseCounter<$COURSE_IN_A_DAY;$courseCounter++){
 $teacherListArrayCount0 = count($teacherListArray);
 for($i=0;$i<$teacherListArrayCount0;$i++){
 	$targetId = $teacherListArray[$i]['ID'];
-	//table_data_change($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, $targetId, $teacherListArray[$i]);
+	table_data_change($TEACHER_TABLE_NAME, $TEACHER_TABLE_KEY_NAMES_ARRAY, $targetId, $teacherListArray[$i]);
 }
 
 //Write $classroomScheduleArray into database
-$classroomScheduleArrayCount0 = count($classroomSecheduleArray);
+$classroomScheduleArrayCount0 = count($classroomScheduleArray);
+vars_checkout($classroomScheduleArrayCount0, "classroomScheduleArrayCount0");
 for($i=0;$i<$classroomScheduleArrayCount0;$i++){
-	//table_data_add($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $classroomSecheduleArray[$i]);
+	table_data_add($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $classroomScheduleArray[$i]);
 }
 
 }//Bracket for reschedule determinative syntax
