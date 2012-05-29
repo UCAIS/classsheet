@@ -16,7 +16,6 @@
 *		The teacher's take course number base on average value of 'TEACH_FREQUENCY'.
 */
 
-//TODO: Database function does not work[INPORTANT]
 //TODO: Rrewrite the comment.
 
 //Page switch
