@@ -49,6 +49,20 @@ $STUDENTS_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $STUDENTS_SCHE
 $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$STUDENTS_SCHEDULE_PAGE_SWITCH];
 //$studentsScheduleArray = table_data_query($STUDENTS_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY);
 
+//Load target class name.
+//TODO: Add CLASS_NAME select method in views_output_functions.php.
+//$targetClassName = $_POST['CLASS_NAME'];
+$targetClassName = "机设09-1";
+//TODO: Get class all course from TOTAL_SCHEDULE.
+$classAllCourseArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $targetClassName");
+
+//TODO: Follow the TOTAL_SCHEDULE data, Get CLASSROOM_NAME and TEACHER_NAME from CLASSROOM_TABLE.
+
+//TODO: Load in $studentsScheduleArray.
+
+//TODO: Update $studentsScheduleArray. 
+
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
