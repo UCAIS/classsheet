@@ -43,6 +43,10 @@ $COURSE_IN_A_DAY = 4;
 //One course equal two course period
 $ONE_COURSE_PERIOD = 2;
 
+//-----  -[ Semester Week Number ]-  ------
+//How much week in a semester
+$SEMESTER_WEEK_NUMBER = 20;
+
 //------  -[ Max Take Course a Week ]-  ------
 //The max value of take course in a week 
 $MAX_TAKE_COURSE_A_WEEK = $COURSE_DAY_OF_A_WEEK * $COURSE_IN_A_DAY * $ONE_COURSE_PERIOD;

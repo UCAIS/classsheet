@@ -34,16 +34,19 @@ $semesterTargetArray = $_POST['semesterList'];
 //Load $classListArray
 $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
-$classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
+//$classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 //Load $totalScheduleArray
+/*
 $TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($TOTAL_SCHEDULE_TABLE_NAME);
 $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");
+*/
 //Load $classroomScheduleArray
+/*
 $CLASSROOM_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASSROOM_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SCHEDULE_PAGE_SWITCH];
 $classroomScheduleArray = table_data_query($CLASSROOM_SCHEDULE_TABLE_NAME, $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");
-
+*/
 //Load $studentsScheduleArray
 $STUDENTS_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $STUDENTS_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$STUDENTS_SCHEDULE_PAGE_SWITCH];
@@ -53,8 +56,22 @@ $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$STUDENTS_SCHE
 //TODO: Add CLASS_NAME select method in views_output_functions.php.
 //$targetClassName = $_POST['CLASS_NAME'];
 $targetClassName = "机设09-1";
-//TODO: Get class all course from TOTAL_SCHEDULE.
-$classAllCourseArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $targetClassName");
+
+//Load $courseWeekArray
+$targetClassListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, "CLASS_NAME = $targetClassName");
+for($i=0;$i<$SEMESTER_WEEK_NUMBER;$i++){
+	$weekKeyName = "WEEK_".$i;
+	if($targetClassListArray[$weekKeyName]){
+		$courseWeekArray[] = $i;
+	}
+}
+$courseWeekArrayCount0 = count($courseWeekArray);
+
+//Get class all course from TOTAL_SCHEDULE.
+for($i=0;$i<$courseWeekArrayCount0;$i++){
+	$semesterWeekNumber = $courseWeekArray[$i];
+	$classAllCourseArray[$i] = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $semesterWeekNumber");
+}
 
 //TODO: Follow the TOTAL_SCHEDULE data, Get CLASSROOM_NAME and TEACHER_NAME from CLASSROOM_TABLE.
 
