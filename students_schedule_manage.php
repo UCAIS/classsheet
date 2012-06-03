@@ -55,7 +55,7 @@ $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$STUDENTS_SCHE
 //Load target class name.
 //TODO: Add CLASS_NAME select method in views_output_functions.php.
 //$targetClassName = $_POST['CLASS_NAME'];
-$targetClassName = "机设09-1";
+$targetClassName = "机设09-3";
 
 //Load $courseWeekArray
 //$courseWeekArray structure describe
@@ -63,10 +63,16 @@ $targetClassName = "机设09-1";
 //				  [1] = 2;
 //...
 
-$targetClassListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, "CLASS_NAME = '$targetClassName'");
+$targetClassListArrayTemp = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY, "CLASS_NAME = '$targetClassName'");
+$targetClassListArrayTempCount0 = count($targetClassListArrayTemp);
+for($i=0;$i<$targetClassListArrayTempCount0;$i++){
+	if($targetClassListArrayTemp[$i]['CLASS_TYPE']){
+		$targetClassListArray = $targetClassListArrayTemp[$i];
+	}
+}
 for($i=0;$i<$SEMESTER_WEEK_NUMBER;$i++){
 	$weekKeyName = "WEEK_".$i;
-	if($targetClassListArray[0][$weekKeyName] == 1){
+	if($targetClassListArray[$weekKeyName] == 1){
 		$courseWeekArray[] = $i;
 	}
 }
@@ -105,6 +111,8 @@ for($weekCounter=0;$weekCounter<$courseWeekArrayCount0;$weekCounter++){
 				vars_checkout($courseKeyName, "courseKeyName");
 				$coursePartKeyName = "COURSE_PART_".$explodeKey[2];
 				vars_checkout($coursePartKeyName, "coursePartKeyName");
+				//For COURSE_0 
+
 				//Load in studentsScheduleArray
 				if($courseCounter >= $COURSE_IN_A_DAY){
 					$studentsScheduleSerial++;
@@ -115,6 +123,10 @@ for($weekCounter=0;$weekCounter<$courseWeekArrayCount0;$weekCounter++){
 				$studentsScheduleArray[$studentsScheduleSerial]['WEEK'] = $classAllCourseArray[$weekCounter][$allCourseCounter]['WEEK'];
 				$studentsScheduleArray[$studentsScheduleSerial][$coursePartKeyName] = $courseKeyName;
 				$courseCounter ++;
+				if($courseKeyName == "COURSE_0"){
+					$courseCounter --;
+					$studentsScheduleSerial++;
+				}
 			}
 		}
 	}
