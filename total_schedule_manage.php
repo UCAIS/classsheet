@@ -9,6 +9,7 @@
 
 
 //TODO: Add views functions [Include total schedule table]. 
+//TODO: The schedule fill method which filled "W" is broke.[BUG_NEED_FIX] 
 
 //Page switch
 $PAGE_SWITCH = $TOTAL_SCHEDULE_PAGE_SWITCH = 7;
