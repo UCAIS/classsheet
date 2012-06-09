@@ -21,8 +21,6 @@ include('functions/database_functions.php');
 include('functions/global_functions.php');
 include('functions/views_output_functions.php');
 
-//TODO: SEMESTER_WEEK method is not avaliable.
-
 //Load the file name for post
 $FILE_NAME = $_SERVER['PHP_SELF'];
 //QUERY the $semesterListArray
@@ -34,7 +32,7 @@ $semesterTargetArray = $_POST['semesterList'];
 //Load $classListArray
 $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
-//$classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
+$classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 //Load $totalScheduleArray
 $TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($TOTAL_SCHEDULE_TABLE_NAME);
@@ -49,12 +47,14 @@ $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SC
 //Load $studentsScheduleArray
 $STUDENTS_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $STUDENTS_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$STUDENTS_SCHEDULE_PAGE_SWITCH];
+$STUDENTS_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$STUDENTS_SCHEDULE_PAGE_SWITCH];
 //$studentsScheduleArray = table_data_query($STUDENTS_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY);
+database_table_create($STUDENTS_SCHEDULE_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $STUDENTS_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
 
 //Load target class name.
-//TODO: Add CLASS_NAME select method in views_output_functions.php.
-//$targetClassName = $_POST['CLASS_NAME'];
-$targetClassName = "机设09-2";
+$classTargetArray = $_POST['classList'];
+$targetClassName = $classListArray[$classTargetArray]['CLASS_NAME'];
+vars_checkout($targetClassName, "targetClassName");
 
 //Load $courseWeekArray
 //$courseWeekArray structure describe
@@ -161,19 +161,47 @@ for($i=0;$i<$courseWeekArrayCount0;$i++){
 //Pick up the target classroom and load in $studentsScheduleArray.
 for($weekCounter=0;$weekCounter<$courseWeekArrayCount0;$weekCounter++){
 	for($allClassroomCounter=0;$allClassroomCounter<$classAllClassroomArrayCount1[$weekCounter];$allClassroomCounter++){
-		foreach($classAllClassroomArray[$weekCounter][$allClassroomCounter] as $key => $classroomValue){
+		$progressClassroomName = $classAllClassroomArray[$weekCounter][$allClassroomCounter]['CLASSROOM_NAME'];
+		foreach($classAllClassroomArray[$weekCounter][$allClassroomCounter] as $classroomKey => $classroomValue){
+			//Ignore the useless array key value
+			if($classroomKey == "CLASS_PART_0" || $classroomKey == "CLASS_PART_1" || $classroomKey == "CLASS_PART_2" || $classroomKey == "CLASS_PART_3"){
+
+			}else{
+				continue;
+			}
+			//explode the class info
+			$explodeClassroomKey = explode("_", $classroomKey);
+			$courseKeyNameInclassroomArray = "COURSE_PART_".$explodeClassroomKey[2];
+			$teacherNameInCLassroomArray = "TEACHER_PART_".$explodeClassroomKey[2];
 			$explodeClassroomValue = explode(".", $classroomValue);
 			$className = $explodeClassroomValue[1];
 			$classTakeCourseTitleInfo = $explodeClassroomValue[0];
 			//Loop the $studentsScheduleArray
 			for($studentsScheduleCounter=0;$studentsScheduleCounter<$studentsScheduleArrayCount0;$studentsScheduleCounter++){
-				foreach($studentsScheduleArray[$studentsScheduleCounter] as $studentsValue){
+				foreach($studentsScheduleArray[$studentsScheduleCounter] as $studentsKey => $studentsValue){
+					//Ignore the useless array key value
+					if($studentsKey == 'ID' || $studentsKey == 'SEMESTER_WEEK' || $studentsKey == 'CLASS_NAME' || $studentsKey == 'WEEK'){
+						continue;
+					}
 					$explodeStudentsValue = explode(".", $studentsValue);
-					$classInClassroomScheduleTitleInfo = $explodeStudentsValue[0];
+					$classInClassroomScheduleTitleInfo = $explodeStudentsValue[1];
+					$classInClassroomScheduleCourseKeyName = $explodeStudentsValue[0];
 					//Pickup the target info of target class
 					if($className == $targetClassName && $classTakeCourseTitleInfo == $classInClassroomScheduleTitleInfo ){
-						$targetClassroomName = $classAllClassroomArray[$weekCounter][$allClassroomCounter];
-				
+						$explodeStudentsKey = explode("_", $studentsKey);
+						$coursePartKeyNameInStudentsSchedule = "COURSE_PART_".$explodeStudentsKey[2];
+						
+						//Load teacher name
+						for($allClassroomCounterForTeacher=0;$allClassroomCounterForTeacher<$classAllClassroomArrayCount1[$weekCounter];$allClassroomCounterForTeacher++){
+							$courseInClassroomArray = $classAllClassroomArray[$weekCounter][$allClassroomCounterForTeacher][$courseKeyNameInclassroomArray];
+							$progressTeacherName = $classAllClassroomArray[$weekCounter][$allClassroomCounterForTeacher][$teacherNameInCLassroomArray];
+							$targetClassroomName = $classAllClassroomArray[$weekCounter][$allClassroomCounterForTeacher]['CLASSROOM_NAME'];
+							if($courseInClassroomArray == $classInClassroomScheduleCourseKeyName && $progressTeacherName && $progressClassroomName == $targetClassroomName){
+								$targetTeacherName = $progressTeacherName;
+							}
+						}
+						//Load in $sudetnsScheduleArray.
+						$studentsScheduleArray[$studentsScheduleCounter][$coursePartKeyNameInStudentsSchedule] .= ".".$progressClassroomName.".".$targetTeacherName;
 					}
 				}
 			}
@@ -181,10 +209,12 @@ for($weekCounter=0;$weekCounter<$courseWeekArrayCount0;$weekCounter++){
 		}
 	}
 }
-//TODO: Load in $studentsScheduleArray.
 
-//TODO: Update $studentsScheduleArray. 
 
+//Update $studentsScheduleArray. 
+for($i=0;$i<$studentsScheduleCounter;$i++){
+	table_data_add($STUDENTS_SCHEDULE_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $studentsScheduleArray[$i]);
+}
 
 //------  -[ Views Functions ]-  ------
 
@@ -201,9 +231,8 @@ div_head_output_with_class_option("mainMiddle");
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
 
-		week_select_output($STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);//Temporary views output
+		class_list_output($classListArray, $classTargetArray);
 		table_info_output($STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $studentsScheduleArray);//Temporary views output
-		reschedule_button_output();
 
 		div_end_output();
 		form_end_output();
