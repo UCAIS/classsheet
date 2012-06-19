@@ -19,8 +19,8 @@
  *
  */
        
-require_once('config.php');      
-require_once('EditableGrid.php');            
+require_once('ect/config.php');      
+require_once('functions/editable_grid.php');            
 
 /**
  * fetch_pairs is a simple method that transforms a mysqli_result object in an array.

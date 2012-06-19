@@ -11,7 +11,7 @@
  * http://editablegrid.net/license
  */
       
-require_once('config.php');         
+require_once('etc/config.php');         
 
 // Database connection                                   
 $mysqli = mysqli_init();
