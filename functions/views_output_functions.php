@@ -10,6 +10,47 @@
 //TODO: Fill the comment .
 //TODO: Change the "target_array" place. [IMPORTANT]
 
+//------  -[ javascript_include_output Function ]-  ------
+function javascript_include_output(){
+	print <<<SCRITPS
+		<!-- editable grid -->
+		<script src="scripts/editablegrid-2.0.1.js"></script>   
+		<!-- I use jQuery for the Ajax methods -->
+		<script src="scripts/jquery-1.7.2.min.js" ></script>
+SCRITPS;
+	return 0;
+}
+
+//------  -[ javascript_window_onload_output Fucntion ]-  ------
+function javascript_window_onload_output(){
+	print <<<SCRITPS
+		<script type="text/javascript">
+			window.onload = function() { 
+				datagrid = new DatabaseGrid();
+			}; 
+		</script>
+SCRITPS;
+	return 0;
+}
+
+//------  -[ editable_grid_output Function ]-  ------
+function editable_grid_output(){
+	print <<<SCRITPS
+		<div id="wrap">
+		<h1>手动编辑数据</h1> 
+			<!-- Feedback message zone -->
+			<div id="message"></div>
+
+			<!-- Grid contents -->
+			<div id="tablecontent"></div>
+		
+			<!-- Paginator control -->
+			<div id="paginator"></div>
+		</div>  
+SCRITPS;
+	return 0;
+}
+
 //------  -[ html_end_output Function ]-  ------
 function html_end_output(){
 	print "</html>";

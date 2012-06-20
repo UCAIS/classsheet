@@ -31,6 +31,11 @@ $SETTINGS_PAGE_SWITCH				= 15;
 //TODO:Add Table delete method.[IMPORTANT]
 //TODO:COURSE_TYPE->COURSE_MODE, COURSE_STYLE->COURSE_TYPE.[IMPORTANT]
 
+//------  -[ Config of editable file locate ]-  ------
+$EDITABLE_GRID_UPDATE_PAGE_NAME = 'functions/editable_grid_update.php';
+$EDITABLE_GRID_LOADDATA_PAGE_NAME = 'functions/editable_grid_loaddata.php';
+$editableGridDatabaseTableName = "";
+
 //------  -[ Course Day of a Week ]-  ------
 //Course day of a week.
 $COURSE_DAY_OF_A_WEEK = 5;

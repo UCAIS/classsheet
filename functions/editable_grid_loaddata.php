@@ -19,7 +19,7 @@
  *
  */
        
-require_once('ect/config.php');      
+require_once('etc/config.php');      
 require_once('functions/editable_grid.php');            
 
 /**

@@ -11,10 +11,11 @@
 
 //HTML Area Start
 ?>
+<!DOCTYPE HTML>
 <html>
 
 <!-- 
-            Classsheet Version 0.9.2
+            Classsheet Version 0.9
             
             Copyright (C) 2011,2012    M.karminski 
             For more information please see documents.
@@ -24,9 +25,10 @@
 -->
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php print $SYSTEM_NAME; ?></title>
-
+<!-- style for editable grid -->
+<link rel="stylesheet" href="scripts/style.css" type="text/css" media="screen">
 <!-- CSS Area Start  -->
 <style type="text/css" media="screen">
 
