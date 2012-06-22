@@ -64,7 +64,7 @@ function print_conf_scripts_for_editable_grid($editableGridUpdatePageName, $edit
 						if (!success) editableGrid.setValueAt(rowIndex, columnIndex, oldValue);
 					    highlight(row.id, success ? "ok" : "error"); 
 					},
-					error: function(XMLHttpRequest, textStatus, exception) { alert("Ajax failure\n" + errortext); },
+					error: function(XMLHttpRequest, textStatus, exception) { alert("Ajax failure" + errortext); },
 					async: true
 				});
 			   

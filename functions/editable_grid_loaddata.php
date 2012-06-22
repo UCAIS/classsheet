@@ -19,8 +19,8 @@
  *
  */
        
-require_once('etc/config.php');      
-require_once('functions/editable_grid.php');            
+require_once('../etc/config.php');      
+require_once('../functions/editable_grid.php');            
 
 /**
  * fetch_pairs is a simple method that transforms a mysqli_result object in an array.
@@ -70,7 +70,7 @@ $grid->addColumn('lastvisit', 'Lastvisit', 'date');
 $grid->addColumn('website', 'Website', 'string');
 */
 $grid->addColumn('id', 'ID', 'integer', NULL, false);
-$grid->addColumn('WEEK', '星期', 'string');  
+$grid->addColumn('COURSE_NAME', '星期', 'string');  
 
 $grid->addColumn('COURSE_1_0', '铸造 [1.2节]', 'string');
 $grid->addColumn('COURSE_1_1', '铸造 [3.4节]', 'string');
@@ -113,7 +113,7 @@ $grid->addColumn('COURSE_10_1', '考试 [3.4节]', 'string');
 $grid->addColumn('COURSE_10_2', '考试 [5.6节]', 'string');          
 $grid->addColumn('COURSE_10_3', '考试 [7.8节]', 'string');           
 
-$result = $mysqli->query('SELECT * FROM total_schedule_2010_2011_1 WHERE SEMESTER_WEEK = 0 LIMIT 100');
+$result = $mysqli->query('SELECT * FROM course_2010_2011_1');
 
 $mysqli->close();
 
