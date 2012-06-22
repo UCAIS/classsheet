@@ -6,37 +6,10 @@
  * Copyright (c) 2011 Webismymind SPRL
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://editablegrid.net/license
- */ 
-
-//Start session
-session_start();
-
-require_once('../etc/config.php');
-require_once('../etc/global_vars.php');      
+ */   
+require_once('../etc/config.php');      
 require_once('../functions/editable_grid.php');
-
-/**
- * fetch_pairs is a simple method that transforms a mysqli_result object in an array.
- * It will be used to generate possible values for some columns.
-*/
-function fetch_pairs($mysqli,$query){
-	if (!($res = $mysqli->query($query)))return FALSE;
-	$rows = array();
-	while ($row = $res->fetch_assoc()) {
-		$first = true;
-		$key = $value = null;
-		foreach ($row as $val) {
-			if ($first) { $key = $val; $first = false; }
-			else { $value = $val; break; } 
-		}
-		$rows[$key] = $value;
-	}
-	return $rows;
-}
-         
-//Load target page info.
-$targetDatabaseTableName = $_SESSION['targetTableName'];
-$targetPageSwitch = $_SESSION['targetPageSwitch'];
+require_once('../functions/global_functions.php');            
 
 // Database connection
 $mysqli = mysqli_init();
@@ -52,7 +25,8 @@ $grid = new EditableGrid();
 *  The third argument is the display type of grid
 */
 
-foreach($GRID_KEY_NAMES_ARRAY[$targetPageSwitch] as $key => $value){
+$gridKeyNamesArrayCount0 = count($GRID_KEY_NAMES_ARRAY[$COURSE_PERIOD_PAGE_SWITCH]);
+foreach($GRID_KEY_NAMES_ARRAY[5] as $key => $value){
 	if($key == 'id'){
 		$grid->addColumn('id', 'ID', 'integer', NULL, false);
 		continue;
@@ -60,7 +34,7 @@ foreach($GRID_KEY_NAMES_ARRAY[$targetPageSwitch] as $key => $value){
 	$grid->addColumn($key, $value, 'string');
 }
 
-$result = $mysqli->query("SELECT * FROM $targetDatabaseTableName");
+$result = $mysqli->query('SELECT * FROM course_2010_2011_1'); WHAT THE FUCK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 $mysqli->close();
 // send data to the browser
 $grid->renderXML($result);

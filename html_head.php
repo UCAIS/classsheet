@@ -34,8 +34,8 @@
 
 /**   Global settings   */
   body { margin: 0; font-size: 12px;}
-  a { color: #CCC; height: 12px; padding: 7px 4px 7px 4px; text-decoration: none; line-height: 30px; }
-  a:hover { background-color: #4C4C4C; height: 12px; padding: 7px 4px 7px 4px; line-height: 30px;}
+  
+  
   h2 { margin: 0 0 0 20px; font-size: 18px; }
   h6 { margin: 0 0 0 10px; font-size: 12px; }
 
@@ -48,12 +48,13 @@
     .Thead { width: 40px;}
 
 /**     NAV settings  */
-  .actived { background: url(images/active.png) repeat-x; color: #FFF;}
   .mainTop { width: 100%; height: 30px; background: url(images/title_banner_bg.png) repeat-x;}
+  .mainTop a { color: #CCC; height: 12px; padding: 7px 4px 7px 4px; text-decoration: none; line-height: 30px; }
+  .mainTop a:hover { background-color: #4C4C4C; height: 12px; padding: 7px 4px 7px 4px; line-height: 30px;}
   .logo { float: left; height: 30px; width: 111px; background: url(images/classsheet.png) no-repeat;}
   .nav { float: left; height: 30px; width: auto;}
   .navRight { float: right; height: 30px; width: auto;}
-
+  .actived { background: url(images/active.png) repeat-x; color: #FFF;}
 /**     Main Middle area settings   */
 .mainMiddle { margin: 0px;}
   .mainMiddleBlockLeft { float: left; height: 240px; width: 200px;}

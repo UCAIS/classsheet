@@ -7,6 +7,8 @@
 *
 */
 
+//Start session
+session_start();
 //Page number
 $PAGE_SWITCH = $COURSE_PERIOD_PAGE_SWITCH = 5;
 //Include files
@@ -37,6 +39,11 @@ $COURSE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($COURSE_TABLE_NAME);
 //QUERY the $courseListArray
 $courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
 
+//Load in session for global table name load.
+$_SESSION['targetTableName'] = $COURSE_TABLE_NAME;
+$_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
+
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
@@ -52,15 +59,15 @@ div_head_output_with_class_option("mainMiddle");
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
 		table_info_output($COURSE_TABLE_KEY_NAMES_ARRAY, $courseListArray);
-		
+		editable_grid_output();//Editable grid output
 		div_end_output();
 		form_end_output();
 	div_end_output();
 div_end_output();
-editable_grid_output();//Editable grid output
+
 //Print javascript blocks.
 javascript_include_output();
-print_conf_scripts_for_editable_grid($EDITABLE_GRID_UPDATE_PAGE_NAME, $EDITABLE_GRID_LOADDATA_PAGE_NAME, 'course_2010_2011_1');
+print_conf_scripts_for_editable_grid($EDITABLE_GRID_UPDATE_PAGE_NAME, $EDITABLE_GRID_LOADDATA_PAGE_NAME, $COURSE_TABLE_NAME);
 javascript_window_onload_output();
 
 //Print HTML end
