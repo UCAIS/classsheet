@@ -104,6 +104,9 @@ for($weekCounter=0;$weekCounter<$courseWeekArrayCount0;$weekCounter++){
 		foreach($classAllCourseArray[$weekCounter][$allCourseCounter] as $key => $value){
 			$explodeValue = explode(".", $value);
 			$classTakeCourseTitleInfo = $explodeValue[0];
+			if(!$explodeValue[1]){
+				continue;
+			}
 			$className = $explodeValue[1];
 			//vars_checkout($className, "className");
 			if($className == $targetClassName){

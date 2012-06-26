@@ -58,7 +58,7 @@ div_head_output_with_class_option("mainMiddle");
 		semester_list_output($PAGE_SWITCH, $semesterListArray, $SEMESTER_TABLE_KEY_NAMES_ARRAY, $semesterTargetArray);
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
-		table_info_output($COURSE_TABLE_KEY_NAMES_ARRAY, $courseListArray);
+		//table_info_output($COURSE_TABLE_KEY_NAMES_ARRAY, $courseListArray);
 		editable_grid_output();//Editable grid output
 		div_end_output();
 		form_end_output();

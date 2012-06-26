@@ -6,7 +6,8 @@
 *	by:			M.Karminski
 *
 */
-
+//Start session
+session_start();
 
 //TODO: Add views functions [Include total schedule table]. 
 //TODO: The schedule fill method which filled "W" is broke.[BUG_NEED_FIX] 
@@ -20,6 +21,7 @@ include('html_head.php');
 include('etc/global_vars.php');
 include('functions/database_functions.php');
 include('functions/global_functions.php');
+include('functions/editable_grid_conf.php');
 include('functions/views_output_functions.php');
 
 //Load the file name for post
@@ -346,6 +348,10 @@ for($i=0;$i<$totalScheduleArrayCount0;$i++){
 //var_dump($totalScheduleArray);
 }//Bracket for reschedule determinative syntax
 
+//Load in session for global table name load.
+$_SESSION['targetTableName'] = $TOTAL_SCHEDULE_TABLE_NAME;
+$_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
@@ -363,10 +369,16 @@ div_head_output_with_class_option("mainMiddle");
 		week_select_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);
 		table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);
 		reschedule_button_output();
+		editable_grid_output();//Editable grid output
 		div_end_output();
 		form_end_output();
 	div_end_output();
 div_end_output();
+
+//Print javascript blocks.
+javascript_include_output();
+print_conf_scripts_for_editable_grid($EDITABLE_GRID_UPDATE_PAGE_NAME, $EDITABLE_GRID_LOADDATA_PAGE_NAME, $TOTAL_SCHEDULE_TABLE_NAME);
+javascript_window_onload_output();
 
 //Print HTML end
 body_end_output();

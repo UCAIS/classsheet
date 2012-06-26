@@ -6,7 +6,8 @@
 *	by:			M.Karminski
 *
 */
-
+//Start session
+session_start();
 
 //Page number
 $PAGE_SWITCH = $WEEKS_SCHEDULE_PAGE_SWITCH = 6;
@@ -16,6 +17,7 @@ include('etc/global_vars.php');
 include('functions/database_functions.php');
 include('functions/global_functions.php');
 include('functions/views_output_functions.php');
+include('functions/editable_grid_conf.php');
 include('html_head.php');
 
 
@@ -34,6 +36,9 @@ $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semes
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 
+//Load in session for global table name load.
+$_SESSION['targetTableName'] = $CLASS_TABLE_NAME;
+$_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
 
 //------  -[ Views Functions ]-  ------
 
@@ -50,10 +55,16 @@ div_head_output_with_class_option("mainMiddle");
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
 		table_info_output($CLASS_TABLE_KEY_NAMES_ARRAY, $classListArray);
+		editable_grid_output();//Editable grid output
 		div_end_output();
 		form_end_output();
 	div_end_output();
 div_end_output();
+
+//Print javascript blocks.
+javascript_include_output();
+print_conf_scripts_for_editable_grid($EDITABLE_GRID_UPDATE_PAGE_NAME, $EDITABLE_GRID_LOADDATA_PAGE_NAME, $CLASS_TABLE_NAME);
+javascript_window_onload_output();
 
 //Print HTML end
 body_end_output();
