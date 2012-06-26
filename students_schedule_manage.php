@@ -9,6 +9,9 @@
 *
 *
 */
+//Start session
+session_start();
+
 
 //Page switch
 $PAGE_SWITCH = $STUDENTS_SCHEDULE_PAGE_SWITCH = 12;
@@ -19,6 +22,7 @@ include('html_head.php');
 include('etc/global_vars.php');
 include('functions/database_functions.php');
 include('functions/global_functions.php');
+include('functions/editable_grid_conf.php');
 include('functions/views_output_functions.php');
 
 //Load the file name for post
@@ -48,13 +52,25 @@ $CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$CLASSROOM_SC
 $STUDENTS_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $STUDENTS_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$STUDENTS_SCHEDULE_PAGE_SWITCH];
 $STUDENTS_SCHEDULE_TABLE_KEY_TYPES_ARRAY = $TABLE_KEY_TYPES_ARRAY[$STUDENTS_SCHEDULE_PAGE_SWITCH];
-//$studentsScheduleArray = table_data_query($STUDENTS_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY);
+
+//Database Query menthod
+if($_POST['classListQuery']){
+	$studentsScheduleArray = table_data_query($STUDENTS_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY);
+}
+//Database Delete method
+if($_POST['classListDelete']){
+	
+}
+
+//Create the dataabse table.
 database_table_create($STUDENTS_SCHEDULE_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $STUDENTS_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
+
+//Reschedule determinative syntax
+if($_POST['RESCHEDULE']){
 
 //Load target class name.
 $classTargetArray = $_POST['classList'];
 $targetClassName = $classListArray[$classTargetArray]['CLASS_NAME'];
-vars_checkout($targetClassName, "targetClassName");
 
 //Load $courseWeekArray
 //$courseWeekArray structure describe
@@ -219,6 +235,12 @@ for($i=0;$i<$studentsScheduleCounter;$i++){
 	table_data_add($STUDENTS_SCHEDULE_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $studentsScheduleArray[$i]);
 }
 
+}//Bracket for reschedule determinative syntax
+
+//Load in session for global table name load.
+$_SESSION['targetTableName'] = $STUDENTS_SCHEDULE_TABLE_NAME;
+$_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
@@ -234,13 +256,20 @@ div_head_output_with_class_option("mainMiddle");
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
 
-		class_list_output($classListArray, $classTargetArray);
+		class_list_output($classListArray, $classTargetArray, $PAGE_SWITCH);
 		table_info_output($STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $studentsScheduleArray);//Temporary views output
+		reschedule_button_output();
+		editable_grid_output();//Editable grid output
 
 		div_end_output();
 		form_end_output();
 	div_end_output();
 div_end_output();
+
+//Print javascript blocks.
+javascript_include_output();
+print_conf_scripts_for_editable_grid($EDITABLE_GRID_UPDATE_PAGE_NAME, $EDITABLE_GRID_LOADDATA_PAGE_NAME, $STUDENTS_SCHEDULE_TABLE_NAME);
+javascript_window_onload_output();
 
 //Print HTML end
 body_end_output();

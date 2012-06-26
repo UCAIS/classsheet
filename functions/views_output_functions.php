@@ -315,7 +315,7 @@ function course_info_change_output($course_list_array, $table_key_names_array, $
 }
 
 //------  -[ class_list_output Function ]-  ------C
-function class_list_output($class_list_array, $target_array){
+function class_list_output($class_list_array, $target_array, $page_switch = 0){
 	$class_list_array;			//For HTML option
 	$target_array;				//For HTML tag "selected" values
 
@@ -334,7 +334,11 @@ function class_list_output($class_list_array, $target_array){
 		print $serialNumber.".[".$class_list_array[$i]['CLASS_TYPE']."].".$class_list_array[$i]['CLASS_NAME']."</option>";
 	}
 	print '</select>';
-	print '<input type="submit" value="&nbsp;修改&nbsp;" name="classListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="classListDelete" style="margin-top: 10px;" />';
+	if($page_switch != 0){
+		print '<input type="submit" value="&nbsp;确定&nbsp;" name="classListQuery" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="classListDelete" style="margin-top: 10px;" />';
+	}else{
+		print '<input type="submit" value="&nbsp;修改&nbsp;" name="classListChange" style="margin-top: 10px;" /><input type="submit" value="&nbsp;删除&nbsp;" name="classListDelete" style="margin-top: 10px;" />';
+	}
 	return 0;
 }
 
