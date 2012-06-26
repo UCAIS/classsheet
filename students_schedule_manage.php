@@ -58,8 +58,14 @@ if($_POST['classListQuery']){
 	$studentsScheduleArray = table_data_query($STUDENTS_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY);
 }
 //Database Delete method
+//TODO: Test this method.
 if($_POST['classListDelete']){
-	
+	$studentsScheduleArray = table_data_query($STUDENTS_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY);
+	$studentsScheduleArrayCount0 = count($studentsScheduleArray);
+	for($i=0;$i<$studentsScheduleArrayCount0;$i++){
+		$targetDeleteId = $studentsScheduleArray[$i]['id']; 
+		table_data_delete_by_id($STUDENTS_SCHEDULE_TABLE_NAME, $targetDeleteId);
+	}
 }
 
 //Create the dataabse table.

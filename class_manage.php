@@ -64,7 +64,6 @@ $CLASS_TABLE_KEY_TYPES_ARRAY = table_key_types_auto_fill($CLASS_TABLE_KEY_TYPES_
 //QUERY $classListArray	
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 
-print "AAAAA";
 //Load the target array ID number
 $targetId = $classListArray[$classTargetArray][$CLASS_TABLE_KEY_NAMES_ARRAY['ID']];
 
