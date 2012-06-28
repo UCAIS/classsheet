@@ -34,9 +34,10 @@ function fetch_pairs($mysqli,$query){
 	return $rows;
 }
          
-//Load target page info.
+//Load target page info by SESSION.
 $targetDatabaseTableName = $_SESSION['targetTableName'];
 $targetPageSwitch = $_SESSION['targetPageSwitch'];
+$targetSemesterWeek = $_SESSION['targetSemesterWeek'];
 
 // Database connection
 $mysqli = mysqli_init();
@@ -60,7 +61,14 @@ foreach($GRID_KEY_NAMES_ARRAY[$targetPageSwitch] as $key => $value){
 	$grid->addColumn($key, $value, 'string');
 }
 
-$result = $mysqli->query("SELECT * FROM $targetDatabaseTableName");
+//Create the SQL Syntax.
+if($targetPageSwitch != $COURSE_PERIOD_PAGE_SWITCH && $targetPageSwitch != $WEEKS_SCHEDULE_PAGE_SWITCH){
+	$sqlSelectSyntax = "SELECT * FROM $targetDatabaseTableName WHERE SEMESTER_WEEK = $targetSemesterWeek";
+}else{
+	$sqlSelectSyntax = "SELECT * FROM $targetDatabaseTableName";
+}
+
+$result = $mysqli->query($sqlSelectSyntax);
 $mysqli->close();
 // send data to the browser
 $grid->renderXML($result);

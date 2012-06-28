@@ -361,5 +361,20 @@ function course_style_array_get($course_list_array){
 	return $courseStyleArray;
 }
 
+/**
+*	Course key name union array get function
+*	@param array $course_list_array
+*	@return array $courseKeyNameUnionArray
+*/
+function course_key_name_union_array_get($course_list_array){
+	$courseListArrayCount0 = count($course_list_array);
+	for($i=0;$i<$courseListArrayCount0;$i++){
+		$courseKeyName = $course_list_array[$i]['COURSE_KEY_NAME'];
+		$courseName = $course_list_array[$i]['COURSE_NAME'];
+		$courseKeyNameUnionArray[$courseKeyName] = $courseName;
+	}
+	return $courseKeyNameUnionArray;
+}
+ 
 //Fin.
 ?>

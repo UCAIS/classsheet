@@ -615,6 +615,78 @@ function teacher_info_change_output($teacher_list_array, $table_key_names_array,
     return 0;
 }
 
+/**
+*	total schedule output function
+*	This function output the total schedule.
+*
+*	@param array $total_schedule_array, array $course_key_name_union_array
+*	@return false
+*/
+function total_schedule_output($total_schedule_array, $course_key_name_union_array){
+	$totalScheduleArrayCount0 = count($total_schedule_array);
+	$courseKeyNameUnionArrayCount0 = count($course_key_name_union_array);
+	
+	print '<table class="">';
+	print '<thead >';
+	print '<th>工种</th>';
+	//Print the COURSE NAME thead
+	for($i=0;$i<$courseKeyNameUnionArrayCount0;$i++){
+		$courseKeyName = "COURSE_".$i;
+		print '<th colspan="2" >'.$course_key_name_union_array[$courseKeyName].'</th>';
+	}
+	print '</thead>';
+	print '<thead>';
+	print '<th>课节</th>';
+	//Print the course serial
+	for($i=0;$i<$courseKeyNameUnionArrayCount0;$i++){
+		print '<th>1234</th><th>5678</th>';
+	}
+	print '</thead>';
+	//Print the COURSE
+	for($i=0;$i<$totalScheduleArrayCount0;$i++){
+		$week = $total_schedule_array[$i]['WEEK'];
+		//Print the HTML "tr" tag
+		if($week != $lastWeek){
+			print '<tr>';
+		}
+		//print the HTML "th" tag
+		foreach($total_schedule_array $key => $value){
+			if($key == "id") continue;
+			if($key == "WEEK") continue;
+			if($key == "SEMESTER_WEEK") continue;
+			if($key == 'COURSE_0_0' || $key == 'COURSE_0_1' || $key == "COURSE_0_2" || $key == "COURSE_0_3") continue;
+			$explodeUnderlineKey = explode("_", $key);
+			$courseSerialNumber = $explodeUnderlineKey[1];
+			$coursePartSerialNumber = $explodeUnderlineKey[2];
+			
+
+
+		}
+		if($week != $lastWeek){
+			print '</tr>';
+		}
+		//Update the lastWeek
+		$lastWeek = $week;
+
+	}
+
+
+	print '</table>';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Fin.
 ?>

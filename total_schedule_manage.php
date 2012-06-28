@@ -351,6 +351,7 @@ for($i=0;$i<$totalScheduleArrayCount0;$i++){
 //Load in session for global table name load.
 $_SESSION['targetTableName'] = $TOTAL_SCHEDULE_TABLE_NAME;
 $_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
+$_SESSION['targetSemesterWeek'] = $SEMESTER_WEEK_SET;
 
 //------  -[ Views Functions ]-  ------
 
