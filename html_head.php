@@ -70,6 +70,12 @@
 .classBlockLeft { height: 240px; width: 900px; float: left;}
 .classBlockRight { height: 240px; width: 270px; float: left; margin-left: 20px;}
 
+.totalScheduleTable table { width: 1600px;}
+.totalScheduleTable thead { border-bottom:1px solid #000;}
+.totalScheduleTable th { border-left:1px solid #000;border-bottom:1px solid #000;}
+.totalScheduleTable tr {  border:0; padding:0; margin:0;}
+.totalScheduleTable td {  border-left: 1px solid #000; font-size: 12px; width:80px; margin:0; padding:0; text-align:center;}
+
 </style>
 <!--[if IE]>
 <style type="text/css">

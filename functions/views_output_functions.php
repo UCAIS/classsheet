@@ -625,12 +625,12 @@ function teacher_info_change_output($teacher_list_array, $table_key_names_array,
 function total_schedule_output($total_schedule_array, $course_key_name_union_array){
 	$totalScheduleArrayCount0 = count($total_schedule_array);
 	$courseKeyNameUnionArrayCount0 = count($course_key_name_union_array);
-	
-	print '<table class="">';
+	print '<div class="totalScheduleTable">';
+	print '<table cellspacing="0">';
 	print '<thead >';
 	print '<th>工种</th>';
 	//Print the COURSE NAME thead
-	for($i=0;$i<$courseKeyNameUnionArrayCount0;$i++){
+	for($i=1;$i<$courseKeyNameUnionArrayCount0;$i++){
 		$courseKeyName = "COURSE_".$i;
 		print '<th colspan="2" >'.$course_key_name_union_array[$courseKeyName].'</th>';
 	}
@@ -638,40 +638,59 @@ function total_schedule_output($total_schedule_array, $course_key_name_union_arr
 	print '<thead>';
 	print '<th>课节</th>';
 	//Print the course serial
-	for($i=0;$i<$courseKeyNameUnionArrayCount0;$i++){
+	for($i=1;$i<$courseKeyNameUnionArrayCount0;$i++){
 		print '<th>1234</th><th>5678</th>';
 	}
 	print '</thead>';
 	//Print the COURSE
+	$lastWeek = -1;//Set the default value of $lastWeek.
 	for($i=0;$i<$totalScheduleArrayCount0;$i++){
+		$id = $total_schedule_array[$i]['id'];
 		$week = $total_schedule_array[$i]['WEEK'];
 		//Print the HTML "tr" tag
-		if($week != $lastWeek){
-			print '<tr>';
+		print '<tr>';
+		if($week != $lastWeek && $week != 0){
+			print '<tr style="background:#09c;">';
+            for($j=0;$j<($courseKeyNameUnionArrayCount0*2-1);$j++){
+                print '<td style="height:1px;background:#cc3333;"></td>';
+            }
+            print '</tr>';
 		}
 		//print the HTML "th" tag
-		foreach($total_schedule_array $key => $value){
+		foreach($total_schedule_array[$i] as $key => $value){
 			if($key == "id") continue;
-			if($key == "WEEK") continue;
+			//Print week
+			if($key == "WEEK" && $week != $lastWeek){
+				if($week == 0){
+					print '<td>周一</td>';
+				}elseif ($week == 1) {
+					print '<td>周二</td>';
+				}elseif ($week == 2) {
+					print '<td>周三</td>';
+				}elseif ($week == 3) {
+					print '<td>周四</td>';
+				}elseif ($week == 4) {
+					print '<td>周五</td>';
+				}
+				continue;
+			}elseif($key == "WEEK"){
+				print '<td></td>';
+				continue;
+			}
 			if($key == "SEMESTER_WEEK") continue;
 			if($key == 'COURSE_0_0' || $key == 'COURSE_0_1' || $key == "COURSE_0_2" || $key == "COURSE_0_3") continue;
 			$explodeUnderlineKey = explode("_", $key);
 			$courseSerialNumber = $explodeUnderlineKey[1];
 			$coursePartSerialNumber = $explodeUnderlineKey[2];
-			
-
-
+			if($key == 'COURSE_'.$courseSerialNumber.'_1' || $key == 'COURSE_'.$courseSerialNumber.'_3') continue; // ignore the next part of course
+			print '<td>'.$value.'</td>';
 		}
-		if($week != $lastWeek){
-			print '</tr>';
-		}
+		print '</tr>';
 		//Update the lastWeek
 		$lastWeek = $week;
-
+		
 	}
-
-
-	print '</table>';
+	print '</table></div>';
 }
 
 

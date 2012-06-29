@@ -375,6 +375,22 @@ function course_key_name_union_array_get($course_list_array){
 	}
 	return $courseKeyNameUnionArray;
 }
+
+/**
+*	Classroom schedule array reunion function
+*
+*	@param array $classroom_schedule_array
+*	@return array $classroomScheduleArrayReunion
+*/
+function classroom_schedule_array_reunion($classroom_schedule_array){
+	$classroomScheduleArrayCount0 = count($classroom_schedule_array);
+	for($i=0;$i<$classroomScheduleArrayCount0;$i++){
+		foreach($classroom_schedule_array[$i] as $key=>$value){
+			
+		}
+	}
+	return $classroomScheduleArrayReunion;
+}
  
 //Fin.
 ?>

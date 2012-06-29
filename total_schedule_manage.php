@@ -40,6 +40,9 @@ $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semes
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
 
+//Load course key name union array
+$courseKeyNameUnionArray = course_key_name_union_array_get($courseListArray);
+
 //CREATE the TOTAL_SCHEDULE_TABLE
 //TODO: add "if" phrase.	
 $TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
@@ -353,6 +356,7 @@ $_SESSION['targetTableName'] = $TOTAL_SCHEDULE_TABLE_NAME;
 $_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
 $_SESSION['targetSemesterWeek'] = $SEMESTER_WEEK_SET;
 
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
@@ -368,8 +372,9 @@ div_head_output_with_class_option("mainMiddle");
 		div_end_output();
 		div_head_output_with_class_option("mainMiddleBlockRight");
 		week_select_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);
-		table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);
+		//table_info_output($TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $totalScheduleArray);
 		reschedule_button_output();
+		total_schedule_output($totalScheduleArray, $courseKeyNameUnionArray);
 		editable_grid_output();//Editable grid output
 		div_end_output();
 		form_end_output();
