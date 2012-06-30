@@ -731,9 +731,18 @@ function classroom_schedule_output($classroom_schedule_array_reunion, $classroom
             }
             print '</tr>';
 		}
-		$weekPrint = $week + 1;
 		print '<tr>';
-		print '<td>'.$weekPrint.'</td>';
+		if($week == 0){
+					print '<td>周一</td>';
+				}elseif ($week == 1) {
+					print '<td>周二</td>';
+				}elseif ($week == 2) {
+					print '<td>周三</td>';
+				}elseif ($week == 3) {
+					print '<td>周四</td>';
+				}elseif ($week == 4) {
+					print '<td>周五</td>';
+				}
 		for($classroomListArrayCounter=0;$classroomListArrayCounter<$classroomListArrayCount0;$classroomListArrayCounter++){
 			$crc32SerialOfClassroomName = "_".crc32($classroom_list_array[$classroomListArrayCounter]['CLASSROOM_NAME']);
 			for($partCounter=0;$partCounter<4;$partCounter++){
@@ -747,19 +756,20 @@ function classroom_schedule_output($classroom_schedule_array_reunion, $classroom
 		}
 		print '</tr>';
 	}
-
 	print '</table></div>';
 	return 0;
 }
 
-
-
-
-
-
-
-
-
+/**
+*	Students schedule output function
+*
+*	@param array $students_schedule_array, array course_key_name_union_array
+*	@return false
+*/
+function students_schedule_output($students_schedule_array, $course_key_name_union_array){
+	
+	return 0;
+}
 
 //Fin.
 ?>

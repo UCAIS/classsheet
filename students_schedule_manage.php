@@ -37,6 +37,15 @@ $semesterTargetArray = $_POST['semesterList'];
 $CLASS_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $CLASS_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $CLASS_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($CLASS_TABLE_NAME);
 $classListArray = table_data_query($CLASS_TABLE_NAME, $CLASS_TABLE_KEY_NAMES_ARRAY);
+
+//Load $courseListArray
+$COURSE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $COURSE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
+$COURSE_TABLE_KEY_NAMES_ARRAY = $TABLE_KEY_NAMES_ARRAY[$COURSE_PAGE_SWITCH];
+$courseListArray = table_data_query($COURSE_TABLE_NAME, $COURSE_TABLE_KEY_NAMES_ARRAY);
+
+//Load the course key-name union array
+$courseKeyNameUnionArray = course_key_name_union_array_get($courseListArray);
+
 //Load $totalScheduleArray
 $TOTAL_SCHEDULE_TABLE_NAME = table_name_form($PAGE_INFO_ARRAY, $TOTAL_SCHEDULE_PAGE_SWITCH, $semesterListArray, $semesterTargetArray);
 $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY = table_key_names_array_get($TOTAL_SCHEDULE_TABLE_NAME);
@@ -71,11 +80,12 @@ if($_POST['classListDelete']){
 //Create the dataabse table.
 database_table_create($STUDENTS_SCHEDULE_TABLE_NAME, $STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $STUDENTS_SCHEDULE_TABLE_KEY_TYPES_ARRAY);
 
+//Load target class name.
+$classTargetArray = $_POST['classList'];
+
 //Reschedule determinative syntax
 if($_POST['RESCHEDULE']){
 
-//Load target class name.
-$classTargetArray = $_POST['classList'];
 $targetClassName = $classListArray[$classTargetArray]['CLASS_NAME'];
 
 //Load $courseWeekArray
@@ -265,6 +275,7 @@ div_head_output_with_class_option("mainMiddle");
 		class_list_output($classListArray, $classTargetArray, $PAGE_SWITCH);
 		table_info_output($STUDENTS_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $studentsScheduleArray);//Temporary views output
 		reschedule_button_output();
+		students_schedule_output($studentsScheduleArray, $courseKeyNameUnionArray);
 		editable_grid_output();//Editable grid output
 
 		div_end_output();
