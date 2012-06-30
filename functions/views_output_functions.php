@@ -733,16 +733,16 @@ function classroom_schedule_output($classroom_schedule_array_reunion, $classroom
 		}
 		print '<tr>';
 		if($week == 0){
-					print '<td>周一</td>';
-				}elseif ($week == 1) {
-					print '<td>周二</td>';
-				}elseif ($week == 2) {
-					print '<td>周三</td>';
-				}elseif ($week == 3) {
-					print '<td>周四</td>';
-				}elseif ($week == 4) {
-					print '<td>周五</td>';
-				}
+			print '<td>周一</td>';
+		}elseif ($week == 1) {
+			print '<td>周二</td>';
+		}elseif ($week == 2) {
+			print '<td>周三</td>';
+		}elseif ($week == 3) {
+			print '<td>周四</td>';
+		}elseif ($week == 4) {
+			print '<td>周五</td>';
+		}
 		for($classroomListArrayCounter=0;$classroomListArrayCounter<$classroomListArrayCount0;$classroomListArrayCounter++){
 			$crc32SerialOfClassroomName = "_".crc32($classroom_list_array[$classroomListArrayCounter]['CLASSROOM_NAME']);
 			for($partCounter=0;$partCounter<4;$partCounter++){
@@ -767,7 +767,94 @@ function classroom_schedule_output($classroom_schedule_array_reunion, $classroom
 *	@return false
 */
 function students_schedule_output($students_schedule_array, $course_key_name_union_array){
+	$studentsScheduleArrayCount0 = count($students_schedule_array);
+	print '<div class="studentsScheduleTable">';
+	print '<table cellspacing="0">';
+	print '<thead >';
+	print '<th>周</th>';
+	//Count the semester week and fill in $semesterWeekArray
+	$lastSemesterWeek = $students_schedule_array[0]['SEMESTER_WEEK'];
+	$semesterWeekArray[] = $lastSemesterWeek+1;
+	for($i=0;$i<$studentsScheduleArrayCount0;$i++){
+		$semesterWeek = $students_schedule_array[$i]['SEMESTER_WEEK'];
+		if($semesterWeek != $lastSemesterWeek){
+			$semesterWeekArray[] = $semesterWeek+1;
+		}
+		$lastSemesterWeek = $semesterWeek;
+	}
+	$semesterWeekArrayCount0 = count($semesterWeekArray);
+	//Print the COURSE NAME thead
+	for($i=0;$i<$semesterWeekArrayCount0;$i++){
+		print '<th colspan="4" >第'.$semesterWeekArray[$i].'周</th>';
+	}
+	print '</thead>';
+	print '<thead>';
+	print '<th>课节</th>';
+	//Print the course serial
+	for($i=0;$i<$semesterWeekArrayCount0;$i++){
+		print '<th>12</th><th>34</th><th>56</th><th>78</th>';
+	}
+	print '</thead>';
+	//Pickup the theory class and fill it into next course
+	$firstCourse = explode(".", $students_schedule_array[0]['COURSE_PART_0']);
+	if( $firstCourse[0] == 'COURSE_0'){
+		$students_schedule_array[1]['COURSE_PART_0'] = $students_schedule_array[0]['COURSE_PART_0'];
+		unset($students_schedule_array[0]);
+	}
 	
+	for($studentsScheduleArrayCounter=0;$studentsScheduleArrayCounter<$studentsScheduleArrayCount0;$studentsScheduleArrayCounter++){
+		$week = $students_schedule_array[$studentsScheduleArrayCounter]['WEEK'];
+		//Print week line
+		if($week != $lastWeek && $week != 0){
+			print '<tr style="background:#09c;">';
+            for($j=0;$j<($semesterWeekArrayCount0*4+1);$j++){
+                print '<td style="height:1px;background:#cc3333;"></td>';
+            }
+            print '</tr>';
+		}
+		print '<tr>';
+		//Print the info
+		foreach($students_schedule_array[$studentsScheduleArrayCounter] as $key=>$value){
+			//For ignore keys
+			if($key == 'id') continue;
+			if($key == 'CLASS_NAME') continue;
+			if($key == 'SEMESTER_WEEK') continue;
+			if($key == 'WEEK'){
+				if($week == 0){
+					print '<td>周一</td>';
+				}elseif ($week == 1) {
+					print '<td>周二</td>';
+				}elseif ($week == 2) {
+					print '<td>周三</td>';
+				}elseif ($week == 3) {
+					print '<td>周四</td>';
+				}elseif ($week == 4) {
+					print '<td>周五</td>';
+				}
+				continue;
+			}
+			print '<td>';
+			$explodeValue = explode(".", $value);
+			$courseName = $course_key_name_union_array[$explodeValue[0]];
+			if(isset($explodeValue[2])){
+				$classroomName = $explodeValue[2];
+			}else{
+				$classroomName ="";
+			}
+			if(isset($explodeValue[3])){
+				$teacherName = $explodeValue[3];
+			}else{
+				$teacherName ="";
+			}
+			print $courseName.'<br />'.$classroomName.'<br />'.$teacherName;
+			print '</td>';
+
+
+		}
+		$lastWeek = $week;
+	}
+
+	print '</table></div>';
 	return 0;
 }
 
