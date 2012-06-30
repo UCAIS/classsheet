@@ -363,6 +363,11 @@ function course_style_array_get($course_list_array){
 
 /**
 *	Course key name union array get function
+*	
+*	Return Example:
+*	$courseKeyNameUnionArray[COURSE_KEY_NAME]
+*	$courseKeyNameUnionArray['COURSE_0'] = "概论课";
+*
 *	@param array $course_list_array
 *	@return array $courseKeyNameUnionArray
 */
@@ -379,16 +384,36 @@ function course_key_name_union_array_get($course_list_array){
 /**
 *	Classroom schedule array reunion function
 *
-*	@param array $classroom_schedule_array
+*	Return Example:
+*	$classroomScheduleArrayReunion[WEEK][CRC32_SERIAL_OF_CLASSROOM_NAME][PART]
+*	$classroomScheduleArrayReunion[0]['_0X23A4SEF']['PART']	['COURSE_NAME']		= "COURSE_0";
+*															['TEACHER_NAME']	= "葛生平";
+*															['CLASS_NAME']		= "G.机设09-1";
+*
+*	@param array $classroom_schedule_array,	array $course_key_name_union_array
 *	@return array $classroomScheduleArrayReunion
 */
-function classroom_schedule_array_reunion($classroom_schedule_array){
+function classroom_schedule_array_reunion($classroom_schedule_array, $course_key_name_union_array){
 	$classroomScheduleArrayCount0 = count($classroom_schedule_array);
 	for($i=0;$i<$classroomScheduleArrayCount0;$i++){
-		foreach($classroom_schedule_array[$i] as $key=>$value){
-			
+		$week = $classroom_schedule_array[$i]['WEEK'];
+		$classroomNameCrcValue ="_".crc32($classroom_schedule_array[$i]['CLASSROOM_NAME']);
+		for($j=0;$j<5;$j++){
+			$coursePartKeyName = 'COURSE_PART_'.$j;
+			$coursePartValue = $classroom_schedule_array[$i][$coursePartKeyName];
+			if($coursePartValue){
+				$teacherPartKeyName = 'TEACHER_PART_'.$j;
+				$classPartKeyName = 'CLASS_PART_'.$j;
+				$courseName = $course_key_name_union_array[$coursePartValue];
+				$classNameExplode = explode(".", $classroom_schedule_array[$i][$classPartKeyName]);
+				$classroomScheduleArrayReunion[$week][$classroomNameCrcValue][$j]['COURSE_NAME'] = $courseName."<br />";
+				$classroomScheduleArrayReunion[$week][$classroomNameCrcValue][$j]['TEACHER_NAME'] .= $classroom_schedule_array[$i][$teacherPartKeyName];
+				$classroomScheduleArrayReunion[$week][$classroomNameCrcValue][$j]['CLASS_NAME'] .= "<br />".$classNameExplode[1];
+				break;
+			}
 		}
 	}
+	var_dump($classroomScheduleArrayReunion);
 	return $classroomScheduleArrayReunion;
 }
  

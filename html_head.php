@@ -76,6 +76,12 @@
 .totalScheduleTable tr {  border:0; padding:0; margin:0;}
 .totalScheduleTable td {  border-left: 1px solid #000; font-size: 12px; width:80px; margin:0; padding:0; text-align:center;}
 
+.classroomScheduleTable table { width: 2200px;}
+.classroomScheduleTable thead { border-bottom:1px solid #000;}
+.classroomScheduleTable th { border-left:1px solid #000;border-bottom:1px solid #000;}
+.classroomScheduleTable tr {  border:0; padding:0; margin:0;}
+.classroomScheduleTable td {  border-left: 1px solid #000; font-size: 12px; width:80px; margin:0; padding:0; text-align:center;}
+
 </style>
 <!--[if IE]>
 <style type="text/css">

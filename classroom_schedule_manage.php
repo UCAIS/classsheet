@@ -565,6 +565,11 @@ for($i=0;$i<$classroomScheduleArrayCount0;$i++){
 $_SESSION['targetTableName'] = $CLASSROOM_SCHEDULE_TABLE_NAME;
 $_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
 
+//Load the course key-name union array
+$courseKeyNameUnionArray = course_key_name_union_array_get($courseListArray);
+//Reunion the classroom array for classroom schedule output
+$classroomScheduleArrayReunion = classroom_schedule_array_reunion($classroomScheduleArray, $courseKeyNameUnionArray);
+
 //------  -[ Views Functions ]-  ------
 
 div_head_output_with_class_option("mainMiddle");
@@ -583,6 +588,7 @@ div_head_output_with_class_option("mainMiddle");
 		week_select_output($CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $SEMESTER_WEEK_SET);//Temporary views output
 		table_info_output($CLASSROOM_SCHEDULE_TABLE_KEY_NAMES_ARRAY, $classroomScheduleArray);//Temporary views output
 		reschedule_button_output();
+		classroom_schedule_output($classroomScheduleArrayReunion, $classroomListArray);
 		editable_grid_output();//Editable grid output
 		div_end_output();
 		form_end_output();

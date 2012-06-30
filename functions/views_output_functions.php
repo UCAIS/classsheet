@@ -691,12 +691,66 @@ function total_schedule_output($total_schedule_array, $course_key_name_union_arr
 		
 	}
 	print '</table></div>';
+	return 0;
 }
 
+/**
+*	Classroom schedule output Function
+*	This function output the classroom schedule
+*
+*	@param array $classroom_schedule_array_reunion, array $classroom_list_array
+*	@return false
+*
+*/
+function classroom_schedule_output($classroom_schedule_array_reunion, $classroom_list_array){
+	$classroomScheduleArrayReunionCount0 = count($classroom_schedule_array_reunion);
+	$classroomListArrayCount0 = count($classroom_list_array);
+	print '<div class="classroomScheduleTable">';
+	print '<table cellspacing="0">';
+	print '<thead >';
+	print '<th>教室</th>';
+	//Print the CLASSROOM NAME thead
+	for($i=0;$i<$classroomListArrayCount0;$i++){
+		$classroomName = $classroom_list_array[$i]['CLASSROOM_NAME']; 
+		print '<th colspan="4" >'.$classroomName.'</th>';
+	}
+	print '</thead>';
+	print '<thead>';
+	print '<th>课节</th>';
+	//Print the course serial
+	for($i=0;$i<$classroomListArrayCount0;$i++){
+		print '<th>12</th><th>34</th><th>56</th><th>78</th>';
+	}
+	print '</thead>';
+	//Print the info
+	for($week=0;$week<5;$week++){
+		if($week != 0){
+			print '<tr style="background:#09c;">';
+            for($j=0;$j<($classroomListArrayCount0*4+1);$j++){
+                print '<td style="height:1px;background:#cc3333;"></td>';
+            }
+            print '</tr>';
+		}
+		$weekPrint = $week + 1;
+		print '<tr>';
+		print '<td>'.$weekPrint.'</td>';
+		for($classroomListArrayCounter=0;$classroomListArrayCounter<$classroomListArrayCount0;$classroomListArrayCounter++){
+			$crc32SerialOfClassroomName = "_".crc32($classroom_list_array[$classroomListArrayCounter]['CLASSROOM_NAME']);
+			for($partCounter=0;$partCounter<4;$partCounter++){
+				$courseName = $classroom_schedule_array_reunion[$week][$crc32SerialOfClassroomName][$partCounter]['COURSE_NAME'];
+				$teacherName = $classroom_schedule_array_reunion[$week][$crc32SerialOfClassroomName][$partCounter]['TEACHER_NAME'];
+				$className = $classroom_schedule_array_reunion[$week][$crc32SerialOfClassroomName][$partCounter]['CLASS_NAME'];
+				print '<td>';
+				print $courseName.$teacherName.$className;
+				print '</td>';
+			}
+		}
+		print '</tr>';
+	}
 
-
-
-
+	print '</table></div>';
+	return 0;
+}
 
 
 
