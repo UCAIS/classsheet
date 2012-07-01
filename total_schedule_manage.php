@@ -63,7 +63,7 @@ database_table_create($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAME
 
 
 //Load semester week
-$SEMESTER_WEEK_SET = $_POST[$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY['SEMESTER_WEEK']];//Load semester week
+$SEMESTER_WEEK_SET = $_POST[$TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY['SEMESTER_WEEK']] -1;//Load semester week
 
 //QUERY the $totalScheduleArray
 $totalScheduleArray = table_data_query($TOTAL_SCHEDULE_TABLE_NAME, $TOTAL_SCHEDULE_TABLE_KEY_NAMES_ARRAY, "SEMESTER_WEEK = $SEMESTER_WEEK_SET");
@@ -359,8 +359,8 @@ $_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
 $_SESSION['targetSemesterWeek'] = $SEMESTER_WEEK_SET;
 
 //Export the Excel
-$semesterName = "S".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
-total_schedule_excel_export($totalScheduleArray, $semesterName, $SEMESTER_WEEK_SET);
+$semesterName = $semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
+total_schedule_excel_export($totalScheduleArray, $semesterName, $SEMESTER_WEEK_SET, $courseKeyNameUnionArray);
 
 
 

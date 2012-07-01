@@ -418,20 +418,21 @@ function classroom_schedule_array_reunion($classroom_schedule_array, $course_key
 }
 
 /**
-*	php_excel_export Function
+*	total_schedule_excel_export Function
 *	This function export the excel documents by PHPExcel plugins.
 *
 *	@category   PHPExcel
 *	@copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
 *	@license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
 *	@version    1.7.7, 2012-05-19
-*	@param 		array $total_schedule_array
+*	@param 		array $total_schedule_array, string $target_semester, string $target_week, array $course_key_name_union_array
 *	@return 	false
 */
-function total_schedule_excel_export($total_schedule_array, $target_semester, $target_week){
+function total_schedule_excel_export($total_schedule_array, $target_semester, $target_week, $course_key_name_union_array){
 	$totalScheduleArrayCount0 = count($total_schedule_array);
+	$courseKeyNameUnionArrayCount0 = count($course_key_name_union_array);
 	$target_week++;	//For week value
-	$excelFileName = __DIR__."\..\\temp\\totalSchedule_".$target_semester."W".$target_week.".xlsx";
+	$excelFileName = __DIR__."\..\\temp\\totalSchedule_S".$target_semester."W".$target_week.".xlsx";
 	// Create new PHPExcel object
 	echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 	$objPHPExcel = new PHPExcel();
@@ -444,18 +445,94 @@ function total_schedule_excel_export($total_schedule_array, $target_semester, $t
 								 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
 								 ->setKeywords("office 2007 openxml php")
 								 ->setCategory("Test result file");
-	// Add data into sheet
-	echo date('H:i:s') , " Add some data" , PHP_EOL;
-	$colCounter = 1;
+	echo date('H:i:s') , " Adding data" , PHP_EOL;
+
+	//Export title
+	$titleName = $target_semester."学年度 第".$target_week."周 总课表";
+	$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue("A1", $titleName);
+	//Export title info
+	$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue("A2", "工种");
+	$titleColCounter = "B";
+	for($i=1;$i<$courseKeyNameUnionArrayCount0;$i++){
+		$courseKeyName = "COURSE_".$i;
+		$titleCol = $titleColCounter."2";
+		$courseName = $course_key_name_union_array[$courseKeyName];
+		$objPHPExcel->setActiveSheetIndex(0)
+					->setCellValue($titleCol, $courseName);
+		for($j=0;$j<2;$j++){
+			$titleColCounter ++;
+		}
+	}
+	$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue("A3", "课节");
+	$titleColCounter = "B";
+	for($i=1;$i<$courseKeyNameUnionArrayCount0;$i++){
+		$partName = "1234";
+		$titleCol = $titleColCounter."3";
+		$objPHPExcel->setActiveSheetIndex(0)
+					->setCellValue($titleCol, $partName);
+		$titleColCounter ++;
+		$partName = "5678";
+		$titleCol = $titleColCounter."3";
+		$objPHPExcel->setActiveSheetIndex(0)
+					->setCellValue($titleCol, $partName);
+		$titleColCounter ++;
+	}
+
+	//Export main info
+	$colCounter = 4;	//Title line will take 3 line
+	$lastWeek = -1;
 	for($totalScheduleArrayCounter=0;$totalScheduleArrayCounter<$totalScheduleArrayCount0;$totalScheduleArrayCounter++){
 		$rowCounter = 'A';
+		$week = $total_schedule_array[$totalScheduleArrayCounter]['WEEK'];
+		//Blank line confirm
+		$avaliableCourseCounter = 0;
+		for($i=1;$i<$courseKeyNameUnionArrayCount0;$i++){
+			for($j=0;$j<4;$j++){
+				$coursePartKeyName = "COURSE_".$i."_".$j;
+				if($total_schedule_array[$totalScheduleArrayCounter][$coursePartKeyName]){
+					$avaliableCourseCounter ++;
+				}
+			}
+		}
+		vars_checkout($avaliableCourseCounter, "avaliableCourseCounter");
+		if($total_schedule_array[$totalScheduleArrayCounter]['COURSE_0_0'] && $avaliableCourseCounter == 0) continue;
 		foreach($total_schedule_array[$totalScheduleArrayCounter] as $key => $value){
+			if($key == "id") continue;
+			//Print week
+			if($key == "WEEK" && $week != $lastWeek){
+				if($week == 0){
+					$value = '周一';
+				}elseif ($week == 1) {
+					$value = '周二';
+				}elseif ($week == 2) {
+					$value = '周三';
+				}elseif ($week == 3) {
+					$value = '周四';
+				}elseif ($week == 4) {
+					$value = '周五';
+				}
+			}elseif($key == "WEEK"){
+				$value = '';
+			}
+			if($key == "SEMESTER_WEEK") continue;
+			if($key == 'COURSE_0_0' || $key == 'COURSE_0_1' || $key == "COURSE_0_2" || $key == "COURSE_0_3") continue;
+			$explodeUnderlineKey = explode("_", $key);
+			$courseSerialNumber = $explodeUnderlineKey[1];
+			$coursePartSerialNumber = $explodeUnderlineKey[2];
+			if($key == 'COURSE_'.$courseSerialNumber.'_1' || $key == 'COURSE_'.$courseSerialNumber.'_3') continue; // ignore the next part of course
+
 			$serial = $rowCounter.$colCounter;
+			//Create
 			$objPHPExcel->setActiveSheetIndex(0)
 						->setCellValue($serial, $value);
-			print "<br />[".$serial."]".$value;
+			//print "<br />[".$serial."]".$value;	//For test
 			$rowCounter ++;
 		}
+		//Update the lastWeek and $colCounter
+		$lastWeek = $week;
 		$colCounter ++;
 	}
 	// Rename worksheet
