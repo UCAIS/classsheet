@@ -30,8 +30,13 @@ $config = array(
 	"db_user" => $DB_USER,
 	"db_password" => $DB_PASS,
 	"db_host" => $DB_HOST
-);                
+);
+
+//Display Error                
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+
+//Set timezone
+date_default_timezone_set('Asia/Harbin');
 
 ?>

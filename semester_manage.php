@@ -35,7 +35,7 @@ $semesterListArray = table_data_query($TABLE_NAME, $THIS_TABLE_KEY_NAMES_ARRAY);
 //Load the target array number
 $targetArray = $_POST['semesterList'];
 //Load the target array ID number
-$targetId = $semesterListArray[$targetArray][$THIS_TABLE_KEY_NAMES_ARRAY['ID']];
+$targetId = $semesterListArray[$targetArray][$THIS_TABLE_KEY_NAMES_ARRAY['id']];
 //Reunion the semester name 
 $_POST[$THIS_TABLE_KEY_NAMES_ARRAY['SEMESTER']] = $_POST["semesterPartA"]."_".$_POST["semesterPartB"];
 

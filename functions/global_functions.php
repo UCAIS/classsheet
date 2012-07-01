@@ -416,6 +416,63 @@ function classroom_schedule_array_reunion($classroom_schedule_array, $course_key
 	var_dump($classroomScheduleArrayReunion);
 	return $classroomScheduleArrayReunion;
 }
+
+/**
+*	php_excel_export Function
+*	This function export the excel documents by PHPExcel plugins.
+*
+*	@category   PHPExcel
+*	@copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
+*	@license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+*	@version    1.7.7, 2012-05-19
+*	@param 		array $total_schedule_array
+*	@return 	false
+*/
+function total_schedule_excel_export($total_schedule_array, $target_semester, $target_week){
+	$totalScheduleArrayCount0 = count($total_schedule_array);
+	$target_week++;	//For week value
+	$excelFileName = __DIR__."\..\\temp\\totalSchedule_".$target_semester."W".$target_week.".xlsx";
+	// Create new PHPExcel object
+	echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
+	$objPHPExcel = new PHPExcel();
+	// Set document properties
+	echo date('H:i:s') , " Set document properties" , PHP_EOL;
+	$objPHPExcel->getProperties()->setCreator("default")
+								 ->setLastModifiedBy("default")
+								 ->setTitle("Office 2007 XLSX Test Document")
+								 ->setSubject("Office 2007 XLSX Test Document")
+								 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+								 ->setKeywords("office 2007 openxml php")
+								 ->setCategory("Test result file");
+	// Add data into sheet
+	echo date('H:i:s') , " Add some data" , PHP_EOL;
+	$colCounter = 1;
+	for($totalScheduleArrayCounter=0;$totalScheduleArrayCounter<$totalScheduleArrayCount0;$totalScheduleArrayCounter++){
+		$rowCounter = 'A';
+		foreach($total_schedule_array[$totalScheduleArrayCounter] as $key => $value){
+			$serial = $rowCounter.$colCounter;
+			$objPHPExcel->setActiveSheetIndex(0)
+						->setCellValue($serial, $value);
+			print "<br />[".$serial."]".$value;
+			$rowCounter ++;
+		}
+		$colCounter ++;
+	}
+	// Rename worksheet
+	echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
+	$objPHPExcel->getActiveSheet()->setTitle('Simple');
+	// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+	$objPHPExcel->setActiveSheetIndex(0);
+	// Save Excel 2007 file
+	echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
+	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	$objWriter->save($excelFileName);
+	echo date('H:i:s') , " File written to " , $excelFileName , PHP_EOL;
+	// Echo memory peak usage
+	echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+	// Echo done
+	echo date('H:i:s') , " Done writing file" , PHP_EOL;
+	}
  
 //Fin.
 ?>

@@ -23,6 +23,8 @@ include('functions/database_functions.php');
 include('functions/global_functions.php');
 include('functions/editable_grid_conf.php');
 include('functions/views_output_functions.php');
+/** Include PHPExcel */
+require_once 'functions/PHPExcel.php';
 
 //Load the file name for post
 $FILE_NAME = $_SERVER['PHP_SELF'];
@@ -355,6 +357,11 @@ for($i=0;$i<$totalScheduleArrayCount0;$i++){
 $_SESSION['targetTableName'] = $TOTAL_SCHEDULE_TABLE_NAME;
 $_SESSION['targetPageSwitch'] = $PAGE_SWITCH;
 $_SESSION['targetSemesterWeek'] = $SEMESTER_WEEK_SET;
+
+//Export the Excel
+$semesterName = "S".$semesterListArray[$semesterTargetArray]['SEMESTER']."_".$semesterListArray[$semesterTargetArray]['PART'];
+total_schedule_excel_export($totalScheduleArray, $semesterName, $SEMESTER_WEEK_SET);
+
 
 
 //------  -[ Views Functions ]-  ------
